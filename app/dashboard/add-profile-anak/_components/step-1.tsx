@@ -32,11 +32,11 @@ const Step1 = () => {
 
         <div className="w-full flex flex-col md:flex-row gap-4 mt-4">
           <div className="w-full">
-            <Label>Tanggal Lahir</Label>
+            <Label>Tanggal Lahir<span className="text-red-500">*</span></Label>
             <Input type="date" className="w-full" />
           </div>
           <div className="w-full space-y-3">
-            <Label>Jenis Kelamin</Label>
+            <Label>Jenis Kelamin<span className="text-red-500">*</span></Label>
             <RadioGroup defaultValue="laki-laki" className="flex gap-4">
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="laki-laki" id="laki-laki" />
