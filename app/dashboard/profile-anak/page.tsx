@@ -1,13 +1,13 @@
 import React from 'react'
 
-function AnakPage() {
+function ProfileAnakPage() {
   return (
     <>
       <div>
-        AnakPage
+        ProfileAnakPage
       </div>
     </>
   )
 }
 
-export default AnakPage
+export default ProfileAnakPage

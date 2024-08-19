@@ -5,7 +5,7 @@ import Step3 from "./_components/step-3";
 import Step4 from "./_components/step-4";
 import { Button } from "@/components/ui/button";
 
-export default function page() {
+export default function TambahAnakPage() {
   return (
     <div className="flex flex-col w-full min-h-screen p-8 bg-[#f1f5f9]">
       <BreadcrumbSementara />
