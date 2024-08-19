@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lexend } from "next/font/google";
 import "./globals.css";
+import Header from "../components/layout/header/header";
 
 const lexend = Lexend({ subsets: ["latin"] });
 
@@ -16,7 +17,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={lexend.className}>{children}</body>
+      <body className={lexend.className}>
+        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-10">
+          <Header />
+          <div className="pt-5">
+            {children}
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
