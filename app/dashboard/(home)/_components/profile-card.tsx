@@ -2,7 +2,7 @@ import React from "react";
 
 const ProfileCard = () => {
   return (
-    <div className="grid grid-rows-1 grid-cols-1 rounded-lg border-2 px-4 py-4 my-4 space-y-4">
+    <div className="flex-shrink-0 grid grid-rows-1 grid-cols-1 rounded-lg border-2 px-4 py-4 my-4 space-y-4">
       <div className="flex flex-col items-center">
         <div className="relative w-[85px] h-[85px] bg-gray-200 border-white border-4 shadow-md rounded-full">
           <div className="absolute w-[25px] h-[25px] border-2 border-white rounded-full bg-red-500 right-0 bottom-0 text-center text-sm text-white">

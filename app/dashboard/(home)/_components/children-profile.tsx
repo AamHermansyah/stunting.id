@@ -15,7 +15,7 @@ const ChildrenProfile = () => {
         </div>
       </Link>
       {/* PROFILE CARD */}
-      <div className="flex flex-wrap flex-row space-x-4">
+      <div className="flex sm:flex-wrap overflow-x-auto flex-row space-x-4">
         <ProfileCard />
         <ProfileCard />
         <ProfileCard />

@@ -7,7 +7,7 @@ const page = () => {
   return (
     <div className='flex flex-col bg-[#fbfeff] space-y-4'>
       <div className='grid grid-cols-6 rounded-lg overflow-hidden bg-white'>
-        <div className='col-span-4 ml-4 my-6 space-y-2'>
+        <div className='sm:col-span-4 col-span-6 ml-4 sm:my-6 my-2 space-y-2'>
           <h2 className='font-semibold text-2xl'>
           Selamat datang di <span className='text-[#119494]'>Stunting.id</span>  
           </h2>
@@ -20,7 +20,7 @@ const page = () => {
             src="/images/three_color.svg"
             alt='three-color'
             layout='fill'
-            objectFit='cover'
+            className='object-cover'
           />
         </div>
       </div>
