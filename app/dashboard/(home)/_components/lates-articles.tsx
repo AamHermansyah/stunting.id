@@ -12,9 +12,9 @@ const LatesArticles = () => {
           <BsArrowRight fontSize={24} className="my-auto" />
         </div>
       </Link>
-      <div className="flex overflow-x-auto flex-row my-6 space-x-4">
-        <div className="flex-shrink-0 flex flex-col w-[220px] space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[91px]">
+      <div className="flex overflow-x-auto flex-row lg:my-6 space-x-2">
+        <div className="lg:flex-shrink-0 flex flex-col max-w-[220px] space-y-2 shadow-md p-4 rounded-lg">
+          <div className="relative lg:w-full w-[100px] h-[51px] lg:h-[91px]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -22,12 +22,12 @@ const LatesArticles = () => {
               className="object-cover rounded-sm"
             />
           </div>
-          <p className="line-clamp-3 text-sm">
+          <p className="line-clamp-3 text-xs lg:text-sm ">
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
-        <div className="flex-shrink-0 flex flex-col w-[220px] space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[91px]">
+        <div className="lg:flex-shrink-0 flex flex-col max-w-[220px] space-y-2 shadow-md p-4 rounded-lg">
+          <div className="relative lg:w-full w-[100px] h-[51px] lg:h-[91px]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -35,12 +35,12 @@ const LatesArticles = () => {
               className="object-cover rounded-sm"
             />
           </div>
-          <p className="line-clamp-3 text-sm">
+          <p className="line-clamp-3 text-xs lg:text-sm ">
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
-        <div className="flex-shrink-0 flex flex-col w-[220px] space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[91px]">
+        <div className="lg:flex-shrink-0 flex flex-col max-w-[220px] space-y-2 shadow-md p-4 rounded-lg">
+          <div className="relative lg:w-full w-[100px] h-[51px] lg:h-[91px]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -48,12 +48,12 @@ const LatesArticles = () => {
               className="object-cover rounded-sm"
             />
           </div>
-          <p className="line-clamp-3 text-sm">
+          <p className="line-clamp-3 text-xs lg:text-sm ">
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
-        <div className="flex-shrink-0 flex flex-col w-[220px] space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[91px]">
+        <div className="lg:flex-shrink-0 flex flex-col max-w-[220px] space-y-2 shadow-md p-4 rounded-lg">
+          <div className="relative lg:w-full w-[100px] h-[51px] lg:h-[91px]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -61,12 +61,12 @@ const LatesArticles = () => {
               className="object-cover rounded-sm"
             />
           </div>
-          <p className="line-clamp-3 text-sm">
+          <p className="line-clamp-3 text-xs lg:text-sm ">
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
-        <div className="flex-shrink-0 flex flex-col w-[220px] space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[91px]">
+        <div className="lg:flex-shrink-0 flex flex-col max-w-[220px] space-y-2 shadow-md p-4 rounded-lg">
+          <div className="relative lg:w-full w-[100px] h-[51px] lg:h-[91px]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -74,12 +74,12 @@ const LatesArticles = () => {
               className="object-cover rounded-sm"
             />
           </div>
-          <p className="line-clamp-3 text-sm">
+          <p className="line-clamp-3 text-xs lg:text-sm ">
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
-        <div className="flex-shrink-0 flex flex-col w-[220px] space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[91px]">
+        <div className="lg:flex-shrink-0 flex flex-col max-w-[220px] space-y-2 shadow-md p-4 rounded-lg">
+          <div className="relative lg:w-full w-[100px] h-[51px] lg:h-[91px]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -87,7 +87,7 @@ const LatesArticles = () => {
               className="object-cover rounded-sm"
             />
           </div>
-          <p className="line-clamp-3 text-sm">
+          <p className="line-clamp-3 text-xs lg:text-sm ">
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
