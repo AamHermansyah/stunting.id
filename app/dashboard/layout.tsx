@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { DashboardBreadcrumb } from "@/components/shared/dashboard-breadcrumb";
-import TabsNavigations from "./_components/tabs-navigation";
 
 export const metadata: Metadata = {
   title: "Dashboard | Stunting.id",
@@ -15,8 +14,7 @@ export default function DashboardLayout({
   return (
     <div className="py-10 mt-6 space-y-4">
       <DashboardBreadcrumb />
-      <div className="space-y-2">
-        <TabsNavigations />
+      <div className="space-y-4">
         {children}
       </div>
     </div>

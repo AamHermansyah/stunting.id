@@ -1,6 +1,6 @@
 import React from 'react'
 import ChildrenProfile from './_components/children-profile'
-import LatesArticles from './_components/lates-articles'
+import LatesArticles from './_components/latest-articles'
 import Image from 'next/image'
 
 const page = () => {
@@ -9,7 +9,7 @@ const page = () => {
       <div className='grid grid-cols-6 rounded-lg overflow-hidden bg-white'>
         <div className='sm:col-span-4 col-span-6 ml-4 sm:my-6 my-2 space-y-2'>
           <h2 className='font-semibold text-2xl'>
-          Selamat datang di <span className='text-[#119494]'>Stunting.id</span>  
+            Selamat datang di <span className='text-[#119494]'>Stunting.id</span>
           </h2>
           <p className='text-gray-400'>
             Ayo pantau perkembangan buah hati anda agar tetap sehat dan ceria
@@ -24,8 +24,8 @@ const page = () => {
           />
         </div>
       </div>
-      <ChildrenProfile/>
-      <LatesArticles/>
+      <ChildrenProfile />
+      <LatesArticles />
     </div>
   )
 }

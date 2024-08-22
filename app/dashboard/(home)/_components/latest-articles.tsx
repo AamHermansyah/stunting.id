@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 
-const LatesArticles = () => {
+const LatestArticles = () => {
   return (
     <div className="flex flex-col  rounded-lg px-4 py-4 shadow-sm border">
       <Link href="#">
@@ -96,4 +96,4 @@ const LatesArticles = () => {
   );
 };
 
-export default LatesArticles;
+export default LatestArticles;
