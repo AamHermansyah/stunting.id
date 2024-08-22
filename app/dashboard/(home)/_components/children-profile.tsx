@@ -16,21 +16,24 @@ const ChildrenProfile = () => {
       </Link>
       {/* PROFILE CARD */}
       <div className="flex sm:flex-wrap overflow-x-auto flex-row gap-4">
-  <ProfileCard />
-  <ProfileCard />
-  <ProfileCard />
-  <ProfileCard />
-  <div className="flex flex-col justify-center min-h-[300px]"> {/* Sesuaikan min-height */}
-    <Link href="#" className="flex flex-col space-y-2 justify-center items-center mx-8 h-full">
-      <div className="bg-[#e1f1f3] text-[#119494] h-[40px] w-[40px] rounded-full flex items-center justify-center">
-        <FiPlus fontSize={30} />
+        <ProfileCard />
+        <ProfileCard />
+        <ProfileCard />
+        <ProfileCard />
+        <div className="flex flex-col justify-center min-h-[300px]">
+          <Link
+            href="#"
+            className="flex flex-col space-y-2 justify-center items-center mx-8 h-full"
+          >
+            <div className="bg-[#e1f1f3] text-[#119494] h-[40px] w-[40px] rounded-full flex items-center justify-center">
+              <FiPlus fontSize={30} />
+            </div>
+            <span className="text-[#119494] font-medium text-center lg:text-base text-sm">
+              Tambah profil
+            </span>
+          </Link>
+        </div>
       </div>
-      <span className="text-[#119494] font-medium text-center lg:text-base text-sm">
-        Tambah profil
-      </span>
-    </Link>
-  </div>
-</div>
 
       {/* <div className="flex items-center justify-center flex-col  my-10 space-y-4">
         <div className="relative w-[125px] h-[125px]">
