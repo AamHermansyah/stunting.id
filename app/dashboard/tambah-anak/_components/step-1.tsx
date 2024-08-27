@@ -7,16 +7,16 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 const Step1 = () => {
   return (
     <Card className="my-3 p-4">
-    <h1 className="font-semibold text-[20px] text-gray-700">Profile Anak</h1>
-    <div className="flex flex-col md:flex-row justify-between items-center my-4">
-      <div className="w-full md:w-1/4 justify-center items-center">
-        <Avatar className="aspect-square w-[150px] h-[150px] mx-auto">
+    <h1 className="font-semibold text-[20px] text-gray-700 mb-4">Profile Anak</h1>
+      <div className="w-full md:w-1/4 justify-center items-center mx-auto">
+        <Avatar className="aspect-square w-[100px] h-[100px] md:w-[150px] md:h-[150px] mx-auto">
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>Profile Anak</AvatarFallback>
         </Avatar>
       </div>
+    <div className="flex flex-col md:flex-row justify-between items-center my-4">
 
-      <div className="w-full md:w-3/4 mt-4 md:mt-0">
+      <div className="w-full mt-4 md:mt-0">
         <div className="w-full flex flex-col md:flex-row gap-4">
           <div className="w-full">
             <Label>
