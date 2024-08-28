@@ -1,11 +1,12 @@
 import TabsNavigations from "@/app/dashboard/_components/tabs-navigation"
 import Case1 from "./_components/case-1"
+import Case2 from "./_components/case-2"
 
 const page = () => {
   return (
     <>
         <TabsNavigations />
-        <Case1/>
+        <Case2/>
     </>
   )
 }
