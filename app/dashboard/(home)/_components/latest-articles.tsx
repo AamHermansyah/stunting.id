@@ -14,7 +14,7 @@ const LatestArticles = () => {
       </Link>
       <div className="grid xl:grid-cols-6 lg:grid-cols-4 sm:grid-cols-3  lg:my-6 gap-4 items-center">
         <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[120px] sm:h-[100px] lg:h-[91px]">
+          <div className="relative w-full aspect-[16/9]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -27,7 +27,7 @@ const LatestArticles = () => {
           </p>
         </div>
         <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[120px] sm:h-[100px] lg:h-[91px]">
+          <div className="relative w-full aspect-[16/9]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -40,7 +40,7 @@ const LatestArticles = () => {
           </p>
         </div>
         <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[120px] sm:h-[100px] lg:h-[91px]">
+          <div className="relative w-full aspect-[16/9]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -52,8 +52,9 @@ const LatestArticles = () => {
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
+
         <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[120px] sm:h-[100px] lg:h-[91px]">
+          <div className="relative w-full aspect-[16/9]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -65,8 +66,9 @@ const LatestArticles = () => {
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
+
         <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[120px] sm:h-[100px] lg:h-[91px]">
+          <div className="relative w-full aspect-[16/9]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -78,8 +80,9 @@ const LatestArticles = () => {
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
+
         <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full h-[120px] sm:h-[100px] lg:h-[91px]">
+          <div className="relative w-full aspect-[16/9]">
             <Image
               src="/images/example-article.png"
               fill={true}
@@ -91,6 +94,7 @@ const LatestArticles = () => {
             5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
           </p>
         </div>
+
       </div>
     </div>
   );

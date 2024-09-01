@@ -4,7 +4,7 @@ import React from "react";
 const NutritionalCheckResult = () => {
   return (
     <div className="w-full col-span-12 xl:col-span-9 lg:col-span-8 order-3 xl:order-2 p-4 border rounded-lg lg:min-h-[500px] space-y-4">
-      <span className="font-medium text-xl">Hasil Pengecekan Nutrisi :</span>
+      <span className="flex sm:flex-row font-medium lg:text-xl text-sm gap-2 items-center">Hasil Pengecekan Nutrisi :</span>
       
       {/* Formulir belum terisi */}
       <div className="flex text-center items-center rounded-lg justify-center flex-col w-full space-y-4 lg:pt-14 text-centers">
@@ -16,7 +16,7 @@ const NutritionalCheckResult = () => {
             className="w-full h-full object-cover"
           />
         </div>
-        <h2 className="font-semibold text-lg">Formulir Nutrisi Anak Belum Terisi</h2>
+        <h2 className="font-semibold sm:text-lg">Formulir Nutrisi Anak Belum Terisi</h2>
         <p className="text-gray-400 text-sm text-center m-auto max-w-[320px]">
           Silahkan isi terlebih dahulu formulir nutrisi anak anda untuk mendapatkan rekomendasi dari kami
         </p>
