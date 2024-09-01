@@ -98,7 +98,7 @@ const ReminderCalendar = () => {
         onMouseUp={handleDragEnd}
         onMouseLeave={handleDragEnd}
       >
-        {/* Render hanya bulan sebelumnya dan bulan saat ini */}
+        {/* hanya menampilkan bulan sebelumnya dan bulan saat ini */}
         <div key={month - 1}>
           <Calendar
             mode="single"
