@@ -107,7 +107,7 @@ const SejarahPertumbuhan = () => {
   };
 
   return (
-    <div className="p-4">
+    <>
       <Table>
         <TableHeader>
           <TableRow>
@@ -164,7 +164,7 @@ const SejarahPertumbuhan = () => {
         </TableFooter>
       </Table>
 
-    </div>
+    </>
   );
 };
 
