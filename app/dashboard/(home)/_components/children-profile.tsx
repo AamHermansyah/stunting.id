@@ -16,10 +16,9 @@ const ChildrenProfile = () => {
       </Link>
       {/* PROFILE CARD */}
       <div className="flex overflow-x-auto flex-row gap-4">
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
+        <ProfileCard profile='/images/AvatarProfile-example1.png' nama="Syafira" umur="0 tahun 4 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13.5"/>
+        <ProfileCard profile='/images/AvatarProfile-example2.png' nama="Ahmad" umur="0 tahun 8 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13.5"/>
+        <ProfileCard profile='/images/AvatarProfile-example3.png' nama="Mujahid" umur="2 tahun 4 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13"/>
         <div className="flex flex-col justify-center min-h-[300px]">
           <Link
             href="#"

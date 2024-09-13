@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
+import ArticleCard from "./article-card";
 
 const LatestArticles = () => {
   return (
@@ -13,88 +14,12 @@ const LatestArticles = () => {
         </div>
       </Link>
       <div className="grid xl:grid-cols-6 lg:grid-cols-4 sm:grid-cols-3  lg:my-6 gap-4 items-center">
-        <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full aspect-[16/9]">
-            <Image
-              src="/images/example-article.png"
-              fill={true}
-              alt="artikel1"
-              className="object-cover rounded-sm"
-            />
-          </div>
-          <p className="line-clamp-3 text-sm ">
-            5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
-          </p>
-        </div>
-        <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full aspect-[16/9]">
-            <Image
-              src="/images/example-article.png"
-              fill={true}
-              alt="artikel1"
-              className="object-cover rounded-sm"
-            />
-          </div>
-          <p className="line-clamp-3 text-sm ">
-            5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
-          </p>
-        </div>
-        <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full aspect-[16/9]">
-            <Image
-              src="/images/example-article.png"
-              fill={true}
-              alt="artikel1"
-              className="object-cover rounded-sm"
-            />
-          </div>
-          <p className="line-clamp-3 text-sm ">
-            5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
-          </p>
-        </div>
-
-        <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full aspect-[16/9]">
-            <Image
-              src="/images/example-article.png"
-              fill={true}
-              alt="artikel1"
-              className="object-cover rounded-sm"
-            />
-          </div>
-          <p className="line-clamp-3 text-sm ">
-            5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
-          </p>
-        </div>
-
-        <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full aspect-[16/9]">
-            <Image
-              src="/images/example-article.png"
-              fill={true}
-              alt="artikel1"
-              className="object-cover rounded-sm"
-            />
-          </div>
-          <p className="line-clamp-3 text-sm ">
-            5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
-          </p>
-        </div>
-
-        <div className="flex flex-col space-y-2 shadow-md p-4 rounded-lg">
-          <div className="relative w-full aspect-[16/9]">
-            <Image
-              src="/images/example-article.png"
-              fill={true}
-              alt="artikel1"
-              className="object-cover rounded-sm"
-            />
-          </div>
-          <p className="line-clamp-3 text-sm ">
-            5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah
-          </p>
-        </div>
-
+        <ArticleCard article="/images/example-article.png" description="5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah"/>
+        <ArticleCard article="/images/article-example2.png" description="Panduan Lengkap Nutrisi untuk Bayi: Apa yang Harus Diberikan dan Kapan?"/>
+        <ArticleCard article="/images/article-example3.png" description="Tips dan Trik Memperkenalkan Makanan Padat kepada Bayi Anda"/>
+        <ArticleCard article="/images/article-example4.png" description="Makanan Super untuk Bayi: Meningkatkan Imunitas dan Kesehatan dengan Bahan Alami"/>
+        <ArticleCard article="/images/article-example5.png" description="Makanan Super untuk Bayi: Meningkatkan Imunitas dan Kesehatan dengan Bahan Alami"/>
+        <ArticleCard article="/images/article-example6.png" description="Makanan Super untuk Bayi: Meningkatkan Imunitas dan Kesehatan dengan Bahan Alami"/>
       </div>
     </div>
   );
