@@ -59,7 +59,7 @@ const DataOrangtuaBalita = () => {
       <div className="border rounded space-y-4">
         <div className="flex flex-col sm:flex-row sm:justify-between mx-4 mt-4 items-center">
           <h1 className="text-base sm:text-lg font-semibold">
-            Data Balita Prioritas
+            Data Orang Tua Balita
           </h1>
           <div className="flex flex-col sm:flex-row gap-2">
             {/* Search Bar */}
