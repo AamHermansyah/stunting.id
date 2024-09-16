@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 
@@ -48,9 +49,9 @@ function ProfileCard({ profile, nama, umur, tinggi, berat, kepala, lengan }: IPr
         </div>
       </div>
       <div className="flex justify-center">
-        <button className="text-[#108786] bg-[#e1f1f3] font-medium px-4 py-2 w-full rounded-lg text-sm lg:text-base">
+        <Button variant={"secondary"} className="text-sm lg:text-base">
           Lihat Detail
-        </button>
+        </Button>
       </div>
     </div>
   );
