@@ -7,9 +7,9 @@ interface IProps{
   des:string;
 }
 
-function NotFilled({image, label, des} : IProps) {
+function PleaseFillOut({image, label, des} : IProps) {
   return (
-    <div className="flex items-center justify-center flex-col my-10 space-y-4">
+    <div className="flex text-center items-center rounded-lg justify-center flex-col w-full space-y-4 lg:pt-14 text-centers">
     <div className="relative w-[125px] h-[125px]">
       <Image
         src={image}
@@ -26,4 +26,4 @@ function NotFilled({image, label, des} : IProps) {
   )
 }
 
-export default NotFilled
+export default PleaseFillOut
