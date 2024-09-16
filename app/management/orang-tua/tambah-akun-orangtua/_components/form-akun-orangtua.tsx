@@ -71,7 +71,7 @@ import Link from "next/link";
         </Card>
 
         <div className="w-full flex gap-4 justify-end">
-          <Link href="/management/anggota-kader">
+          <Link href="/management/orang-tua">
           <Button className="px-10" variant="outline">
             Batal
           </Button>
