@@ -4,6 +4,7 @@ import { BsArrowRight } from "react-icons/bs";
 import Image from "next/image";
 import ProfileCard from "./profile-card";
 import { FiPlus } from "react-icons/fi";
+import NotFilled from "@/components/shared/not-filled";
 
 const ChildrenProfile = () => {
   return (
@@ -15,7 +16,7 @@ const ChildrenProfile = () => {
         </div>
       </Link>
       {/* PROFILE CARD */}
-      <div className="flex overflow-x-auto flex-row gap-4">
+      {/* <div className="flex overflow-x-auto flex-row gap-4">
         <ProfileCard profile='/images/AvatarProfile-example1.png' nama="Syafira" umur="0 tahun 4 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13.5"/>
         <ProfileCard profile='/images/AvatarProfile-example2.png' nama="Ahmad" umur="0 tahun 8 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13.5"/>
         <ProfileCard profile='/images/AvatarProfile-example3.png' nama="Mujahid" umur="2 tahun 4 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13"/>
@@ -32,27 +33,13 @@ const ChildrenProfile = () => {
             </span>
           </Link>
         </div>
-      </div>
-
-      {/* <div className="flex items-center justify-center flex-col  my-10 space-y-4">
-        <div className="relative w-[125px] h-[125px]">
-          <Image
-            src="/images/User_empty.svg"
-            fill={true}
-            alt="user-empty"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <h2 className="font-semibold text-lg">
-          Profil Anak Anda Belum Terisi
-        </h2>
-        <p className="text-gray-400 text-sm text-center m-auto max-w-[400px]">
-          Silahkan isi terlebih dahulu profile anak anda untuk melakukan pemeriksaan berkala
-        </p>
+      </div> */}
+      <NotFilled image='/images/User_empty.svg' label="Profil Anak Anda Belum Terisi" des="Silahkan isi terlebih dahulu profile anak anda untuk melakukan pemeriksaan berkala" />
+        <div className="flex justify-center -mt-5 mb-10">
         <button className="bg-[#108786] text-white px-4 py-2 rounded-lg">
           Tambahkan Profile
         </button>
-      </div> */}
+        </div>
     </div>
   );
 };
