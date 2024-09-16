@@ -25,7 +25,6 @@ import { FaEllipsis } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 
-
 const DataOrangtuaBalita = () => {
   const data = [
     {
@@ -57,20 +56,20 @@ const DataOrangtuaBalita = () => {
   return (
     <>
       <div className="border rounded space-y-4">
-        <div className="flex flex-col sm:flex-row sm:justify-between mx-4 mt-4 items-center">
+        <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">
           <h1 className="text-base sm:text-lg font-semibold">
             Data Orang Tua Balita
           </h1>
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             {/* Search Bar */}
-            <div className="relative">
+            <div className="relative w-full sm:w-auto">
               <input
                 type="text"
-                className="pl-4 xl:pr-32 lg:pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+                className="w-full sm:w-64 md:w-80 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
                 placeholder="Cari orang tua balita"
               />
               <div className="absolute inset-y-0 right-3 flex items-center text-black">
-                <CiSearch fontSize={25}/>
+                <CiSearch fontSize={25} />
               </div>
             </div>
 
@@ -100,52 +99,52 @@ const DataOrangtuaBalita = () => {
                 <TableCell>{item.nik}</TableCell>
                 <TableCell>{item.alamat}</TableCell>
                 <TableCell>
-                <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              size="sm"
-              variant="secondary"
-              className="data-[state=open]:bg-muted text-xs"
-            >
-              <FaEllipsis />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            className="w-[200px] space-y-1"
-          >
-            <DropdownMenuItem>
-              <Link
-                className="w-full flex items-center gap-2"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={'#'}
-              >
-                <FiEye /> Detail
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link
-                className="w-full flex items-center gap-2"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={'#'}
-              >
-                <FaEdit /> Edit
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link
-                className="w-full flex items-center gap-2"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={'#'}
-              >
-                <AiTwotoneDelete /> Hapus
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="data-[state=open]:bg-muted text-xs"
+                      >
+                        <FaEllipsis />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      align="end"
+                      className="w-[200px] space-y-1"
+                    >
+                      <DropdownMenuItem>
+                        <Link
+                          className="w-full flex items-center gap-2"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={"#"}
+                        >
+                          <FiEye /> Detail
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link
+                          className="w-full flex items-center gap-2"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={"#"}
+                        >
+                          <FaEdit /> Edit
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link
+                          className="w-full flex items-center gap-2"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={"#"}
+                        >
+                          <AiTwotoneDelete /> Hapus
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
               </TableRow>
             ))}
