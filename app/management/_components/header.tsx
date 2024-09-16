@@ -6,7 +6,7 @@ import { IoMenu } from 'react-icons/io5'
 
 function Header() {
   return (
-    <div className="sticky top-0 left-0 w-full flex justify-between items-center gap-4 px-4 py-2 bg-background shadow-sm">
+    <div className="sticky top-0 left-0 w-full flex justify-between items-center gap-4 px-4 py-2 bg-background shadow-sm z-[100]">
       <div className="flex items-center gap-4">
         <Button variant="outline" className="h-auto p-2.5 text-primary lg:hidden">
           <IoMenu className="w-4 h-4" />
