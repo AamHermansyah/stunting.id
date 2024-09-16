@@ -4,13 +4,14 @@
   import { Input } from "@/components/ui/input";
   import { Label } from "@/components/ui/label";
   import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import Link from "next/link";
 
-  function FormAddKepalaKader() {
+  function FormAddAnggotaKader() {
     return (
       <form className="space-y-4">
         <Card className="p-4 sm:p-10 space-y-4">
           <h1 className="font-semibold text-lg text-gray-700 mb-4">
-            Form Pendaftaran Kepala Kader Puskesmas
+            Form Pendaftaran Kader Puskesmas
           </h1>
           <div className="grid grid-cols-1 gap-4">
             <label className="block cursor-pointer w-max rounded-full">
@@ -77,9 +78,11 @@
         </Card>
 
         <div className="w-full flex gap-4 justify-end">
+          <Link href="/management/anggota-kader">
           <Button className="px-10" variant="outline">
             Batal
           </Button>
+          </Link>
           <Button className="px-10" variant="default">
             Simpan
           </Button>
@@ -88,4 +91,4 @@
     );
   }
 
-  export default FormAddKepalaKader;
+  export default FormAddAnggotaKader;

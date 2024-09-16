@@ -80,7 +80,7 @@ export const sidebarNavItems: (SidebarNavItem | SidebarLabel)[] = [
   },
   {
     id: 'sidebar-item-4',
-    href: "/management/pengukuran",
+    href: "/management/pengukuran-balita",
     icon: HiChartBar,
     text: "Pengukuran Balita",
   },
@@ -90,9 +90,15 @@ export const sidebarNavItems: (SidebarNavItem | SidebarLabel)[] = [
   },
   {
     id: 'sidebar-item-5',
-    href: "/management/kader",
+    href: "/management/anggota-kader",
     icon: FaUsersCog,
     text: "Anggota Kader",
+  },
+  {
+    id: 'sidebar-item-6',
+    href: "/management/kepala-kader",
+    icon: FaUsersCog,
+    text: "Kepala kader",
   },
 ];
 

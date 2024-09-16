@@ -25,52 +25,45 @@ import { FaEllipsis } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 
-const DataAnggotaKader = () => {
+const DataOrangtuaBalita = () => {
   const data = [
     {
-      namaAnggota: "Mursid",
+      namaOrangTua: "Budi Santoso",
       nik: "1234567890",
-      email: "mursid@example.com",
-      alamat: "Jl. Mangga No. 5, Jakarta",
+      alamat: "Jl. Merpati No. 12, Jakarta",
+      jumlahAnak: 3,
     },
     {
-      namaAnggota: "Syaiful",
+      namaOrangTua: "Siti Nurhaliza",
       nik: "0987654321",
-      email: "syaiful@example.com",
-      alamat: "Jl. Kenari No. 12, Bandung",
+      alamat: "Jl. Kenari No. 25, Bandung",
+      jumlahAnak: 2,
     },
     {
-      namaAnggota: "Abdullah Mubarak",
+      namaOrangTua: "Ahmad Zaki",
       nik: "1122334455",
-      email: "abdullah@example.com",
       alamat: "Jl. Mawar No. 8, Surabaya",
+      jumlahAnak: 1,
     },
     {
-      namaAnggota: "Mashud",
+      namaOrangTua: "Maria Ulfa",
       nik: "2233445566",
-      email: "mashud@example.com",
       alamat: "Jl. Melati No. 3, Yogyakarta",
+      jumlahAnak: 4,
     },
     {
-      namaAnggota: "Marsinah",
+      namaOrangTua: "Andi Firmansyah",
       nik: "3344556677",
-      email: "marsinah@example.com",
-      alamat: "Jl. Anggrek No. 7, Makassar",
-    },
-    {
-      namaAnggota: "Amar Hak",
-      nik: "4455667788",
-      email: "amarhak@example.com",
-      alamat: "Jl. Kamboja No. 9, Semarang",
+      alamat: "Jl. Kamboja No. 7, Makassar",
+      jumlahAnak: 2,
     },
   ];
-
   return (
     <>
-      <div className="border rounded space-y-4">
+      <div className="border rounded space-y-4 bg-white">
         <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">
           <h1 className="text-base sm:text-lg font-semibold">
-            Data Anggota Kader
+            Data Orang Tua Balita
           </h1>
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             {/* Search Bar */}
@@ -78,7 +71,7 @@ const DataAnggotaKader = () => {
               <input
                 type="text"
                 className="w-full sm:w-64 md:w-80 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
-                placeholder="Cari kepala kader"
+                placeholder="Cari orang tua balita"
               />
               <div className="absolute inset-y-0 right-3 flex items-center text-black">
                 <CiSearch fontSize={25} />
@@ -91,27 +84,29 @@ const DataAnggotaKader = () => {
                 <Image src="/images/filter.svg" fill={true} alt="filter" />
               </div>
             </Button>
-            <Button>Tambah Kepala Kader</Button>
+            <Link href="/management/orang-tua/tambah-akun-orangtua">
+              <Button>Tambah Akun Orang Tua</Button>
+            </Link>
           </div>
         </div>
 
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Nama Anggota</TableHead>
+              <TableHead>Nama Orang Tua</TableHead>
               <TableHead>NIK</TableHead>
-              <TableHead>E-Mail</TableHead>
               <TableHead>Alamat</TableHead>
+              <TableHead>Jumlah Anak</TableHead> {/* New Column */}
               <TableHead className="text-center">AKSI</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((item, index) => (
               <TableRow key={index}>
-                <TableCell>{item.namaAnggota}</TableCell>
+                <TableCell>{item.namaOrangTua}</TableCell>
                 <TableCell>{item.nik}</TableCell>
-                <TableCell>{item.email}</TableCell>
                 <TableCell>{item.alamat}</TableCell>
+                <TableCell>{item.jumlahAnak}</TableCell> {/* New Data */}
                 <TableCell className="text-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -184,4 +179,4 @@ const DataAnggotaKader = () => {
   );
 };
 
-export default DataAnggotaKader;
+export default DataOrangtuaBalita;
