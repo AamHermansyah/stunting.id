@@ -1,5 +1,7 @@
 import React from "react";
 import CardNutritionDetail from "./card-nutrition-detail";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const Nutrition = () => {
   return (
@@ -21,9 +23,11 @@ const Nutrition = () => {
       </div>
     </div>
   </div>
-  <button className="bg-[#108786] text-white px-4 py-2 w-full rounded-lg mt-4">
-    Edit Data Nutrisi
-  </button>
+  <Link href="/dashboard/profile-anak/diary-anak/log-nutrisi">
+    <Button className="mt-4 w-full">
+      Edit Data Nutrisi
+    </Button>
+  </Link>
 </div>
 
   );

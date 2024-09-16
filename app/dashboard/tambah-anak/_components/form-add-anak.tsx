@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import Link from "next/link"
 
 function FormAddAnak() {
   return (
@@ -169,7 +170,9 @@ function FormAddAnak() {
       </Card>
 
       <div className="w-full flex gap-4 justify-end">
+        <Link href="/dashboard">
         <Button className="px-10" variant="outline">Batal</Button>
+        </Link>
         <Button className="px-10" variant="default">Simpan</Button>
       </div>
     </form>

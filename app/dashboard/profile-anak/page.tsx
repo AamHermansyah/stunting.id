@@ -4,7 +4,7 @@ import Profile from './_components/profile'
 import Overview from './_components/overview'
 import Chart from './_components/chart'
 import InterpretationResult from './_components/interpretation-result'
-import SejarahPertumbuhan from './_components/sejarah-pertumbuhan'
+import SejarahPertumbuhan from './riwayat-pertumbuhan/_components/sejarah-pertumbuhan'
 
 function ProfileAnakPage() {
   return (

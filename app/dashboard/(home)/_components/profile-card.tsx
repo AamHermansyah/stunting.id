@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface IProps {
@@ -49,9 +50,11 @@ function ProfileCard({ profile, nama, umur, tinggi, berat, kepala, lengan }: IPr
         </div>
       </div>
       <div className="flex justify-center">
-        <Button variant={"secondary"} className="text-sm lg:text-base">
+        <Link href="/dashboard/profile-anak">
+        <Button variant={"secondary"} className="text-sm lg:text-base w-full">
           Lihat Detail
         </Button>
+        </Link>
       </div>
     </div>
   );
