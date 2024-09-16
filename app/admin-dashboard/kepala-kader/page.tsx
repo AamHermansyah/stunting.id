@@ -1,5 +1,5 @@
 import React from 'react'
-import DataKepalaKader from './tambah-kepala-kader/_components/data-kepalakader'
+import DataKepalaKader from './_components/data-kepalakader'
 
 const KepalaKaderPage = () => {
   return (
