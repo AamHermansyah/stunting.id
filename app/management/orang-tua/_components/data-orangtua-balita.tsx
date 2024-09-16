@@ -60,7 +60,7 @@ const DataOrangtuaBalita = () => {
   ];
   return (
     <>
-      <div className="border rounded space-y-4 bg-[#f6f8fa]">
+      <div className="border rounded space-y-4 bg-[#ffffff]">
         <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">
           <h1 className="text-base sm:text-lg font-semibold">
             Data Orang Tua Balita

@@ -94,6 +94,12 @@ export const sidebarNavItems: (SidebarNavItem | SidebarLabel)[] = [
     icon: FaUsersCog,
     text: "Anggota Kader",
   },
+  {
+    id: 'sidebar-item-5',
+    href: "/management/kepala-kader",
+    icon: FaUsersCog,
+    text: "Kepala Kader",
+  },
 ];
 
 export const sidebarFixedNav: (SidebarNavItem | SidebarLabel)[] = [
