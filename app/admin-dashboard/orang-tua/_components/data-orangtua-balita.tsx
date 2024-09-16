@@ -80,7 +80,7 @@ const DataOrangtuaBalita = () => {
                 <Image src="/images/filter.svg" fill={true} alt="filter" />
               </div>
             </Button>
-            <Button variant={"secondary"}>Tambah Akun Orang Tua</Button>
+            <Button>Tambah Akun Orang Tua</Button>
           </div>
         </div>
 
