@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
-import { MENU_PROFILE } from "../../../_constants"
+import { MENU_PROFILE } from "../../../constants"
 
 export function MenuProfil() {
   return (

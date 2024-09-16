@@ -24,7 +24,6 @@ import { FiEye } from "react-icons/fi";
 import { FaEllipsis } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
-import PleaseFillOut from "@/components/shared/please-fill-out";
 
 const DataOrangtuaBalita = () => {
   const data = [
@@ -56,8 +55,8 @@ const DataOrangtuaBalita = () => {
   ];
   return (
     <>
-      <div className="border rounded space-y-4]">
-        <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">
+      <div className="border bg-background rounded-lg space-y-4 p-4">
+        <div className="flex flex-col lg:flex-row sm:justify-between items-center">
           <h1 className="text-base sm:text-lg font-semibold">
             Data Orang Tua Balita
           </h1>

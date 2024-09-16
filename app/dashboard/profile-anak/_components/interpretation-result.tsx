@@ -7,11 +7,17 @@ import {
 } from "@/components/ui/tooltip"
 import { Separator } from '@/components/ui/separator'
 import { CiCircleQuestion } from 'react-icons/ci'
+import { FaRegThumbsUp } from 'react-icons/fa'
 
 function InterpretationResult() {
   return (
-    <div className="p-4 bg-emerald-50 rounded-lg space-y-4">
-      <h1 className="text-lg font-semibold">Interpretasi Grafik WHO</h1>
+    <div className="p-4 bg-primary/10 rounded-lg space-y-4">
+      <div className="w-full flex flex-wrap justify-between gap-x-4 gap-y-2">
+        <h1 className="text-lg font-semibold">Interpretasi Grafik WHO</h1>
+        <h1 className="font-medium text-sm sm:text-base text-primary flex gap-2 items-center">
+          <FaRegThumbsUp /> Tinggi badan normal
+        </h1>
+      </div>
       <div className="w-full sm:flex items-center sm:space-x-4 space-y-2 text-sm">
         <div className="space-y-1">
           <h6 className="text-xs text-muted-foreground/80">Waktu Checkup</h6>

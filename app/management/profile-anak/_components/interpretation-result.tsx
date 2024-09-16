@@ -10,7 +10,7 @@ import { CiCircleQuestion } from 'react-icons/ci'
 
 function InterpretationResult() {
   return (
-    <div className="p-4 bg-emerald-50 rounded-lg space-y-4">
+    <div className="p-4 bg-emerald-50 border rounded-lg space-y-4">
       <h1 className="text-lg font-semibold">Interpretasi Grafik WHO</h1>
       <div className="w-full sm:flex items-center sm:space-x-4 space-y-2 text-sm">
         <div className="space-y-1">

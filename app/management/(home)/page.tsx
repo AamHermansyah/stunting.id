@@ -10,13 +10,11 @@ import TextHelp from "./_components/text-help";
 const AdminHome = () => {
   return (
     <>
-      <div className="flex flex-col bg-[#fbfeff] space-y-4">
-        <Greeting />
-        <Overview />
-        <Chart />
-      </div>
-        <DataBalitaPrioritas/>
-        <TextHelp/>
+      <Greeting />
+      <Overview />
+      <Chart />
+      <DataBalitaPrioritas />
+      <TextHelp />
     </>
   );
 };
