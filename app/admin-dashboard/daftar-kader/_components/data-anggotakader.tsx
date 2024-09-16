@@ -25,40 +25,52 @@ import { FaEllipsis } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 
-const DataOrangtuaBalita = () => {
+const DataAnggotaKader = () => {
   const data = [
     {
-      namaOrangTua: "Budi Santoso",
+      namaAnggota: "Mursid",
       nik: "1234567890",
-      alamat: "Jl. Merpati No. 12, Jakarta",
+      email: "mursid@example.com",
+      alamat: "Jl. Mangga No. 5, Jakarta",
     },
     {
-      namaOrangTua: "Siti Nurhaliza",
+      namaAnggota: "Syaiful",
       nik: "0987654321",
-      alamat: "Jl. Kenari No. 25, Bandung",
+      email: "syaiful@example.com",
+      alamat: "Jl. Kenari No. 12, Bandung",
     },
     {
-      namaOrangTua: "Ahmad Zaki",
+      namaAnggota: "Abdullah Mubarak",
       nik: "1122334455",
+      email: "abdullah@example.com",
       alamat: "Jl. Mawar No. 8, Surabaya",
     },
     {
-      namaOrangTua: "Maria Ulfa",
+      namaAnggota: "Mashud",
       nik: "2233445566",
+      email: "mashud@example.com",
       alamat: "Jl. Melati No. 3, Yogyakarta",
     },
     {
-      namaOrangTua: "Andi Firmansyah",
+      namaAnggota: "Marsinah",
       nik: "3344556677",
-      alamat: "Jl. Kamboja No. 7, Makassar",
+      email: "marsinah@example.com",
+      alamat: "Jl. Anggrek No. 7, Makassar",
+    },
+    {
+      namaAnggota: "Amar Hak",
+      nik: "4455667788",
+      email: "amarhak@example.com",
+      alamat: "Jl. Kamboja No. 9, Semarang",
     },
   ];
+
   return (
     <>
       <div className="border rounded space-y-4">
         <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">
           <h1 className="text-base sm:text-lg font-semibold">
-            Data Orang Tua Balita
+            Data Anggota Kader
           </h1>
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             {/* Search Bar */}
@@ -66,7 +78,7 @@ const DataOrangtuaBalita = () => {
               <input
                 type="text"
                 className="w-full sm:w-64 md:w-80 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
-                placeholder="Cari orang tua balita"
+                placeholder="Cari kepala kader"
               />
               <div className="absolute inset-y-0 right-3 flex items-center text-black">
                 <CiSearch fontSize={25} />
@@ -79,15 +91,16 @@ const DataOrangtuaBalita = () => {
                 <Image src="/images/filter.svg" fill={true} alt="filter" />
               </div>
             </Button>
-            <Button>Tambah Akun Orang Tua</Button>
+            <Button>Tambah Kepala Kader</Button>
           </div>
         </div>
 
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Nama Orang Tua</TableHead>
+              <TableHead>Nama Anggota</TableHead>
               <TableHead>NIK</TableHead>
+              <TableHead>E-Mail</TableHead>
               <TableHead>Alamat</TableHead>
               <TableHead className="text-center">AKSI</TableHead>
             </TableRow>
@@ -95,8 +108,9 @@ const DataOrangtuaBalita = () => {
           <TableBody>
             {data.map((item, index) => (
               <TableRow key={index}>
-                <TableCell>{item.namaOrangTua}</TableCell>
+                <TableCell>{item.namaAnggota}</TableCell>
                 <TableCell>{item.nik}</TableCell>
+                <TableCell>{item.email}</TableCell>
                 <TableCell>{item.alamat}</TableCell>
                 <TableCell className="text-center">
                   <DropdownMenu>
@@ -170,4 +184,4 @@ const DataOrangtuaBalita = () => {
   );
 };
 
-export default DataOrangtuaBalita;
+export default DataAnggotaKader;
