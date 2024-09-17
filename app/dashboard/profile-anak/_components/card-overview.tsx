@@ -9,7 +9,7 @@ interface IProps {
 
 function CardOverview({ Icon, label, value }: IProps) {
   return (
-    <div className="p-4 border rounded-lg">
+    <div className="p-4 border rounded-lg bg-white">
       <div className="w-9 sm:w-10 aspect-square rounded-full shadow-sm bg-primary flex justify-center items-center border">
         <Icon className="text-primary-foreground sm:text-xl lg:text-2xl" />
       </div>

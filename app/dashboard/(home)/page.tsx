@@ -24,7 +24,7 @@ const page = () => {
           />
         </div>
       </div>
-      <ChildrenProfile />
+      <ChildrenProfile detail="/dashboard/profile-anak" add='/dashboard/tambah-anak'/>
       <LatesArticles />
     </div>
   )

@@ -78,7 +78,7 @@ const DataIdentitasAnak = () => {
               <Image src="/images/filter.svg" fill={true} alt="filter" />
             </div>
           </Button>
-          <Button>Import Data Identitas Balita</Button>
+          {/* <Button>Import Data Identitas Balita</Button> */}
         </div>
       </div>
 
@@ -123,7 +123,7 @@ const DataIdentitasAnak = () => {
                         className="w-full flex items-center gap-2"
                         target="_blank"
                         rel="noopener noreferrer"
-                        href={"#"}
+                        href={"/management/identitas-balita/detail-anak"}
                       >
                         <FiEye /> Detail
                       </Link>
@@ -133,7 +133,7 @@ const DataIdentitasAnak = () => {
                         className="w-full flex items-center gap-2"
                         target="_blank"
                         rel="noopener noreferrer"
-                        href={"#"}
+                        href={"/management/identitas-balita/edit-balita"}
                       >
                         <FaEdit /> Edit
                       </Link>

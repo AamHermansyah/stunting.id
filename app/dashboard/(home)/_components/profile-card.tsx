@@ -11,9 +11,10 @@ interface IProps {
   berat: string;
   kepala: string;
   lengan: string;
+  detail:string;
 }
 
-function ProfileCard({ profile, nama, umur, tinggi, berat, kepala, lengan }: IProps) {
+function ProfileCard({ profile, nama, umur, tinggi, berat, kepala, lengan, detail }: IProps) {
   return (
     <div className="flex-shrink-0 rounded-lg border-2 px-4 py-4 my-4 space-y-4">
       <div className="flex flex-col items-center">
@@ -50,7 +51,7 @@ function ProfileCard({ profile, nama, umur, tinggi, berat, kepala, lengan }: IPr
         </div>
       </div>
       <div className="flex justify-center">
-        <Link href="/dashboard/profile-anak">
+        <Link href={detail}>
         <Button variant={"secondary"} className="text-sm lg:text-base w-full">
           Lihat Detail
         </Button>

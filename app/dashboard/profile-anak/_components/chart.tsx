@@ -51,7 +51,7 @@ const chartData = [
 
 function Chart() {
   return (
-    <div className="w-full col-span-12 xl:col-span-6 order-3 xl:order-2 py-4 border rounded-lg space-y-4">
+    <div className="w-full col-span-12 xl:col-span-6 order-3 xl:order-2 py-4 border rounded-lg space-y-4 bg-white">
       <div className="flex justify-between gap-2 items-center px-4">
         <h1 className="text-lg font-semibold">Grafik WHO</h1>
         <Select>

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 
 function Profile() {
   return (
-    <div className="p-4 w-full col-span-12 lg:col-span-5 xl:col-span-3 order-1 border rounded-lg space-y-2">
+    <div className="p-4 w-full col-span-12 lg:col-span-5 xl:col-span-3 order-1 border rounded-lg space-y-2 bg-white">
       <h1 className="text-lg font-semibold">Profile Anak</h1>
       <div className="flex items-center gap-3">
         <div className="relative w-14 aspect-square bg-gray-200 border-white border-4 shadow-md rounded-full">

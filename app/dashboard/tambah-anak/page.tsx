@@ -3,6 +3,6 @@ import FormAddAnak from "./_components/form-add-anak";
 
 export default function TambahAnakPage() {
   return (
-    <FormAddAnak />
+    <FormAddAnak cancel="/dashboard"/>
   );
 }

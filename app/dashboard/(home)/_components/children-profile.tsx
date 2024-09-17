@@ -6,9 +6,14 @@ import ProfileCard from "./profile-card";
 import { FiPlus } from "react-icons/fi";
 import NotFilled from "@/components/shared/please-fill-out";
 
-const ChildrenProfile = () => {
+interface IProps{
+  detail:string;
+  add:string;
+}
+
+function ChildrenProfile({detail, add} : IProps) {
   return (
-    <div className="flex flex-col  rounded-lg px-4 py-4 shadow-sm border">
+    <div className="flex flex-col  rounded-lg px-4 py-4 shadow-sm border bg-white">
       <Link href="#">
         <div className="flex justify-between">
           <span className="font-medium text-xl">Profil anak</span>
@@ -17,12 +22,12 @@ const ChildrenProfile = () => {
       </Link>
       {/* PROFILE CARD */}
       <div className="flex overflow-x-auto flex-row gap-4">
-        <ProfileCard profile='/images/AvatarProfile-example1.png' nama="Syafira" umur="0 tahun 4 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13.5"/>
-        <ProfileCard profile='/images/AvatarProfile-example2.png' nama="Ahmad" umur="0 tahun 8 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13.5"/>
-        <ProfileCard profile='/images/AvatarProfile-example3.png' nama="Mujahid" umur="2 tahun 4 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13"/>
+        <ProfileCard profile='/images/AvatarProfile-example1.png' nama="Syafira" umur="0 tahun 4 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13.5" detail={detail}/>
+        <ProfileCard profile='/images/AvatarProfile-example2.png' nama="Ahmad" umur="0 tahun 8 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13.5" detail={detail}/>
+        <ProfileCard profile='/images/AvatarProfile-example3.png' nama="Mujahid" umur="2 tahun 4 bulan" tinggi="63" berat="6.5" kepala="41" lengan="13" detail={detail}/>
         <div className="flex flex-col justify-center min-h-[300px]">
           <Link
-            href="/dashboard/tambah-anak"
+            href={add}
             className="flex flex-col space-y-2 justify-center items-center mx-8 h-full"
           >
             <div className="bg-[#e1f1f3] text-[#119494] h-[40px] w-[40px] rounded-full flex items-center justify-center">

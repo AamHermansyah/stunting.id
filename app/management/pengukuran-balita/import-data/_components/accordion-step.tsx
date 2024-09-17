@@ -20,7 +20,7 @@ function AccordionStep({ value, label, des, images }: IProps) {
         <AccordionTrigger>{label}</AccordionTrigger>
         <AccordionContent>
           <div className="flex flex-col">
-            <p className="text-xs sm:text-sm text-gray-400 w-8/12">
+            <p className="text-xs sm:text-sm text-gray-400 sm:w-8/12">
               {des}
             </p>
             <div className="relative min-h-[70px] sm:h-[100px] lg:h-[150px] xl:h-[230px] w-full rounded-sm">

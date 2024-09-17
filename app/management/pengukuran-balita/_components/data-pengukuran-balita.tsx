@@ -200,25 +200,25 @@ const DataPengukuranBalita = () => {
                       className="w-[200px] space-y-1"
                     >
                       <DropdownMenuItem>
-                        <Link
-                          className="w-full flex items-center gap-2"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={"#"}
-                        >
-                          <FiEye /> Detail
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link
-                          className="w-full flex items-center gap-2"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={"#"}
-                        >
-                          <FaEdit /> Edit
-                        </Link>
-                      </DropdownMenuItem>
+                      <Link
+                        className="w-full flex items-center gap-2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={"/management/identitas-balita/detail-anak"}
+                      >
+                        <FiEye /> Detail
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        className="w-full flex items-center gap-2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={"/management/identitas-balita/edit-balita"}
+                      >
+                        <FaEdit /> Edit
+                      </Link>
+                    </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Link
                           className="w-full flex items-center gap-2"

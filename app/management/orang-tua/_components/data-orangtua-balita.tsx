@@ -127,7 +127,7 @@ const DataOrangtuaBalita = () => {
                           className="w-full flex items-center gap-2"
                           target="_blank"
                           rel="noopener noreferrer"
-                          href={"#"}
+                          href={"/management/orang-tua/profile"}
                         >
                           <FiEye /> Detail
                         </Link>
@@ -137,7 +137,7 @@ const DataOrangtuaBalita = () => {
                           className="w-full flex items-center gap-2"
                           target="_blank"
                           rel="noopener noreferrer"
-                          href={"#"}
+                          href={"/management/orang-tua/tambah-akun-orangtua"}
                         >
                           <FaEdit /> Edit
                         </Link>

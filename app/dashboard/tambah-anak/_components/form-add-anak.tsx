@@ -15,7 +15,11 @@ import {
 } from "@/components/ui/select"
 import Link from "next/link"
 
-function FormAddAnak() {
+interface IProps {
+  cancel:string;
+}
+
+function FormAddAnak({cancel} : IProps) {
   return (
     <form className="space-y-4">
       <Card className="p-4 sm:p-10 space-y-4">
@@ -170,7 +174,7 @@ function FormAddAnak() {
       </Card>
 
       <div className="w-full flex gap-4 justify-end">
-        <Link href="/dashboard">
+        <Link href={cancel}>
         <Button className="px-10" variant="outline">Batal</Button>
         </Link>
         <Button className="px-10" variant="default">Simpan</Button>
