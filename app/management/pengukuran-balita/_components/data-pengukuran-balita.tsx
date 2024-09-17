@@ -156,7 +156,7 @@ const DataPengukuranBalita = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Nama Orang Tua</TableHead>
+              <TableHead>Nama Balita</TableHead>
               <TableHead>Tinggi Badan (Cm)</TableHead>
               <TableHead>Berat Badan (Kg)</TableHead>
               <TableHead>Lingkar Kepala (Cm)</TableHead>

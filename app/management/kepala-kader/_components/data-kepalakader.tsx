@@ -91,9 +91,9 @@ const DataKepalaKader = () => {
                 <Image src="/images/filter.svg" fill={true} alt="filter" />
               </div>
             </Button>
-            <Link href="/management/kepala-kader/tambah-kepala-kader">
+            {/* <Link href="/management/kepala-kader/tambah-kepala-kader">
               <Button>Tambah Kepala Kader</Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
 
