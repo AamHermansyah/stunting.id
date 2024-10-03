@@ -110,7 +110,7 @@ export const sidebarFixedNav: (SidebarNavItem | SidebarLabel)[] = [
   },
   {
     id: 'sfn-item-1',
-    href: "/pengaturan",
+    href: "/management/pengaturan",
     icon: PiGearFill,
     text: "Pengaturan",
   },

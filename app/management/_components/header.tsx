@@ -11,7 +11,7 @@ function Header() {
         <Button variant="outline" className="h-auto p-2.5 text-primary lg:hidden">
           <IoMenu className="w-4 h-4" />
         </Button>
-        <h4 className="text-sm text-primary hidden sm:block">Managemen</h4>
+        <h4 className="text-sm text-primary hidden sm:block">Management</h4>
       </div>
       <div className="flex gap-2 items-center">
         <Button variant="ghost" className="h-auto p-2.5 rounded-full text-primary">
