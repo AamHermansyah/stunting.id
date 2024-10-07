@@ -24,11 +24,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
-    --chart-1: 4 93% 73%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 150 65% 59%;
-    --chart-4: 199 91% 48%;
-    --chart-5: 27 87% 67%;
+    --chart-1: 182 41% 59%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 0 0% 95%;
   }
 }
 
@@ -39,5 +39,25 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  #article-detail {
+    @apply space-y-2;
+  }
+
+  #article-detail p {
+    text-align: justify;
+  }
+
+  #article-detail ol {
+    @apply list-decimal list-inside;
+  }
+
+  #article-detail ul {
+    @apply list-disc list-inside;
+  }
+
+  #article-detail img {
+    @apply mx-auto;
   }
 }
