@@ -20,9 +20,8 @@ function Navbar() {
         </Link>
         <nav className="flex gap-2">
           {NAVBAR.map((item) => (
-            <Link href={item.href}>
+            <Link key={item.id} href={item.href}>
               <Button
-                key={item.id}
                 variant="ghost"
                 className={cn(
                   pathname.includes(item.href) ?

@@ -26,7 +26,7 @@ const UploadData = () => {
           Silakan gunakan file Excel (.xlsx) untuk mengunggah data pengukuran
           balita. Untuk mempermudah, unduh template yang telah kami sediakan.
           Template ini akan membantu mengisi data dengan format yang benar. Klik
-          tombol <span className="font-bold">'Unduh Template'</span> di bawah
+          tombol <span className="font-bold">&apos;Unduh Template&apos;</span> di bawah
           ini untuk memulai.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
