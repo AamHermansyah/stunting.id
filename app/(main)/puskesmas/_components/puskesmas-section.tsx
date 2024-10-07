@@ -18,9 +18,9 @@ function PuskesmasSection() {
   return (
     <div className="py-4">
       <div className="flex items-end justify-between gap-4 mb-4">
-        <h4 className="text-2xl font-bold">Cari Puskesmas Terdekat</h4>
+        <h4 className="text-xl sm:text-2xl font-bold">Puskesmas Terdekat</h4>
         <Link href="/puskesmas/add">
-          <Button>Tambah Puskesmas</Button>
+          <Button>Tambah</Button>
         </Link>
       </div>
       <div className="my-2 max-w-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2">

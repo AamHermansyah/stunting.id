@@ -11,3 +11,22 @@ export interface SidebarNavItem {
   icon: IconType;
   text: string;
 }
+
+export type RowCSVStuntingCheck = {
+  month: number;
+  mean: number;
+  SDsNeg: number[];
+  SDsPos: number[];
+};
+
+export type BabyInformation = {
+  fullname: string;
+  district: string;
+  gender: 'boy' | 'girl';
+  weight: string;
+  height: string;
+  DOB: string;
+  headCircumference: string;
+};
+
+export type StuntingStatus = 'danger' | 'semi-danger' | 'warning' | 'normal';

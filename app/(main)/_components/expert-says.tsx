@@ -77,7 +77,7 @@ const ExpertsSay = () => {
   };
 
   return (
-    <section id="experts-say" className="mt-20">
+    <section id="experts-say" className="mt-4 sm:mt-14">
       <div className="py-10">
         <div className="max-w-[500px] space-y-4">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
@@ -92,13 +92,13 @@ const ExpertsSay = () => {
             onClick={slidePrev}
             className="absolute top-[50%] -translate-y-[100%] -left-4 p-2.5 text-white z-10 active:scale-95"
           >
-            <BiLeftArrowAlt fontSize={24} />
+            <BiLeftArrowAlt fontSize={20} />
           </Button>
           <Button
             onClick={slideNext}
             className="absolute top-[50%] -translate-y-[100%] -right-4 p-2.5 text-white z-10 active:scale-95"
           >
-            <BiRightArrowAlt fontSize={24} />
+            <BiRightArrowAlt fontSize={20} />
           </Button>
           <Swiper
             modules={[Pagination]}
@@ -116,7 +116,7 @@ const ExpertsSay = () => {
             ref={swiperRef}
           >
             {testimonials.map((item) => (
-              <SwiperSlide key={item.id} className="relative">
+              <SwiperSlide key={item.id} className="relative pb-10">
                 <Card key={item.id} className="overflow-hidden">
                   <div className="flex h-[200px]">
                     <div className="relative bg-gray-200 basis-[30%]">

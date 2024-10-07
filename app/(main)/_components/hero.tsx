@@ -5,9 +5,9 @@ import Link from "next/link"
 const Hero = () => {
   return (
     <section id="hero" className="min-h-[450px] flex items-center">
-      <div className="w-full md:grid grid-cols-2 items-center gap-4 mt-14 sm:mt-0 sm:p-10 md:p-0">
+      <div className="w-full md:grid grid-cols-2 items-center gap-4 mt-4 sm:mt-0 sm:p-10 md:p-0">
         <div className="space-y-4 flex flex-col justify-center max-w-[490px]">
-          <h2 className="font-bold text-4xl lg:text-5xl" style={{ lineHeight: '120%' }}>
+          <h2 className="font-bold text-3xl sm:text-4xl lg:text-5xl" style={{ lineHeight: '120%' }}>
             Hayu baraya urang nyegah stunting!
           </h2>
           <p className="sm:text-lg">

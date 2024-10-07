@@ -38,8 +38,8 @@ const chartConfig = {
 
 const StuntingChart = () => {
   return (
-    <div className="mt-10">
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold sm:mb-10">
+    <div className="mt-4 sm:mt-10">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-10">
         Grafik Perkembangan Stunting Di Tasikmalaya
       </h1>
       <ChartContainer className="p-0" config={chartConfig}>
