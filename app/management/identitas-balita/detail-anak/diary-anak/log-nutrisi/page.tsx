@@ -7,7 +7,7 @@ import TabsButton from "@/app/dashboard/_components/tabs-button"
 const page = () => {
   return (
     <>
-         <TabsButton buku='/dashboard/profile-anak' diary='/dashboard/profile-anak/diary-anak' riwayat='/dashboard/profile-anak/riwayat-pertumbuhan' />
+        <TabsButton buku='/management/identitas-balita/detail-anak' diary='/management/identitas-balita/detail-anak/diary-anak' riwayat='/management/identitas-balita/detail-anak/riwayat-pertumbuhan' />
         <Case2/>
     </>
   )

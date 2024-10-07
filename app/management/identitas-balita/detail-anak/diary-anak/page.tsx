@@ -1,14 +1,14 @@
 import React from "react";
 import ReminderCalendar from "./_components/reminder-calendar";
 import NutritionalCheckResult from "./_components/nutritional-check-results";
-import TabsNavigations from "../../_components/tabs-navigation";
 import Nutrition from "./_components/nutrition";
-import TabsButton from "../../_components/tabs-button";
+import TabsButton from "@/app/dashboard/_components/tabs-button";
+
 
 const page = () => {
   return (
     <>
-      <TabsButton buku='/dashboard/profile-anak' diary='/dashboard/profile-anak/diary-anak' riwayat='/dashboard/profile-anak/riwayat-pertumbuhan' />
+    <TabsButton buku='/management/identitas-balita/detail-anak' diary='/management/identitas-balita/detail-anak/diary-anak' riwayat='/management/identitas-balita/detail-anak/riwayat-pertumbuhan' />
       <div className="space-y-4">
         <div>
           <ReminderCalendar />
