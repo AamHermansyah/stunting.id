@@ -23,7 +23,7 @@ function MobileMenuHeader() {
       <DropdownMenuTrigger>
         {open ? <IoMdClose fontSize={24} /> : <HiMenu fontSize={24} />}
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="block sm:hidden w-[200px] -translate-x-2">
+      <DropdownMenuContent className="block lg:hidden w-[200px] -translate-x-2">
         <DropdownMenuLabel>Navigasi</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <MobileNavHeaderLinks />

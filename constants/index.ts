@@ -124,6 +124,16 @@ export const sidebarFixedNav: (SidebarNavItem | SidebarLabel)[] = [
 
 export const navigation = [
   {
+    id: 'dashboard-user',
+    href: '/dashboard',
+    title: 'Dashboard User'
+  },
+  {
+    id: 'dashboard-admin',
+    href: '/management',
+    title: 'Dashboard Admin'
+  },
+  {
     id: 'cek-stunting',
     href: '/cek-stunting',
     title: 'Cek Stunting'

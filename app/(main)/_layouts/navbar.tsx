@@ -9,10 +9,10 @@ async function Navbar() {
         <div className="font-bold">
           <Link href="/" className="text-primary">Stunting.id</Link>
         </div>
-        <nav className="hidden text-sm font-semibold sm:flex items-center gap-10">
+        <nav className="hidden text-sm font-semibold lg:flex items-center gap-10">
           <NavHeaderLinks />
         </nav>
-        <div className="block sm:hidden">
+        <div className="block lg:hidden">
           <MobileMenuHeader />
         </div>
       </div>
