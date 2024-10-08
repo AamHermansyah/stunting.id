@@ -8,7 +8,7 @@ import NearestPuskesmas from './_components/nearest-puskesmas'
 import ResultCheck from './_components/result-check'
 import useStuntingCheck from '../_stores/use-stunting-check'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { VscLoading } from 'react-icons/vsc'
 
 function HasilPage() {
