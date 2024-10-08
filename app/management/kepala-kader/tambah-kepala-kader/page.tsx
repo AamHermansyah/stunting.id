@@ -1,12 +1,12 @@
 import React from 'react'
 import FormAddKepalaKader from './_components/form-add-kepalakader'
 
-const page = () => {
+const KepalaKaderPage = () => {
   return (
     <div>
-      <FormAddKepalaKader/>
+      <FormAddKepalaKader />
     </div>
   )
 }
 
-export default page
+export default KepalaKaderPage

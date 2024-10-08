@@ -1,12 +1,12 @@
 import React from 'react'
 import DataAnggotaKader from './_components/data-anggotakader'
 
-const DataKader = () => {
+const AnggotaKadePage = () => {
   return (
     <>
-      <DataAnggotaKader/>
+      <DataAnggotaKader />
     </>
   )
 }
 
-export default DataKader
+export default AnggotaKadePage

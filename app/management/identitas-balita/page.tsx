@@ -1,12 +1,12 @@
 import React from 'react'
 import DataIdentitasAnak from './components/data-identitas-anak'
 
-const IdentitasBalita = () => {
+const IdentitasBalitaPage = () => {
   return (
     <>
-     <DataIdentitasAnak/>
+      <DataIdentitasAnak />
     </>
   )
 }
 
-export default IdentitasBalita
+export default IdentitasBalitaPage

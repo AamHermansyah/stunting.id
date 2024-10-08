@@ -1,12 +1,12 @@
 import React from 'react'
 import DataOrangtuaBalita from './_components/data-orangtua-balita'
 
-const OrangTua = () => {
+const OrangTuaPage = () => {
   return (
     <div>
-      <DataOrangtuaBalita/>
+      <DataOrangtuaBalita />
     </div>
   )
 }
 
-export default OrangTua
+export default OrangTuaPage
