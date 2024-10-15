@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import BackNav from "./back-nav";
+import Link from "next/link";
 
 const RegisterAkun = () => {
   const [step, setStep] = useState(1);
@@ -30,9 +31,6 @@ const RegisterAkun = () => {
             <h1 className="text-xl">
               Daftar - <span>Buat Akun</span>
             </h1>
-            <a href="/auth/login">
-              <span className="text-blue-400">Masuk</span>
-            </a>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="bg-[#50b4b7] rounded-xl w-full h-[5px]" />
@@ -112,9 +110,6 @@ const RegisterAkun = () => {
             <h1 className="text-xl">
               Daftar - <span>Informasi Pribadi</span>
             </h1>
-            <a href="/auth/login">
-              <span className="text-blue-400">Masuk</span>
-            </a>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="bg-[#50b4b7] rounded-xl w-full h-[5px]" />
@@ -167,6 +162,12 @@ const RegisterAkun = () => {
           </Button>
         </>
       )}
+       <span className="text-sm flex items-center gap-1">
+        Sudah memiliki akun?
+        <Link href="/auth/login" className="text-primary hover:underline">
+          Masuk
+        </Link>
+      </span>
     </div>
   );
 };

@@ -18,7 +18,7 @@ function Navbar() {
             Stunting.id
           </h1>
         </Link>
-        <nav className="flex gap-2">
+        <nav className="sm:flex gap-2 hidden">
           {NAVBAR.map((item) => (
             <Link key={item.id} href={item.href}>
               <Button

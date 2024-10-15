@@ -1,4 +1,4 @@
-import { MessageSquare, Settings, User } from "lucide-react"
+import { Layout, MessageSquare, Settings, User } from "lucide-react"
 import { HiChartBar, HiUsers } from "react-icons/hi2"
 import { BiSolidChart } from 'react-icons/bi'
 import { SidebarLabel, SidebarNavItem } from '@/types'
@@ -7,27 +7,34 @@ import { FaUsersCog } from "react-icons/fa"
 import { PiGearFill } from "react-icons/pi"
 import { IoLogOut } from "react-icons/io5"
 import { RiAdminFill } from "react-icons/ri";
+import { Hospital, Newspaper, ClipboardPlus, LayoutDashboard } from 'lucide-react';
+
 
 export const NAVBAR = [
   {
     id: 'navbar-1',
     href: '/dashboard',
-    label: 'Dashboard'
+    label: 'Dashboard', 
+    Icon: LayoutDashboard
+ 
   },
   {
     id: 'navbar-2',
     href: '/cek-stunting',
-    label: 'Cek Stunting'
+    label: 'Cek Stunting',
+    Icon: ClipboardPlus
   },
   {
     id: 'navbar-3',
     href: '/artikel',
-    label: 'Artikel'
+    label: 'Artikel',
+    Icon: Newspaper
   },
   {
     id: 'navbar-4',
     href: '/puskesmas',
-    label: 'Puskesmas'
+    label: 'Puskesmas',
+    Icon: Hospital
   },
 ]
 

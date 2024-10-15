@@ -57,7 +57,7 @@ const LoginAkun = () => {
         </Button>
       </Link>
       <span className="text-sm flex items-center gap-1">
-        Belum mempunyai akun?
+        Belum memiliki akun?
         <Link href="/auth/register" className="text-primary hover:underline">
           Daftar
         </Link>
