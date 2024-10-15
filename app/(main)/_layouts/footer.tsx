@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 function Footer() {
   return (
-    <footer className="bg-white mt-16">
+    <footer className="bg-white mt-16 pb-4">
       <div className="w-full">
         <div className="sm:flex sm:items-center sm:justify-between space-y-2">
           <Link href="/" className="text-primary font-semibold">Stunting.id</Link>
@@ -39,7 +39,6 @@ function Footer() {
         </span>
       </div>
     </footer>
-
   )
 }
 

@@ -21,7 +21,6 @@ import { Article } from '@/types'
 import { PageInfo } from '../types'
 import Link from 'next/link'
 
-
 function ArticleSection() {
   const [articles, setArticles] = useState<Article[] | null>(null);
   const [pageInfo, setPageInfo] = useState<PageInfo | null>(null);
@@ -80,8 +79,8 @@ function ArticleSection() {
       <div className="flex items-end justify-between gap-4 mb-4">
         <h4 className="text-2xl font-bold">Artikel Terbaru</h4>
         <Link href="/artikel/add">
-            <Button>Tambah Artikel</Button>
-          </Link>
+          <Button>Tambah Artikel</Button>
+        </Link>
       </div>
       <div className="my-2 max-w-2xl grid grid-cols-1 sm:grid-cols-4 gap-x-4 gap-y-2">
         <div className="sm:col-span-2">
@@ -98,7 +97,7 @@ function ArticleSection() {
           <Select
             onValueChange={(value) => {
               setCurrentPage(1);
-              setCategory(value);
+              setCategory(value || '');
               setArticles(null);
             }}
           >

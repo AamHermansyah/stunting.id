@@ -7,9 +7,10 @@ import SidebarNav from './sidebar-nav'
 import { sidebarFixedNav } from '@/constants'
 import { isSidebarLabel } from '@/types/predict-types'
 import { usePathname } from 'next/navigation'
+import { useSidebarStore } from '../_stores/use-sidebar-store'
 
 function SidebarMain() {
-  const [isOpen, setIsOpen] = useState(true);
+  const { isOpen, closeSidebar } = useSidebarStore();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -19,7 +20,7 @@ function SidebarMain() {
 
         // If the click target is outside the element with id #idElement
         if (target && (target.closest('#sidebar') === null)) {
-          setIsOpen(false);
+          closeSidebar();
         }
       }
 
@@ -39,15 +40,17 @@ function SidebarMain() {
       <aside
         id="sidebar"
         className={cn(
-          'fixed w-64 left-0 h-screen space-y-6 bg-background border-r z-[1] shadow-xl lg:shadow-none transition-all duration-500 ease-in-out',
+          'fixed w-64 left-0 h-screen space-y-6 bg-background border-r z-[51] shadow-xl lg:shadow-none transition-all duration-500 ease-in-out',
           isOpen ? '' : '-translate-x-[120%] lg:translate-x-0'
         )}
       >
         <div className="w-full h-full p-4 flex flex-col justify-between gap-4 overflow-y-auto">
           <div>
-            <Link href="/">
-              <h1 className="text-xl text-primary text-center font-semibold">Stunting.id</h1>
-            </Link>
+            <div className="text-center">
+              <Link href="/">
+                <h1 className="text-xl text-primary text-center font-semibold inline-block">Stunting.id</h1>
+              </Link>
+            </div>
             <div className="flex flex-col justify-between flex-1 mt-6">
               <SidebarNav />
             </div>

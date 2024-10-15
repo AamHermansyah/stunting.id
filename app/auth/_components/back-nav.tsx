@@ -1,16 +1,23 @@
+'use client'
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { BsArrowLeft } from "react-icons/bs";
 
 const BackNav = () => {
+  const navigate = useRouter();
+
   return (
-    <div>
-      <Link href="/" className="flex gap-2">
-        <BsArrowLeft fontSize={24} className="my-auto" />
-        <h1 className="text-4xl text-primary font-semibold tracking-widest">
-          Stunting.id
-        </h1>
-      </Link>
+    <div className="absolute left-4 top-4">
+      <button
+        role="link"
+        className="flex items-center gap-2"
+        onClick={() => navigate.back()}
+      >
+        <BsArrowLeft />
+        Kembali
+      </button>
     </div>
   );
 };

@@ -1,14 +1,23 @@
+'use client'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { IoIosNotifications } from 'react-icons/io'
 import { IoMenu } from 'react-icons/io5'
+import { useSidebarStore } from '../_stores/use-sidebar-store'
 
 function Header() {
+  const { toggleSidebar } = useSidebarStore();
+
   return (
-    <div className="sticky top-0 left-0 w-full flex justify-between items-center gap-4 px-4 py-2 bg-background shadow-sm z-[100]">
+    <div className="sticky top-0 left-0 w-full flex justify-between items-center gap-4 px-4 py-2 bg-background shadow-sm z-50">
       <div className="flex items-center gap-4">
-        <Button variant="outline" className="h-auto p-2.5 text-primary lg:hidden">
+        <Button
+          variant="outline"
+          className="h-auto p-2.5 text-primary lg:hidden"
+          onClick={toggleSidebar}
+        >
           <IoMenu className="w-4 h-4" />
         </Button>
         <h4 className="text-sm text-primary hidden sm:block">Management</h4>
