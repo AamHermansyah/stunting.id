@@ -1,25 +1,16 @@
-import React from "react";
-import ReminderCalendar from "./_components/reminder-calendar";
-import NutritionalCheckResult from "./_components/nutritional-check-results";
-import Nutrition from "./_components/nutrition";
-import TabsButton from "@/app/dashboard/_components/tabs-button";
+import ChildDiarySection from '@/components/shared/pages/child-diary-section'
+import React from 'react'
 
-
-const page = () => {
+const ChildDiaryAdmin = () => {
   return (
-    <>
-    <TabsButton buku='/management/identitas-balita/detail-anak' diary='/management/identitas-balita/detail-anak/diary-anak' riwayat='/management/identitas-balita/detail-anak/riwayat-pertumbuhan' />
-      <div className="space-y-4">
-        <div>
-          <ReminderCalendar />
-        </div >
-        <div className="grid grid-cols-12 w-full items-start gap-4">
-        <Nutrition/>
-        <NutritionalCheckResult/>
-        </div>
-      </div>
-    </>
-  );
-};
+    <div>
+      <ChildDiarySection 
+      edit='/management/identitas-balita/detail-anak/diary-anak/log-nutrisi' 
+      profile='/management/identitas-balita/detail-anak' 
+      diary='/management/identitas-balita/detail-anak/diary-anak' 
+      history='/management/identitas-balita/detail-anak/riwayat-pertumbuhan'/>
+    </div>
+  )
+}
 
-export default page;
+export default ChildDiaryAdmin

@@ -204,7 +204,7 @@ const DataPengukuranBalita = () => {
                         className="w-full flex items-center gap-2"
                         target="_blank"
                         rel="noopener noreferrer"
-                        href={"/management/identitas-balita/detail-anak"}
+                        href={"/management/pengukuran-balita/detail-anak"}
                       >
                         <FiEye /> Detail
                       </Link>
@@ -214,7 +214,7 @@ const DataPengukuranBalita = () => {
                         className="w-full flex items-center gap-2"
                         target="_blank"
                         rel="noopener noreferrer"
-                        href={"/management/identitas-balita/edit-balita"}
+                        href={"/management/pengukuran-balita/edit-balita"}
                       >
                         <FaEdit /> Edit
                       </Link>

@@ -5,9 +5,9 @@ const page = () => {
   return (
     <div>
       <ChildProfielSection 
-      profile='/management/identitas-balita/detail-anak' 
-      diary='/management/identitas-balita/detail-anak/diary-anak' 
-      history='/management/identitas-balita/detail-anak/riwayat-pertumbuhan'/>
+      profile='/management/pengukuran-balita/detail-anak' 
+      diary='/management/pengukuran-balita/detail-anak/diary-anak' 
+      history='/management/pengukuran-balita/detail-anak/riwayat-pertumbuhan'/>
     </div>
   )
 }

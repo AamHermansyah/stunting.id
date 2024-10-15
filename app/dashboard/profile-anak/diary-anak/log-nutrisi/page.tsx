@@ -1,16 +1,17 @@
-import TabsNavigations from "@/app/dashboard/_components/tabs-navigation"
-import Case1 from "./_components/case-1"
-import Case2 from "./_components/case-2"
-import Case3 from "./_components/case-3"
-import TabsButton from "@/app/dashboard/_components/tabs-button"
+import LogNutritionSection from '@/components/shared/pages/log-nutrition-section'
+import React from 'react'
 
-const page = () => {
+const LogNutrition = () => {
   return (
-    <>
-         <TabsButton buku='/dashboard/profile-anak' diary='/dashboard/profile-anak/diary-anak' riwayat='/dashboard/profile-anak/riwayat-pertumbuhan' />
-        <Case2/>
-    </>
+    <div>
+      <LogNutritionSection 
+      profile='/dashboard/profile-anak' 
+      diary='/dashboard/profile-anak/diary-anak' 
+      history='/dashboard/profile-anak/riwayat-pertumbuhan'
+      cancel='/dashboard/profile-anak/diary-anak'
+      />
+    </div>
   )
 }
 
-export default page
+export default LogNutrition
