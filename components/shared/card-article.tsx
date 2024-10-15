@@ -1,23 +1,14 @@
-import { formatCreatedAt } from '@/lib/utils';
+import { Article } from '@/types'
+import { formatCreatedAt } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-function CardArticle() {
-  // Data dummy
-  const data = {
-    id: 1,
-    image: '/images/puskesmas-1.jpg',
-    title: 'How to Improve Web Performance',
-    author: {
-      name: 'John Doe',
-      image: '/images/doctor-icon.jpg',
-    },
-    created_at: '2024-10-07',
-    summary: 'In this article, we will explore several tips and strategies to improve the performance of your website, from optimizing images to leveraging browser caching.',
-    tags: 'Stunting,Gizi,Lifestyle'
-  };
+type PropTypes = {
+  data: Article
+}
 
+function CardArtikel({ data }: PropTypes) {
   return (
     <div className="mb-4 sm:mb-8">
       <Link href={`/artikel/${data.id}`} className="relative block w-full aspect-video rounded bg-gray-100 mb-1 overflow-hidden">
@@ -65,7 +56,7 @@ function CardArticle() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default CardArticle;
+export default CardArtikel
