@@ -3,6 +3,6 @@ import React from "react"
 
 export default function TambahAnakPage() {
   return (
-    <FormAddAnak cancel="/dashboard"/>
+    <FormAddAnak />
   );
 }

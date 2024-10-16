@@ -30,8 +30,10 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String
-  district      String
-  address       String
+  district      String?
+  address       String?
+  nik           String?
+  gender        String?
   role          Role      @default(USER)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt

@@ -35,11 +35,7 @@ import { VscLoading } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 
 
-interface IProps {
-  cancel: string;
-}
-
-function FormAddAnak({ cancel }: IProps) {
+function FormAddAnak() {
   const [loading, startCreate] = useTransition();
 
   const navigate = useRouter()

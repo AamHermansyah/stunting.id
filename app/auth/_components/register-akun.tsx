@@ -125,6 +125,14 @@ const RegisterAkun = () => {
                   placeholder="Masukkan alamat rumah anda"
                 />
               </div>
+              <div>
+                <Label htmlFor="alamat">Kecamatan</Label>
+                <Input
+                  type="text"
+                  id="alamat"
+                  placeholder="Masukkan alamat rumah anda"
+                />
+              </div>
               <div className="relative">
                 <Label htmlFor="NIK">NIK</Label>
                 <Input
