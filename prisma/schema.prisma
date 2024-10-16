@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,12 +13,12 @@ model Article {
   summary    String
   category   String
   tags       String
-  content    String   @db.Text
-  image      String   @db.Text
+  content    String
+  image      String
   alt_image  String
   created_at DateTime @default(now())
-  author     User     @relation(fields: [authorId], references: [id])
   authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
 
   @@index([authorId])
 }
@@ -40,16 +34,12 @@ model User {
   district      String
   address       String
   role          Role      @default(USER)
+  nik           String    @unique
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  Article       Article[]
+  gender        Gender
   Account       Account[]
-}
-
-enum Role {
-  USER
-  KADER
-  KEPALA_KADER
+  Article       Article[]
 }
 
 model Account {
@@ -64,11 +54,9 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
 }
@@ -80,4 +68,15 @@ model VerificationToken {
   expires DateTime
 
   @@unique([email, token])
+}
+
+enum Role {
+  USER
+  KADER
+  KEPALA_KADER
+}
+
+enum Gender {
+  LAKI_LAKI
+  PEREMPUAN
 }
