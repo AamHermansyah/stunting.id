@@ -1,4 +1,3 @@
-// app/management/anggota-kader/tambah-anggota-kader/_components/form-add-anggotakader.tsx
 'use client'
 
 import { useForm } from "react-hook-form";
@@ -12,16 +11,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import axios from "axios";
+import { VscLoading } from "react-icons/vsc";
+import { useRouter } from "next/navigation";
 
 type KaderFormData = z.infer<typeof kaderSchema>;
 
 function FormAddAnggotaKader() {
-  const { toast } = useToast();
-  const [uploading, setUploading] = useState(false);
+  // Gunakan useTransition untuk handle loading state
+  const [isPending, startTransition] = useTransition();
+  const navigate = useRouter()
   
   const form = useForm<KaderFormData>({
     resolver: zodResolver(kaderSchema),
@@ -30,25 +32,19 @@ function FormAddAnggotaKader() {
     },
   });
 
-  const onSubmit = async (data: KaderFormData) => {
-    setUploading(true);
-    try {
-      // Tetapkan role secara langsung ke 'KADER' di backend
-      const response = await axios.post("/api/kader", data);
-      toast({
-        title: "Sukses",
-        description: "Data kader berhasil ditambahkan.",
-      });
-      form.reset();
-    } catch (error: any) {
-      const message = error.response?.data?.message || "Terjadi kesalahan saat menambahkan kader.";
-      toast({
-        title: "Error",
-        description: message,
-      });
-    } finally {
-      setUploading(false);
-    }
+  const onSubmit = (data: KaderFormData) => {
+    startTransition(async () => {
+      try {
+        // Tetapkan role secara langsung ke 'KADER' di backend
+        const response = await axios.post("/api/kader", data);
+        toast.success("Data kader berhasil ditambahkan.");
+        form.reset();
+        navigate.back()
+      } catch (error: any) {
+        const message = error.response?.data?.message || "Terjadi kesalahan saat menambahkan kader.";
+        toast.error(message);
+      }
+    });
   };
 
   return (
@@ -145,12 +141,19 @@ function FormAddAnggotaKader() {
 
       <div className="w-full flex gap-4 justify-end">
         <Link href="/management/anggota-kader">
-          <Button className="px-10" variant="outline">
+          <Button onClick={() => navigate.back()} className="px-10" variant="outline" disabled={isPending}>
             Batal
           </Button>
         </Link>
-        <Button type="submit" className="px-10" disabled={uploading}>
-          {uploading ? "Menyimpan..." : "Simpan"}
+        <Button type="submit" className="px-10 gap-2" disabled={isPending}>
+          {isPending ? (
+            <>
+              <VscLoading className="animate-spin" />
+              Menyimpan...
+            </>
+          ) : (
+            "Simpan"
+          )}
         </Button>
       </div>
     </form>

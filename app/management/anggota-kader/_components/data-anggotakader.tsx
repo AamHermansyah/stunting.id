@@ -1,4 +1,3 @@
-// app/management/anggota-kader/_components/data-anggotakader.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -21,12 +20,12 @@ import { Button } from "@/components/ui/button";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
-import { FiEye } from "react-icons/fi";
 import { FaEllipsis } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 import axios from "axios";
-import { toast } from "@/components/ui/use-toast";  // Import ShadCN toast
+import { toast } from "@/components/ui/use-toast"; // Import ShadCN toast
+import ConfirmationModal from "./ConfirmationModal";
 
 interface Kader {
   id: string;
@@ -45,6 +44,8 @@ const DataAnggotaKader = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState<string>("");
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [selectedKaderId, setSelectedKaderId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,22 +65,26 @@ const DataAnggotaKader = () => {
     fetchData();
   }, []);
 
-  // Optional: Implement search filter
-  const filteredData = data.filter((kader) =>
-    kader.name.toLowerCase().includes(search.toLowerCase()) ||
-    kader.nik.includes(search) ||
-    kader.email.toLowerCase().includes(search.toLowerCase()) ||
-    kader.address.toLowerCase().includes(search.toLowerCase()) ||
-    kader.district.toLowerCase().includes(search.toLowerCase())
+  const filteredData = data.filter(
+    (kader) =>
+      kader.name.toLowerCase().includes(search.toLowerCase()) ||
+      kader.nik.includes(search) ||
+      kader.email.toLowerCase().includes(search.toLowerCase()) ||
+      kader.address.toLowerCase().includes(search.toLowerCase()) 
   );
 
-  const handleDelete = async (id: string) => {
-    if (confirm("Apakah Anda yakin ingin menghapus kader ini?")) {
+  const openDeleteModal = (id: string) => {
+    setSelectedKaderId(id);
+    setDeleteModalOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (selectedKaderId) {
       try {
-        await axios.delete(`/api/kader/${id}`);
-        // Refresh data setelah hapus
-        const response = await axios.get<Kader[]>("/api/kader");
-        setData(response.data);
+        await axios.delete(`/api/kader/${selectedKaderId}`);
+        setData((prevData) =>
+          prevData.filter((kader) => kader.id !== selectedKaderId)
+        );
         toast({
           title: "Berhasil",
           description: "Data kader berhasil dihapus.",
@@ -88,9 +93,14 @@ const DataAnggotaKader = () => {
       } catch (err: any) {
         toast({
           title: "Error",
-          description: err.response?.data?.message || "Terjadi kesalahan saat menghapus kader.",
+          description:
+            err.response?.data?.message ||
+            "Terjadi kesalahan saat menghapus kader.",
           variant: "destructive",
         });
+      } finally {
+        setDeleteModalOpen(false);
+        setSelectedKaderId(null);
       }
     }
   };
@@ -103,7 +113,6 @@ const DataAnggotaKader = () => {
             Data Anggota Kader
           </h1>
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            {/* Search Bar */}
             <div className="relative w-full sm:w-auto">
               <input
                 type="text"
@@ -129,7 +138,6 @@ const DataAnggotaKader = () => {
           </div>
         </div>
 
-        {/* Tampilkan Loading atau Error */}
         {loading ? (
           <div className="flex justify-center items-center py-10">
             <p>Loading...</p>
@@ -168,31 +176,20 @@ const DataAnggotaKader = () => {
                             <FaEllipsis />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                          align="end"
-                          className="w-[200px] space-y-1"
-                        >
-                          <DropdownMenuItem>
-                            <Link
-                              className="w-full flex items-center gap-2"
-                              href={`/management/anggota-kader/detail/${item.id}`}
-                            >
-                              <FiEye /> Detail
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
+                        <DropdownMenuContent align="end" className="w-[200px] space-y-1">
+                          {/* <DropdownMenuItem asChild>
                             <Link
                               className="w-full flex items-center gap-2"
                               href={`/management/anggota-kader/edit/${item.id}`}
                             >
                               <FaEdit /> Edit
                             </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          </DropdownMenuItem> */}
+                          <DropdownMenuItem asChild>
                             <Button
                               variant="ghost"
                               className="w-full flex items-center gap-2"
-                              onClick={() => handleDelete(item.id)}
+                              onClick={() => openDeleteModal(item.id)}
                             >
                               <AiTwotoneDelete /> Hapus
                             </Button>
@@ -216,7 +213,7 @@ const DataAnggotaKader = () => {
                   <div className="flex justify-between items-center rounded-b-[12px]">
                     <div>
                       <p>
-                        {filteredData?.length} dari {data?.length} anggota kader
+                        {filteredData.length} dari {data.length} anggota kader
                       </p>
                     </div>
                     <div className="flex gap-2">
@@ -230,6 +227,15 @@ const DataAnggotaKader = () => {
           </Table>
         )}
       </div>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={deleteModalOpen}
+        title="Konfirmasi Penghapusan"
+        description="Apakah Anda yakin ingin menghapus data kader ini?"
+        onConfirm={handleDelete}
+        onCancel={() => setDeleteModalOpen(false)}
+      />
     </>
   );
 };

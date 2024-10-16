@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
-    const { name, nik, email, address, district, gender, dateOfBirth } = await request.json();
+    const { name, nik, email, address, gender, dateOfBirth } = await request.json();
 
     // Validasi tambahan jika diperlukan
 
@@ -34,13 +34,14 @@ export async function POST(request: Request) {
         nik,
         email,
         address,
-        district,
-        gender: gender as Gender, // Pastikan gender sesuai dengan enum
+        gender: gender as Gender, 
         dateOfBirth: new Date(dateOfBirth),
-        role: Role.KADER, // Set role secara langsung ke 'KADER'
-        password: hashedPassword, // Pastikan untuk meng-hash password
+        role: Role.KADER, 
+        password: hashedPassword, 
+        district: "", 
       },
     });
+    
 
     return NextResponse.json(newUser, { status: 201 });
   } catch (error) {
@@ -61,7 +62,6 @@ export async function GET(request: Request) {
         nik: true,
         email: true,
         address: true,
-        district: true,
         gender: true,
         dateOfBirth: true,
         role: true,
