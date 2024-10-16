@@ -7,13 +7,9 @@ export const registerPage1Schema = z.object({
   password: z
     .string()
     .min(8, 'Password minimal 8 karakter')
-    .regex(/[A-Z]/, 'Password harus memiliki minimal 1 huruf kapital')
-    .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Password harus memiliki minimal 1 simbol'),
+    .regex(/[A-Z]/, 'Password harus memiliki minimal 1 huruf kapital'),
   confirmPassword: z
     .string()
-    .min(8, 'Konfirmasi password minimal 8 karakter')
-    .regex(/[A-Z]/, 'Konfirmasi password harus memiliki minimal 1 huruf kapital')
-    .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Konfirmasi password harus memiliki minimal 1 simbol'),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Password dan Konfirmasi Password harus sama",
   path: ["confirmPassword"],
@@ -23,7 +19,7 @@ export const registerPage1Schema = z.object({
 export const registerPage2Schema = z.object({
   alamat: z.string().min(1, 'Alamat wajib diisi'),
   kecamatan: z.string().min(1, 'Kecamatan wajib diisi'),
-  NIK: z
+  nik: z
     .string()
     .min(16, 'NIK harus 16 digit')
     .max(16, 'NIK harus 16 digit')
