@@ -20,7 +20,7 @@ import { createAccount } from "@/actions/register1";
 import { toast } from "sonner";
 
 interface IProps {
-  onClickNext: () => void;
+  onClickNext: (email: string) => void;
 }
 
 const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
@@ -46,7 +46,7 @@ const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
             toast.success('Berhasil');
             console.log(data);
 
-            onClickNext();
+            onClickNext(data.email);
           } else {
             toast.error(res.error);
           }
