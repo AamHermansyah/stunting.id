@@ -16,6 +16,16 @@ export const createUserInformation = async (values: z.infer<typeof registerPage2
       return { error: 'Akun tidak ditemukan.' };
     }
 
+    // Cek apakah NIK sudah terdaftar di database
+    const existingNik = await prisma.user.findFirst({
+      where: { nik: values.nik },
+    });
+
+    // Jika NIK sudah ada, kembalikan error
+    if (existingNik) {
+      return { error: 'NIK sudah digunakan. Silakan gunakan NIK lain.' };
+    }
+
     // Update data opsional seperti alamat, kecamatan, dan NIK
     const updatedUser = await prisma.user.update({
       where: { email: userEmail },
@@ -32,7 +42,6 @@ export const createUserInformation = async (values: z.infer<typeof registerPage2
     };
   } catch (error) {
     console.error('Error updating user information:', error);
-    // Tangani error lain sebagai internal server error
     return {
       success: false,
       error: 'Internal server error',

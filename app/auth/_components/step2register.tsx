@@ -17,15 +17,17 @@ import {
 } from "@/components/ui/form";
 import { createUserInformation } from "@/actions/register2";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation"; // Correct Import
 
 interface IProps {
   onClickBack: () => void;
-  userEmail: string;  // Tambahkan userEmail di sini
+  userEmail: string;
 }
 
-const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {  // Tambahkan userEmail di sini
+const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {
   const [loading, startCreate] = useTransition();
   const [showNIK, setShowNIK] = useState(false);
+  const router = useRouter(); // Correct usage of useRouter
 
   const form = useForm<z.infer<typeof registerPage2Schema>>({
     resolver: zodResolver(registerPage2Schema),
@@ -38,11 +40,11 @@ const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {  // Ta
 
   const onSubmit = async (data: z.infer<typeof registerPage2Schema>) => {
     startCreate(() => {
-      createUserInformation(data, userEmail)  // Pastikan userEmail dimasukkan sebagai argumen kedua
+      createUserInformation(data, userEmail)
         .then((res) => {
           if (res.success) {
             toast.success("Akun berhasil dibuat");
-            console.log("ok");
+            router.push("/auth/login"); // Redirect to login page after success
           } else {
             toast.error(res.error);
           }
@@ -52,7 +54,6 @@ const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {  // Ta
 
   return (
     <>
-      {/* @ts-ignore */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="flex justify-between">
@@ -125,7 +126,7 @@ const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {  // Ta
               />
             </div>
           </div>
-          <Button variant={"default"} className="w-full mt-4">
+          <Button type="submit" variant={"default"} className="w-full mt-4">
             Buat Akun
           </Button>
           <Button

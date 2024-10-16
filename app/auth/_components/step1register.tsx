@@ -44,8 +44,6 @@ const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
         .then((res) => {
           if (res.success) {
             toast.success('Berhasil');
-            console.log(data);
-
             onClickNext(data.email);
           } else {
             toast.error(res.error);
