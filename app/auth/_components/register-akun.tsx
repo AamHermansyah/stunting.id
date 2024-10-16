@@ -6,12 +6,23 @@ import { Button } from "@/components/ui/button";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import BackNav from "./back-nav";
 import Link from "next/link";
+import { registerPage1Schema } from "@/schemas/register";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
 
 const RegisterAkun = () => {
   const [step, setStep] = useState(1);
-  const [showPassword, setShowPassword] = useState(false); // State untuk mengatur visibilitas password
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State untuk visibilitas konfirmasi password
-  const [showNIK, setShowNIK] = useState(false); // State untuk visibilitas konfirmasi password
+  const [showPassword, setShowPassword] = useState(false); 
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
+  const [showNIK, setShowNIK] = useState(false); 
+
+  const form = useForm<z.infer<typeof registerPage1Schema>>({
+    resolver: zodResolver(registerPage1Schema),
+    defaultValues: {
+
+    },
+  });
 
   const handleNextStep = () => {
     setStep(2);
