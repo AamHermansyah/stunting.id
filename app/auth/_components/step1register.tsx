@@ -19,15 +19,15 @@ import { VscLoading } from "react-icons/vsc";
 import { createAccount } from "@/actions/register1";
 import { toast } from "sonner";
 
-interface IProps{
-  onClickNext: () => void; 
+interface IProps {
+  onClickNext: () => void;
 }
 
-const Step1Register: React.FC<IProps> = ({onClickNext}) => {
+const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
   const [loading, startCreate] = useTransition();
-  const [showPassword, setShowPassword] = useState(false); 
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
-  
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const form = useForm<z.infer<typeof registerPage1Schema>>({
     resolver: zodResolver(registerPage1Schema),
     defaultValues: {
@@ -37,17 +37,17 @@ const Step1Register: React.FC<IProps> = ({onClickNext}) => {
       confirmPassword: "",
     },
   });
-  
+
   const onSubmit = async (data: z.infer<typeof registerPage1Schema>) => {
     startCreate(() => {
       createAccount(data)
         .then((res) => {
-        if (res.success){
-          toast.success('Berhasil')
-          console.log(data)
-        } else {
-          toast.error(res.error);
-        }
+          if (res.success) {
+            toast.success('Berhasil')
+            console.log(data)
+          } else {
+            toast.error(res.error);
+          }
         })
     })
   };
@@ -174,15 +174,15 @@ const Step1Register: React.FC<IProps> = ({onClickNext}) => {
           </div>
           <Button
             type="submit"
-            variant={"default"}
-            className="w-full mt-4"
+            variant="default"
+            className="w-full mt-4 gap-2"
             disabled={loading}
           >
             {loading && (
-                <VscLoading 
+              <VscLoading
                 className="animate-spin"
-                />
-              )}
+              />
+            )}
             Selanjutnya
           </Button>
         </form>
