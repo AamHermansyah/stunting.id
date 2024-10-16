@@ -1,9 +1,11 @@
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -12,175 +14,423 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import Link from "next/link"
+} from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import Link from "next/link";
+import { childSchema } from "@/schemas/anak";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransition } from "react";
+import { createChildren } from "@/actions/anak";
+import { toast } from "sonner";
+import { VscLoading } from "react-icons/vsc";
+import { useRouter } from "next/navigation";
+
 
 interface IProps {
-  cancel:string;
+  cancel: string;
 }
 
-function FormAddAnak({cancel} : IProps) {
+function FormAddAnak({ cancel }: IProps) {
+  const [loading, startCreate] = useTransition();
+
+  const navigate = useRouter()
+  
+  const form = useForm<z.infer<typeof childSchema>>({
+    resolver: zodResolver(childSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      birthDate: "",
+      height: "",
+      weight: "",
+      headCircumference: "",
+      armCircumference: "",
+      motherHeight: "",
+      fatherHeight: "",
+    },
+  });
+
+  const onSubmit = async (data: z.infer<typeof childSchema>) => {
+      // startCreate(() => {
+      //   createChildren(data)
+      //     .then((res) => {
+      //     if (res.success){
+      //       toast.success('Berhasil menambahkan anak')
+      //       console.log('ok')
+      //     } else {
+      //       toast.error(res.error);
+      //     }
+      //     })
+      // })
+  };
+
   return (
-    <form className="space-y-4">
-      <Card className="p-4 sm:p-10 space-y-4">
-        <h1 className="font-semibold text-lg text-gray-700 mb-4">Profile Anak</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="sm:col-span-2">
-            <label className="block cursor-pointer w-max rounded-full">
-              <Avatar className="w-16 h-16">
-                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                <AvatarFallback>Profile Anak</AvatarFallback>
-              </Avatar>
+    <>
+      {/* @ts-ignore */}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <Card className="p-4 sm:p-10 space-y-4">
+            <h1 className="font-semibold text-lg text-gray-700 mb-4">
+              Profile Anak
+            </h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="sm:col-span-2">
+                <label className="block cursor-pointer w-max rounded-full">
+                  <Avatar className="w-16 h-16">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>Profile Anak</AvatarFallback>
+                  </Avatar>
 
-              <input type="file" className="hidden" />
-            </label>
-          </div>
-
-          <div className="w-full">
-            <Label>
-              Nama Depan<span className="text-red-500">*</span>
-            </Label>
-            <Input placeholder="Masukan nama anak anda" className="w-full" />
-          </div>
-
-          <div className="w-full">
-            <Label>Nama Belakang</Label>
-            <Input placeholder="Masukan nama belakang anak" className="w-full" />
-          </div>
-
-          <div className="w-full">
-            <Label>Tanggal Lahir<span className="text-red-500">*</span></Label>
-            <Input type="date" className="w-full" />
-          </div>
-
-          <div className="w-full space-y-3">
-            <Label>Jenis Kelamin<span className="text-red-500">*</span></Label>
-            <RadioGroup defaultValue="laki-laki" className="flex gap-4">
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="laki-laki" id="laki-laki" />
-                <Label htmlFor="laki-laki">Laki-Laki</Label>
+                  <input type="file" className="hidden" />
+                </label>
               </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="perempuan" id="perempuan" />
-                <Label htmlFor="perempuan">Perempuan</Label>
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">Nama Depan</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Masukan nama depan anak" disabled={loading} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">
+                      Nama Belakang
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Masukan nama belakang anak"
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="birthDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">
+                      Tanggal Lahir
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="date"
+                        placeholder="Masukan nama depan anak"
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel>Jenis Kelamin</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex space-x-2"
+                        disabled={loading}
+                      >
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="laki-laki" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Laki-laki
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="perempuan" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            perempuan
+                          </FormLabel>
+                        </FormItem>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </Card>
+
+          <Card className="p-4 sm:p-10 space-y-4">
+            <h1 className="font-semibold text-lg text-gray-700">
+              Data Kelahiran
+            </h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="height"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">
+                      Tinggi Badan Saat Lahir (cm)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Masukan tinggi anak anda saat lahir" disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="weight"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">
+                      Berat Badan Saat Lahir (kg)
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Masukan berat anak anda" disabled={loading} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="headCircumference"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">
+                      Lingkar Kepala Saat Lahir (cm)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Masukan lingkar kepala anak anda"
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="armCircumference"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">
+                      Lingkar Lengan Saat Lahir (cm)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Masukan Lingkar lengan anak anda"
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </Card>
+
+          <Card className="p-4 sm:p-10 space-y-4">
+            <h1 className="font-semibold text-lg text-gray-700">
+              Data Kesehatan
+            </h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="w-full">
+                <FormField
+                  control={form.control}
+                  name="bloodType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Golongan darah</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        disabled={loading}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih Golongan Darah" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="A">A</SelectItem>
+                          <SelectItem value="B">B</SelectItem>
+                          <SelectItem value="AB">AB</SelectItem>
+                          <SelectItem value="O">O</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
-            </RadioGroup>
-          </div>
-        </div>
-      </Card>
 
-      <Card className="p-4 sm:p-10 space-y-4">
-        <h1 className="font-semibold text-lg text-gray-700">Data Kelahiran</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="w-full">
-            <Label>
-              Tinggi Badan Saat Lahir (cm)<span className="text-red-500">*</span>
-            </Label>
-            <Input placeholder="Masukan tinggi anak anda" className="w-full" />
-          </div>
-          <div className="w-full">
-            <Label>Berat Badan Saat Lahir (kg)<span className="text-red-500">*</span></Label>
-            <Input placeholder="Masukan berat anak anda" className="w-full" />
-          </div>
-          <div className="w-full">
-            <Label>
-              Lingkar Kepala Saat Lahir (cm)<span className="text-red-500">*</span>
-            </Label>
-            <Input placeholder="Masukan lingkar kepala anak" className="w-full" />
-          </div>
-          <div className="w-full">
-            <Label>Lingkar Lengan Saat Lahir (cm)<span className="text-red-500">*</span></Label>
-            <Input placeholder="Masukan Lingkar kepala anak" className="w-full" />
-          </div>
-        </div>
-      </Card>
+              <FormField
+                control={form.control}
+                name="allergy"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel>Apakah anak anda memiliki alergi ?</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex space-x-2"
+                        disabled={loading}
+                      >
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="ya" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Ya</FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="tidak" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Tidak</FormLabel>
+                        </FormItem>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
+              <FormField
+                control={form.control}
+                name="premature"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel>Apakah anak anda terlahir prematur ?</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex space-x-2"
+                        disabled={loading}
+                      >
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="ya" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Ya</FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="tidak" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Tidak</FormLabel>
+                        </FormItem>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </Card>
 
-      <Card className="p-4 sm:p-10 space-y-4">
-        <h1 className="font-semibold text-lg text-gray-700">
-          Data Kesehatan
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="w-full">
-            <Label>
-              Golongan Darah<span className="text-red-500">*</span>
-            </Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Pilih Golongan Darah" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Golongan Darah</SelectLabel>
-                  <SelectItem value="A">A</SelectItem>
-                  <SelectItem value="B">B</SelectItem>
-                  <SelectItem value="AB">AB</SelectItem>
-                  <SelectItem value="O">O</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+          <Card className="p-4 sm:p-10 space-y-4">
+            <h1 className="font-semibold text-lg text-gray-700">
+              Data Tambahan
+            </h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="motherHeight"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">
+                      Tinggi Badan Ibu (cm)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Masukan tinggi ibu anak anda"
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="fatherHeight"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sm:text-right">
+                      Tinggi Badan Ayah (cm)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Masukan tinggi badan ayah anak anda"
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </Card>
 
-          <div className="space-y-3">
-            <Label>
-              Apakah anak anda memiliki alergi
-              <span className="text-red-500">*</span>
-            </Label>
-            <RadioGroup defaultValue="tidak" className="flex gap-4">
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="ya" id="ya" />
-                <Label htmlFor="ya">Ya</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="tidak" id="tidak" />
-                <Label htmlFor="tidak">Tidak</Label>
-              </div>
-            </RadioGroup>
+          <div className="w-full flex gap-4 justify-end">
+              <Button onClick={() => navigate.back()} className="px-10" variant="outline" disabled={loading}>
+                Batal
+              </Button>
+            <Button type="submit" className="px-10 gap-2" variant="default" disabled={loading}>
+              {loading && (
+                <VscLoading 
+                className="animate-spin"
+                />
+              )}
+              Simpan
+            </Button>
           </div>
-
-          <div className="space-y-3">
-            <Label>
-              Apakah anak anda lahir prematur
-              <span className="text-red-500">*</span>
-            </Label>
-            <RadioGroup defaultValue="tidak" className="flex gap-4">
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="ya" id="ya" />
-                <Label htmlFor="ya">Ya</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="tidak" id="tidak" />
-                <Label htmlFor="tidak">Tidak</Label>
-              </div>
-            </RadioGroup>
-          </div>
-        </div>
-      </Card>
-
-      <Card className="p-4 sm:p-10 space-y-4">
-        <h1 className="font-semibold text-lg text-gray-700">Data Tambahan</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="w-full">
-            <Label>
-              Tinggi Badan Saat Ibu (cm)<span className="text-red-500">*</span>
-            </Label>
-            <Input placeholder="Masukan tinggi ibu anak anda" className="w-full" />
-          </div>
-          <div className="w-full">
-            <Label>Tinggi Badan Ayah (cm)<span className="text-red-500">*</span></Label>
-            <Input placeholder="Masukan tinggi ayah anak anda" className="w-full" />
-          </div>
-        </div>
-      </Card>
-
-      <div className="w-full flex gap-4 justify-end">
-        <Link href={cancel}>
-        <Button className="px-10" variant="outline">Batal</Button>
-        </Link>
-        <Button className="px-10" variant="default">Simpan</Button>
-      </div>
-    </form>
-  )
+        </form>
+      </Form>
+    </>
+  );
 }
 
-export default FormAddAnak
+export default FormAddAnak;

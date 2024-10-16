@@ -39,19 +39,19 @@ const RegisterAkun = () => {
           <div>
             <div className="grid w-full items-center gap-1.5 space-y-2">
               <div>
+                <Label htmlFor="username">Nama</Label>
+                <Input
+                  type="nama"
+                  id="nama"
+                  placeholder="Masukkan nama anda"
+                />
+              </div>
+              <div>
                 <Label htmlFor="email">E-mail</Label>
                 <Input
                   type="email"
                   id="email"
                   placeholder="Masukkan e-mail anda"
-                />
-              </div>
-              <div>
-                <Label htmlFor="username">Username</Label>
-                <Input
-                  type="username"
-                  id="username"
-                  placeholder="Masukkan username anda"
                 />
               </div>
               <div className="relative">
@@ -117,14 +117,6 @@ const RegisterAkun = () => {
           </div>
           <div>
             <div className="grid w-full items-center gap-1.5 space-y-2">
-              <div>
-                <Label htmlFor="nama">Nama</Label>
-                <Input
-                  type="text"
-                  id="nama"
-                  placeholder="Masukkan nama anda"
-                />
-              </div>
               <div>
                 <Label htmlFor="alamat">Alamat</Label>
                 <Input
