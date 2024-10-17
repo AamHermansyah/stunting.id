@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
@@ -23,7 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import Link from "next/link";
 import { childSchema } from "@/schemas/anak";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -34,8 +32,11 @@ import { toast } from "sonner";
 import { VscLoading } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 
+interface IProps{
+  id: string;
+}
 
-function FormAddAnak() {
+function FormAddAnak({id}: IProps) {
   const [loading, startCreate] = useTransition();
 
   const navigate = useRouter()
@@ -57,7 +58,7 @@ function FormAddAnak() {
 
   const onSubmit = async (data: z.infer<typeof childSchema>) => {
     startCreate(() => {
-      createChildren(data, 'cm2bz7nxq0000saja1z3y8lxf')
+      createChildren(data, id)
         .then((res) => {
           if (res.success) {
             toast.success('Berhasil menambahkan anak')
