@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -17,15 +18,21 @@ interface ChildProfile {
   armCircumference: number;
   allergies: string;
 }
+ 
+interface ProfileProps {
+  userId: any;
+}
 
-function Profile() {
+
+function Profile({ userId }: ProfileProps) {
+  
   const [child, setChild] = useState<ChildProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const userId = 'cm2bz7nxq0000saja1z3y8lxf'; // Ganti dengan user dinamis
+  
 
   useEffect(() => {
     const fetchChild = async () => {
-      const res = await getChildren(userId);
+      const res = await getChildren(userId.toString());
       if (res.success && res.data.length > 0) {
         const fetchedChild = {
           ...res.data[0],

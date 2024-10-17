@@ -57,6 +57,7 @@ export type User = {
 export type StuntingStatus = 'danger' | 'semi-danger' | 'warning' | 'normal';
 
 export type AuthCookie = {
+  childId: any;
   id: string,
   name: string,
   email: string,

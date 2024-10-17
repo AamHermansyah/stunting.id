@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import React, { useEffect, useState } from "react";
@@ -13,12 +14,15 @@ interface ChildOverview {
   weight: number;
   headCircumference: number;
   armCircumference: number;
+} 
+
+interface OverviewProps {
+  userId: any;
 }
 
-function Overview() {
+function Overview({ userId }: OverviewProps) {
   const [child, setChild] = useState<ChildOverview | null>(null);
   const [loading, setLoading] = useState(true);
-  const userId = 'cm2bz7nxq0000saja1z3y8lxf';  // Ganti dengan userId dinamis jika diperlukan
 
   useEffect(() => {
     const fetchChild = async () => {

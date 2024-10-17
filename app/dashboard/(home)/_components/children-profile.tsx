@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import Link from "next/link";
@@ -18,7 +19,7 @@ interface WrapperProps {
   title: string;
   children: React.ReactNode;
 }
-
+ 
 const Wrapper: React.FC<WrapperProps> = ({ title, children, }) => (
   <div className="flex flex-col rounded-lg px-4 py-4 shadow-sm border bg-white">
     <div className="flex justify-between">
