@@ -62,10 +62,12 @@ export function middleware(req: NextRequest) {
     ));
   }
 
-  const user = JSON.parse(authCookie!.value) as AuthCookie;
+  if (isLoggedIn) {
+    const user = JSON.parse(authCookie!.value) as AuthCookie;
 
-  if (user.role === 'USER' && nextUrl.pathname.includes('/management')) {
-    return Response.redirect(new URL('/dashboard', nextUrl))
+    if (user.role === 'USER' && nextUrl.pathname.includes('/management')) {
+      return Response.redirect(new URL('/dashboard', nextUrl))
+    }
   }
 
   return;
