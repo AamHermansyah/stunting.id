@@ -15,17 +15,18 @@ const RegisterAkun = () => {
 
       {step === 1 && (
         <Step1Register
-          onClickNext={() => {
+          onClickNext={(email) => {  // Menerima email dari Step1Register
+            setUserEmail(email);     // Simpan email di state
             setStep(2);
           }}
         />
       )}
-
       {step === 2 && (
         <Step2Register
           onClickBack={() => {
             setStep(1);
           }}
+          userEmail={userEmail}   // Kirimkan email ke Step2Register
         />
       )}
 
