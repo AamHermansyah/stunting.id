@@ -10,7 +10,7 @@ export const getChildren = async (userId: string) => {
         userId,
       },
     });
-    
+
     return {
       success: 'success',
       data: children,
@@ -21,22 +21,3 @@ export const getChildren = async (userId: string) => {
     };
   }
 };
-
-export const getChildById = async (childId: number) => {
-  try {
-    const child = await prisma.child.findUnique({
-      where: {
-        id: childId,
-      },
-    });
-    
-    return {
-      success: 'success',
-      data: child,
-    };
-  } catch (error) {
-    return {
-      error: 'Internal server error',
-    };
-  }
-}; 
