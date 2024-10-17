@@ -33,8 +33,8 @@ interface IProps {
   kepala: string;
   lengan: string;
   detail: string;
-  childId: number;  
-  userId: string;   
+  childId: number;
+  userId: string;
 }
 
 function ProfileCard({
@@ -46,12 +46,12 @@ function ProfileCard({
   kepala,
   lengan,
   detail,
-  childId,  
-  userId,   
+  childId,
+  userId,
 }: IProps) {
   const [isOpenDelete, setIsOpenDelete] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false); 
-  const [error, setError] = useState<string | null>(null); 
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -63,7 +63,7 @@ function ProfileCard({
     if (result.error) {
       setError(result.error);
     } else {
-      window.location.reload(); 
+      window.location.reload();
       toast.success("Berhasil menghapus profil anak");
     }
 
@@ -90,10 +90,10 @@ function ProfileCard({
               {isDeleting ? "Menghapus..." : "Ya"}
             </AlertDialogAction>
           </AlertDialogFooter>
-          {error && <p className="text-red-500">{error}</p>} 
+          {error && <p className="text-red-500">{error}</p>}
         </AlertDialogContent>
       </AlertDialog>
-      
+
       <div className="flex-shrink-0 rounded-lg border-2 px-4 py-4 my-4 space-y-4">
         <div className="flex flex-col items-center ">
           <div className="flex justify-end w-full">
@@ -102,7 +102,11 @@ function ProfileCard({
                 <FaEllipsis />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem>Edit</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={`/dashboard/edit-anak/${childId}`} className="w-full">
+                    Edit
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem className="text-destructive" onClick={() => setIsOpenDelete(true)}>
                   Hapus
                 </DropdownMenuItem>

@@ -23,7 +23,7 @@ function NavHeaderLinks({ authCookie }: IProps) {
           className={cn(
             'hover:text-primary py-2',
             pathname.includes(item.href) ? 'text-primary' : 'hover:underline hover:underline-offset-4',
-            (authCookie && item.role.length > 0) ? item.role.includes(authCookie.role) ? '' : 'hidden' : '',
+            item.role.length > 0 ? authCookie && item.role.includes(authCookie.role) ? '' : 'hidden' : '',
           )}
         >
           {item.title}
