@@ -31,7 +31,7 @@ const chartConfig = {
     color: "hsl(var(--chart-3))",
   },
   baby: {
-    label: "Kurang Gizi",
+    label: "Kurang Nutrisi",
     color: "hsl(var(--chart-4))",
   },
   lower: {

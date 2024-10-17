@@ -16,7 +16,7 @@ const LatestArticles = () => {
       <div className="grid xl:grid-cols-6 lg:grid-cols-4 sm:grid-cols-3  lg:my-6 gap-4 items-center">
         <ArticleCard
           article="/images/example-article.png"
-          description="5 Resep Makanan Bayi Sehat dan Bergizi yang Mudah Dibuat di Rumah"
+          description="5 Resep Makanan Bayi Sehat dan bernutrisi yang Mudah Dibuat di Rumah"
         />
         <ArticleCard
           article="/images/article-example2.png"

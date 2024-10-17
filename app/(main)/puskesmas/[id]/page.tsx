@@ -54,7 +54,7 @@ function page() {
               <div className="col-span-2">
                 <span className="text-white font-bold text-sm">Terdapat</span>
                 <h3 className="text-white font-bold">
-                  <span className="inline-block text-4xl">01</span> Tenaga Ahli Gizi
+                  <span className="inline-block text-4xl">01</span> Tenaga Ahli nutrisi
                 </h3>
               </div>
             </div>

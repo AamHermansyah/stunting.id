@@ -15,8 +15,8 @@ const testimonials = [
   {
     id: 1,
     name: "Andi Muh. Irwan",
-    comment: "Melalui upaya bersama, kita dapat memberikan akses yang lebih baik terhadap gizi, edukasi, dan perawatan kesehatan bagi anak-anak yang rentan terhadap stunting.",
-    expert: "Ahli Gizi",
+    comment: "Melalui upaya bersama, kita dapat memberikan akses yang lebih baik terhadap nutrisi, edukasi, dan perawatan kesehatan bagi anak-anak yang rentan terhadap stunting.",
+    expert: "Ahli Nutrisi",
     imageUrl: 'https://picsum.photos/id/32/300/600'
   },
   {
