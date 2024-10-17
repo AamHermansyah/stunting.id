@@ -5,49 +5,48 @@ import React, { useEffect, useState } from 'react';
 import CardProfileDetail from './card-profile-detail';
 import { Button } from '@/components/ui/button';
 import { getChildren } from '@/actions/showAnak';
+import { usePathname } from 'next/navigation';
 
 interface ChildProfile {
   id: number;
   name: string;
-  birthDate: string; 
+  birthDate: Date; // Ubah menjadi Date
   gender: string;
   bloodType: string;
   height: number;
   headCircumference: number;
   weight: number;
   armCircumference: number;
-  allergies: string;
+  allergy: string;
 }
- 
+
 interface ProfileProps {
   userId: any;
 }
 
-
 function Profile({ userId }: ProfileProps) {
-  
+  const pathname = usePathname();
   const [child, setChild] = useState<ChildProfile | null>(null);
   const [loading, setLoading] = useState(true);
   
-
+  // Extract the child ID from the pathname
+  const childId = pathname.split('/').pop(); // Assuming the ID is the last part of the URL
+  
   useEffect(() => {
     const fetchChild = async () => {
       const res = await getChildren(userId.toString());
       if (res.success && res.data.length > 0) {
-        const fetchedChild = {
-          ...res.data[0],
-          birthDate: new Date(res.data[0].birthDate).toISOString(), // Konversi Date menjadi string (ISO format)
-          allergies: res.data[0].allergy, // Ubah dari 'allergy' menjadi 'allergies'
-        };
-        setChild(fetchedChild);
+        const fetchedChild = res.data.find((child: ChildProfile) => child.id.toString() === childId);
+        if (fetchedChild) {
+          setChild(fetchedChild); // Tidak perlu mengubah birthDate
+        }
       }
       setLoading(false);
     };
     fetchChild();
-  }, []);
+  }, [childId]);
 
-  // Fungsi untuk menghitung selisih tahun dan bulan
-  const calculateMonthDifference = (startDate: string, endDate: Date) => {
+  const calculateMonthDifference = (startDate: Date, endDate: Date) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -72,26 +71,26 @@ function Profile({ userId }: ProfileProps) {
           <span className="text-sm text-muted-foreground/70">
             {loading
               ? 'Memuat...'
-              : calculateMonthDifference(child?.birthDate || '', new Date())}
+              : calculateMonthDifference(child?.birthDate || new Date(), new Date())}
           </span>
         </div>
       </div>
       <div className="w-full grid grid-cols-2 gap-x-2 gap-y-4 py-3">
         <CardProfileDetail
           label="Tanggal Lahir"
-          value={loading ? 'Memuat...' : new Date(child?.birthDate || '').toLocaleDateString()}
+          value={loading ? 'Memuat...' : child?.birthDate?.toLocaleDateString() || ''} // Fallback ke string kosong
         />
         <CardProfileDetail
           label="Jenis Kelamin"
-          value={loading ? 'Memuat...' : child?.gender || ''}
+          value={loading ? 'Memuat...' : child?.gender || ''} // Fallback ke string kosong
         />
         <CardProfileDetail
           label="Riwayat Alergi"
-          value={loading ? 'Memuat...' : child?.allergies || 'Tidak ada'}
+          value={loading ? 'Memuat...' : child?.allergy || 'Tidak ada'} // Fallback jika tidak ada data alergi
         />
         <CardProfileDetail
           label="Golongan Darah"
-          value={loading ? 'Memuat...' : child?.bloodType || ''}
+          value={loading ? 'Memuat...' : child?.bloodType || ''} // Fallback ke string kosong
         />
       </div>
       <Button variant="secondary" className="w-full">
