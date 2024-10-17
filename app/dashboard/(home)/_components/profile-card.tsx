@@ -21,6 +21,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { deleteChild } from "@/actions/anak"; // Mengimpor fungsi deleteChild
+import { toast } from "sonner";
 
 interface IProps {
   profile: string;
@@ -31,6 +33,8 @@ interface IProps {
   kepala: string;
   lengan: string;
   detail: string;
+  childId: number;  
+  userId: string;   
 }
 
 function ProfileCard({
@@ -42,8 +46,30 @@ function ProfileCard({
   kepala,
   lengan,
   detail,
+  childId,  
+  userId,   
 }: IProps) {
   const [isOpenDelete, setIsOpenDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false); 
+  const [error, setError] = useState<string | null>(null); 
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    setError(null);
+
+    // Panggil fungsi deleteChild dengan childId dan userId
+    const result = await deleteChild(childId, userId);
+
+    if (result.error) {
+      setError(result.error);
+    } else {
+      window.location.reload(); 
+      toast.success("Berhasil menghapus profil anak");
+    }
+
+    setIsDeleting(false);
+    setIsOpenDelete(false);
+  };
 
   return (
     <>
@@ -60,10 +86,14 @@ function ProfileCard({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Batal</AlertDialogCancel>
-            <AlertDialogAction>Ya</AlertDialogAction>
+            <AlertDialogAction onClick={handleDelete}>
+              {isDeleting ? "Menghapus..." : "Ya"}
+            </AlertDialogAction>
           </AlertDialogFooter>
+          {error && <p className="text-red-500">{error}</p>} 
         </AlertDialogContent>
       </AlertDialog>
+      
       <div className="flex-shrink-0 rounded-lg border-2 px-4 py-4 my-4 space-y-4">
         <div className="flex flex-col items-center ">
           <div className="flex justify-end w-full">

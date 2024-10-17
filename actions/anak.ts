@@ -34,3 +34,30 @@ export const createChildren =  async (values:z.infer<typeof childSchema>, id:str
     }
   }
 }
+
+export const deleteChild = async (childId: number, userId: string) => {
+  try {
+    // Cari data anak berdasarkan ID
+    const child = await prisma.child.findUnique({
+      where: { id: childId }
+    });
+
+    // Jika data anak tidak ditemukan atau userId tidak sesuai
+    if (!child || child.userId !== userId) {
+      return { error: 'Anak tidak ditemukan atau tidak diizinkan untuk menghapus' };
+    }
+
+    // Hapus data anak
+    await prisma.child.delete({
+      where: { id: childId }
+    });
+
+    return {
+      success: 'Anak berhasil dihapus',
+    };
+  } catch (error) {
+    return {
+      error: 'Terjadi kesalahan pada server',
+    };
+  }
+};
