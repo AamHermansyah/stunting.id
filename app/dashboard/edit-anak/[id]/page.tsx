@@ -14,6 +14,6 @@ export default async function EditAnakPage({ params }: { params: { id: string } 
   if (child.error) redirect('/unauthorized');
 
   return (
-    <FormAddAnak />
+    <FormAddAnak id={user.id} data={child.data} />
   );
 }

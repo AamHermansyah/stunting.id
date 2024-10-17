@@ -4,11 +4,11 @@ import { prisma } from "@/db";
 import { childSchema } from "@/schemas/anak";
 import { z } from "zod";
 
-export const createChildren =  async (values:z.infer<typeof childSchema>, id:string) => {
+export const createChild = async (values: z.infer<typeof childSchema>, userId: string) => {
   try {
     const child = await prisma.child.create({
       data: {
-        userId: id,
+        userId: userId,
         name: `${values.firstName} ${values.lastName ? ` ${values.lastName}` : ''}`,
         birthDate: new Date(values.birthDate),
         gender: values.gender,
@@ -23,10 +23,49 @@ export const createChildren =  async (values:z.infer<typeof childSchema>, id:str
         fatherHeight: +values.fatherHeight
       }
     });
-    
+
     return {
-      success: 'success', 
+      success: 'success',
       data: child
+    }
+  } catch (error) {
+    return {
+      error: 'Internal server error'
+    }
+  }
+}
+
+export const updateChild = async (values: z.infer<typeof childSchema>, id: number, userId: string) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+
+    const child = await prisma.child.findUnique({ where: { id } });
+
+    if (!user || !child) return { error: 'Data tidak ditemukan!' };
+
+    if (user.id !== child.userId) return { error: 'Unauthorized' };
+
+    const updatedChild = await prisma.child.update({
+      where: { id: child.id },
+      data: {
+        name: `${values.firstName} ${values.lastName ? ` ${values.lastName}` : ''}`,
+        birthDate: new Date(values.birthDate),
+        gender: values.gender,
+        bloodType: values.bloodType,
+        height: +values.height,
+        headCircumference: +values.headCircumference,
+        weight: +values.weight,
+        armCircumference: +values.armCircumference,
+        allergy: values.allergy,
+        premature: values.premature,
+        motherHeight: +values.motherHeight,
+        fatherHeight: +values.fatherHeight
+      }
+    });
+
+    return {
+      success: 'success',
+      data: updatedChild
     }
   } catch (error) {
     return {

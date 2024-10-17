@@ -24,19 +24,21 @@ import { childSchema } from "@/schemas/anak";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
-import { createChildren } from "@/actions/anak";
+import { useEffect, useTransition } from "react";
+import { createChild, updateChild } from "@/actions/anak";
 import { toast } from "sonner";
 import { VscLoading } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
+import { Child } from "@prisma/client";
+import { formatDate } from "date-fns";
 
 interface IProps {
   id: string;
+  data?: Child;
 }
 
-function FormAddAnak({ id }: IProps) {
-  const [loading, startCreate] = useTransition();
-
+function FormAddAnak({ id, data }: IProps) {
+  const [loading, startFetching] = useTransition();
   const navigate = useRouter()
 
   const form = useForm<z.infer<typeof childSchema>>({
@@ -54,19 +56,53 @@ function FormAddAnak({ id }: IProps) {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof childSchema>) => {
-    startCreate(() => {
-      createChildren(data, id)
-        .then((res) => {
-          if (res.success) {
-            toast.success('Berhasil menambahkan anak')
-            navigate.push('/dashboard')
-          } else {
-            toast.error(res.error);
-          }
-        })
-    })
+  const onSubmit = async (values: z.infer<typeof childSchema>) => {
+    if (!data) {
+      startFetching(() => {
+        createChild(values, id)
+          .then((res) => {
+            if (res.success) {
+              toast.success('Berhasil menambahkan anak')
+              navigate.push('/dashboard')
+            } else {
+              toast.error(res.error);
+            }
+          })
+      })
+    } else {
+      startFetching(() => {
+        updateChild(values, data.id, id)
+          .then((res) => {
+            if (res.success) {
+              toast.success('Berhasil update profile anak!')
+              navigate.push('/dashboard')
+            } else {
+              toast.error(res.error);
+            }
+          })
+      })
+    }
   };
+
+  useEffect(() => {
+    if (data) {
+      const [firstname, ...lastname] = data.name.split(' ');
+
+      form.setValue('firstName', firstname);
+      form.setValue('lastName', lastname.join(' '));
+      form.setValue('birthDate', formatDate(new Date(data.birthDate), 'yyyy-MM-dd'));
+      form.setValue('height', `${data.height}`);
+      form.setValue('weight', `${data.weight}`);
+      form.setValue('headCircumference', `${data.headCircumference}`);
+      form.setValue('armCircumference', `${data.armCircumference}`);
+      form.setValue('motherHeight', `${data.motherHeight}`);
+      form.setValue('fatherHeight', `${data.fatherHeight}`);
+      form.setValue('gender', data.gender as z.infer<typeof childSchema>['gender']);
+      form.setValue('allergy', data.allergy as z.infer<typeof childSchema>['allergy']);
+      form.setValue('premature', data.premature as z.infer<typeof childSchema>['premature']);
+      form.setValue('bloodType', data.bloodType as z.infer<typeof childSchema>['bloodType']);
+    }
+  }, [data]);
 
   return (
     <>
@@ -136,7 +172,6 @@ function FormAddAnak({ id }: IProps) {
                       <Input
                         {...field}
                         type="date"
-                        placeholder="Masukan nama depan anak"
                         disabled={loading}
                       />
                     </FormControl>
@@ -154,7 +189,7 @@ function FormAddAnak({ id }: IProps) {
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        defaultValue={data ? data.gender : undefined}
                         className="flex space-x-2"
                         disabled={loading}
                       >
@@ -276,7 +311,7 @@ function FormAddAnak({ id }: IProps) {
                       <FormLabel>Golongan darah</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        defaultValue={data ? data.bloodType : undefined}
                         disabled={loading}
                       >
                         <FormControl>
@@ -306,7 +341,7 @@ function FormAddAnak({ id }: IProps) {
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        defaultValue={data ? data.allergy : undefined}
                         className="flex space-x-2"
                         disabled={loading}
                       >
@@ -338,7 +373,7 @@ function FormAddAnak({ id }: IProps) {
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        defaultValue={data ? data.premature : undefined}
                         className="flex space-x-2"
                         disabled={loading}
                       >
