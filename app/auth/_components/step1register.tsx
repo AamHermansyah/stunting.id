@@ -49,7 +49,11 @@ const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
             toast.error(res.error);
           }
         })
-    })
+        .catch(() => {
+          // Error handling jika terjadi kesalahan lainnya
+          toast.error("Terjadi kesalahan. Coba lagi nanti.");
+        });
+    });
   };
 
   return (
@@ -191,4 +195,4 @@ const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
   );
 }
 
-export default Step1Register
+export default Step1Register;

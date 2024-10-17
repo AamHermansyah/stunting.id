@@ -3,7 +3,11 @@ import * as z from 'zod';
 // Schema untuk halaman pertama (Buat Akun)
 export const registerPage1Schema = z.object({
   nama: z.string().min(1, 'Nama wajib diisi'),
-  email: z.string().email('Email tidak valid').min(1, 'E-mail wajib diisi'),
+  email: z
+  .string()
+  .email('Email tidak valid')
+  .min(1, 'E-mail wajib diisi')
+  .transform((email) => email.toLowerCase()),
   password: z
     .string()
     .min(8, 'Password minimal 8 karakter')

@@ -7,6 +7,7 @@ import Step2Register from "./step2register";
 
 const RegisterAkun = () => {
   const [step, setStep] = useState(1);
+  const [userEmail, setUserEmail] = useState(""); // State untuk menyimpan email
 
   return (
     <div className="flex justify-center flex-col space-y-4 max-w-lg mx-auto">
