@@ -3,10 +3,15 @@
 import { Button } from '@/components/ui/button';
 import { navigation } from '@/constants'
 import { cn } from '@/lib/utils'
+import { AuthCookie } from '@/types';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 
-function NavHeaderLinks() {
+interface IProps {
+  authCookie?: AuthCookie;
+}
+
+function NavHeaderLinks({ authCookie }: IProps) {
   const pathname = usePathname();
 
   return (
@@ -15,16 +20,22 @@ function NavHeaderLinks() {
         <Link
           key={item.id}
           href={item.href}
-          className={cn('hover:text-primary', pathname.includes(item.href) ? 'text-primary' : 'hover:underline hover:underline-offset-4')}
+          className={cn(
+            'hover:text-primary py-2',
+            pathname.includes(item.href) ? 'text-primary' : 'hover:underline hover:underline-offset-4',
+            (authCookie && item.role.length > 0) ? item.role.includes(authCookie.role) ? '' : 'hidden' : '',
+          )}
         >
           {item.title}
         </Link>
       ))}
-      <Link href='/auth/login'>
-        <Button size="sm" className="px-4">
-          Login
-        </Button>
-      </Link>
+      {!authCookie && (
+        <Link href='/auth/login'>
+          <Button size="sm" className="px-4">
+            Login
+          </Button>
+        </Link>
+      )}
     </>
   )
 }

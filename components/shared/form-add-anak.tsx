@@ -39,7 +39,7 @@ function FormAddAnak() {
   const [loading, startCreate] = useTransition();
 
   const navigate = useRouter()
-  
+
   const form = useForm<z.infer<typeof childSchema>>({
     resolver: zodResolver(childSchema),
     defaultValues: {
@@ -56,17 +56,17 @@ function FormAddAnak() {
   });
 
   const onSubmit = async (data: z.infer<typeof childSchema>) => {
-      startCreate(() => {
-        createChildren(data, 'cm2bz7nxq0000saja1z3y8lxf')
-          .then((res) => {
-          if (res.success){
+    startCreate(() => {
+      createChildren(data, 'cm2bz7nxq0000saja1z3y8lxf')
+        .then((res) => {
+          if (res.success) {
             toast.success('Berhasil menambahkan anak')
             navigate.push('/dashboard')
           } else {
             toast.error(res.error);
           }
-          })
-      })
+        })
+    })
   };
 
   return (
@@ -411,13 +411,13 @@ function FormAddAnak() {
           </Card>
 
           <div className="w-full flex gap-4 justify-end">
-              <Button onClick={() => navigate.back()} className="px-10" variant="outline" disabled={loading}>
-                Batal
-              </Button>
+            <Button onClick={() => navigate.back()} className="px-10" variant="outline" disabled={loading}>
+              Batal
+            </Button>
             <Button type="submit" className="px-10 gap-2" variant="default" disabled={loading}>
               {loading && (
-                <VscLoading 
-                className="animate-spin"
+                <VscLoading
+                  className="animate-spin"
                 />
               )}
               Simpan

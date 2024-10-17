@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import { IconType } from "react-icons/lib";
 
 export interface SidebarLabel {
@@ -54,3 +55,13 @@ export type User = {
 };
 
 export type StuntingStatus = 'danger' | 'semi-danger' | 'warning' | 'normal';
+
+export type AuthCookie = {
+  id: string,
+  name: string,
+  email: string,
+  emailVerified: Date | null,
+  district: string | null,
+  nik: string | null,
+  role: Role;
+}

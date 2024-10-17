@@ -16,7 +16,7 @@ export default function DashboardLayout({
     <>
       <Header />
       <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-10">
-        <div className="py-10 mt-6 space-y-4 pt-5">
+        <div className="py-10 mt-6 space-y-4 pt-16">
           <DashboardBreadcrumb />
           <div className="space-y-4">
             {children}

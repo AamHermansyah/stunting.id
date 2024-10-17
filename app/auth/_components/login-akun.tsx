@@ -1,81 +1,137 @@
 'use client';
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { startTransition, useState, useTransition } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import BackNav from "./back-nav";
 import { loginUser } from "@/actions/loginUser";
+import { useRouter, useSearchParams } from "next/navigation";
+import { loginSchema } from "@/schemas/login";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { VscLoading } from "react-icons/vsc";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation"; 
 
 const LoginAkun = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter(); 
+  const [loading, startLogin] = useTransition();
+  const navigate = useRouter();
 
-  const handleLogin = async () => {
-    const result = await loginUser({ email, password });
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get("callbackUrl")
 
-    if (result.error) {
-      toast.error(result.error); 
-    } else {
-      toast.success("Login berhasil!"); 
-      router.push("/dashboard"); 
-    }
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: ""
+    },
+  });
+
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+    startLogin(() => {
+      loginUser(data)
+        .then((res) => {
+          if (res.success) {
+            toast.success('Berhasil masuk ke akun anda!');
+            const { role } = res.data;
+            const redirectUrl = callbackUrl ? decodeURIComponent(callbackUrl) : role === 'USER' ? '/dashboard' : '/management';
+            navigate.push(redirectUrl);
+          } else {
+            toast.error(res.error);
+          }
+        })
+    })
   };
 
   return (
     <div className="flex justify-center flex-col space-y-4 max-w-lg mx-auto">
       <BackNav />
       <h1 className="text-xl">Masuk</h1>
-      <div>
-        <div className="grid w-full items-center gap-1.5 space-y-2">
-          <div>
-            <Label htmlFor="email">Email</Label>
-            <Input
-              type="email"
-              id="email"
-              placeholder="Masukkan email anda"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="relative">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              placeholder="Masukkan password anda"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              className="absolute inset-y-0 right-0 pr-3 flex items-center"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? (
-                <FaEyeSlash className="text-gray-500" />
-              ) : (
-                <FaEye className="text-gray-500" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-      <Button onClick={handleLogin} variant={"default"} className="w-full mt-4">
-        Masuk
-      </Button>
-      <span className="text-sm flex items-center gap-1">
-        Belum memiliki akun?
-        <Link href="/auth/register" className="text-primary hover:underline">
-          Daftar
-        </Link>
-      </span>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="sm:text-right">E-mail</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder="Masukan e-mail anda"
+                    disabled={loading}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="sm:text-right">Password</FormLabel>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Masukan password anda"
+                      disabled={loading}
+                    />
+                  </FormControl>
+
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <FaEyeSlash className="text-gray-500" />
+                    ) : (
+                      <FaEye className="text-gray-500" />
+                    )}
+                  </button>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            type="submit"
+            variant="default"
+            className="w-full my-4 gap-2"
+            disabled={loading}
+          >
+            {loading && (
+              <VscLoading
+                className="animate-spin"
+              />
+            )}
+            Masuk
+          </Button>
+          <span className="text-sm flex items-center gap-1">
+            Belum memiliki akun?
+            <Link href="/auth/register" className="text-primary hover:underline">
+              Daftar
+            </Link>
+          </span>
+        </form>
+      </Form>
     </div>
   );
 };

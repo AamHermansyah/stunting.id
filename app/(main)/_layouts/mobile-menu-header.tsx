@@ -14,8 +14,13 @@ import { IoMdClose } from 'react-icons/io'
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import MobileNavHeaderLinks from '../_components/mobile-nav-header-links'
+import { AuthCookie } from '@/types'
 
-function MobileMenuHeader() {
+interface IProps {
+  authCookie?: AuthCookie;
+}
+
+function MobileMenuHeader({ authCookie }: IProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -26,14 +31,16 @@ function MobileMenuHeader() {
       <DropdownMenuContent className="block lg:hidden w-[200px] -translate-x-2">
         <DropdownMenuLabel>Navigasi</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <MobileNavHeaderLinks />
-        <DropdownMenuItem>
-          <Link href='/auth/login'>
-            <Button size="sm" className="w-full">
-              Login
-            </Button>
-          </Link>
-        </DropdownMenuItem>
+        <MobileNavHeaderLinks authCookie={authCookie} />
+        {!authCookie && (
+          <DropdownMenuItem>
+            <Link href='/auth/login'>
+              <Button size="sm" className="w-full">
+                Login
+              </Button>
+            </Link>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

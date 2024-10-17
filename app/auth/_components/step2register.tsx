@@ -1,8 +1,7 @@
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useTransition } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { registerPage2Schema } from "@/schemas/register";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -15,9 +14,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { createUserInformation } from "@/actions/register2";
+import { updateUserInformation } from "@/actions/register2";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation"; // Correct Import
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { kecamatanList } from "@/constants";
+import { VscLoading } from "react-icons/vsc";
 
 interface IProps {
   onClickBack: () => void;
@@ -26,8 +28,7 @@ interface IProps {
 
 const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {
   const [loading, startCreate] = useTransition();
-  const [showNIK, setShowNIK] = useState(false);
-  const router = useRouter(); // Correct usage of useRouter
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof registerPage2Schema>>({
     resolver: zodResolver(registerPage2Schema),
@@ -40,11 +41,10 @@ const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {
 
   const onSubmit = async (data: z.infer<typeof registerPage2Schema>) => {
     startCreate(() => {
-      createUserInformation(data, userEmail)
+      updateUserInformation(data, userEmail)
         .then((res) => {
           if (res.success) {
-            toast.success("Akun berhasil dibuat");
-            router.push("/auth/login"); // Redirect to login page after success
+            router.push("/auth/login");
           } else {
             toast.error(res.error);
           }
@@ -85,10 +85,31 @@ const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {
                 name="kecamatan"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="sm:text-right">Kecamatan</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="Masukan Kecamatan anda" disabled={loading} />
-                    </FormControl>
+                    <FormLabel>Kecamatan</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={loading}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Pilih kecamatan" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Kecamatan</SelectLabel>
+                          {kecamatanList.map((item) => (
+                            <SelectItem
+                              value={item.value}
+                              key={item.id}
+                            >
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -99,34 +120,30 @@ const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="sm:text-right">NIK</FormLabel>
-                    <div className="relative">
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type={showNIK ? "text" : "password"}
-                          placeholder="Masukan NIK anda"
-                          disabled={loading}
-                        />
-                      </FormControl>
-                      <button
-                        type="button"
-                        className="absolute bottom-3 right-0 pr-3 flex items-center"
-                        onClick={() => setShowNIK(!showNIK)}
-                      >
-                        {showNIK ? (
-                          <FaEyeSlash className=" text-gray-500" />
-                        ) : (
-                          <FaEye className=" text-gray-500" />
-                        )}
-                      </button>
-                    </div>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Masukan NIK anda"
+                        disabled={loading}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
           </div>
-          <Button type="submit" variant={"default"} className="w-full mt-4">
+          <Button
+            type="submit"
+            variant="default"
+            className="w-full mt-4 gap-2"
+            disabled={loading}
+          >
+            {loading && (
+              <VscLoading
+                className="animate-spin"
+              />
+            )}
             Buat Akun
           </Button>
           <Button
@@ -134,6 +151,7 @@ const Step2Register: React.FC<IProps> = ({ onClickBack, userEmail }) => {
             variant={"outline"}
             className="w-full mt-2"
             onClick={onClickBack}
+            disabled={loading}
           >
             Kembali
           </Button>

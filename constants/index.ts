@@ -4,20 +4,19 @@ import { BiSolidChart } from 'react-icons/bi'
 import { SidebarLabel, SidebarNavItem } from '@/types'
 import { TbLayoutDashboardFilled } from "react-icons/tb"
 import { FaUsersCog } from "react-icons/fa"
-import { PiGearFill } from "react-icons/pi"
 import { IoLogOut } from "react-icons/io5"
 import { RiAdminFill } from "react-icons/ri";
 import { Hospital, Newspaper, ClipboardPlus, LayoutDashboard } from 'lucide-react';
 import { FaUserCircle } from "react-icons/fa";
+import { Role } from "@prisma/client"
 
 
 export const NAVBAR = [
   {
     id: 'navbar-1',
     href: '/dashboard',
-    label: 'Dashboard', 
+    label: 'Dashboard',
     Icon: LayoutDashboard
- 
   },
   {
     id: 'navbar-2',
@@ -134,27 +133,32 @@ export const navigation = [
   {
     id: 'dashboard-user',
     href: '/dashboard',
-    title: 'Dashboard User'
+    title: 'Dashboard',
+    role: ['USER'] as Role[]
   },
   {
     id: 'dashboard-admin',
     href: '/management',
-    title: 'Dashboard Admin'
+    title: 'Dashboard',
+    role: ['KADER', 'KEPALA_KADER'] as Role[]
   },
   {
     id: 'cek-stunting',
     href: '/cek-stunting',
-    title: 'Cek Stunting'
+    title: 'Cek Stunting',
+    role: [] as Role[]
   },
   {
     id: 'konsultasi',
     href: '/puskesmas',
-    title: 'Konsultasi'
+    title: 'Konsultasi',
+    role: [] as Role[]
   },
   {
     id: 'artikel',
     href: '/artikel',
-    title: 'Artikel'
+    title: 'Artikel',
+    role: [] as Role[]
   },
 ]
 

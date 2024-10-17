@@ -43,15 +43,11 @@ const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
       createAccount(data)
         .then((res) => {
           if (res.success) {
-            toast.success('Berhasil')
+            toast.success('Berhasil membuat akun!')
             onClickNext(data.email);
           } else {
             toast.error(res.error);
           }
-        })
-        .catch(() => {
-          // Error handling jika terjadi kesalahan lainnya
-          toast.error("Terjadi kesalahan. Coba lagi nanti.");
         });
     });
   };
