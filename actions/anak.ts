@@ -10,7 +10,7 @@ export const createChildren =  async (values:z.infer<typeof childSchema>, id:str
       data: {
         userId: id,
         name: `${values.firstName} ${values.lastName ? ` ${values.lastName}` : ''}`,
-        birthDate: values.birthDate,
+        birthDate: new Date(values.birthDate),
         gender: values.gender,
         bloodType: values.bloodType,
         height: +values.height,
@@ -23,7 +23,7 @@ export const createChildren =  async (values:z.infer<typeof childSchema>, id:str
         fatherHeight: +values.fatherHeight
       }
     });
-
+    
     return {
       success: 'success', 
       data: child

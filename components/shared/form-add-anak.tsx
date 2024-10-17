@@ -56,17 +56,17 @@ function FormAddAnak() {
   });
 
   const onSubmit = async (data: z.infer<typeof childSchema>) => {
-      // startCreate(() => {
-      //   createChildren(data)
-      //     .then((res) => {
-      //     if (res.success){
-      //       toast.success('Berhasil menambahkan anak')
-      //       console.log('ok')
-      //     } else {
-      //       toast.error(res.error);
-      //     }
-      //     })
-      // })
+      startCreate(() => {
+        createChildren(data, 'cm2bz7nxq0000saja1z3y8lxf')
+          .then((res) => {
+          if (res.success){
+            toast.success('Berhasil menambahkan anak')
+            navigate.push('/dashboard')
+          } else {
+            toast.error(res.error);
+          }
+          })
+      })
   };
 
   return (
