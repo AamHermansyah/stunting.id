@@ -11,7 +11,4 @@ export const kaderSchema = z.object({
   gender: z.enum(["LAKI_LAKI", "PEREMPUAN"], {
     errorMap: () => ({ message: "Jenis kelamin diperlukan" }),
   }),
-  dateOfBirth: z.string().refine((date) => !isNaN(Date.parse(date)), {
-    message: "Tanggal lahir tidak valid",
-  }),
 });
