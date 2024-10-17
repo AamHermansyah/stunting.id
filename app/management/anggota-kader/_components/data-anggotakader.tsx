@@ -21,11 +21,10 @@ import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
 import { FaEllipsis } from "react-icons/fa6";
-import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 import axios from "axios";
-import { toast } from "@/components/ui/use-toast"; // Import ShadCN toast
 import ConfirmationModal from "./ConfirmationModal";
+import { toast } from "sonner";
 
 interface Kader {
   id: string;
@@ -70,7 +69,7 @@ const DataAnggotaKader = () => {
       kader.name.toLowerCase().includes(search.toLowerCase()) ||
       kader.nik.includes(search) ||
       kader.email.toLowerCase().includes(search.toLowerCase()) ||
-      kader.address.toLowerCase().includes(search.toLowerCase()) 
+      kader.address.toLowerCase().includes(search.toLowerCase())
   );
 
   const openDeleteModal = (id: string) => {
@@ -85,19 +84,9 @@ const DataAnggotaKader = () => {
         setData((prevData) =>
           prevData.filter((kader) => kader.id !== selectedKaderId)
         );
-        toast({
-          title: "Berhasil",
-          description: "Data kader berhasil dihapus.",
-          variant: "default",
-        });
+        toast.error('Data kader berhasil dihapus.');
       } catch (err: any) {
-        toast({
-          title: "Error",
-          description:
-            err.response?.data?.message ||
-            "Terjadi kesalahan saat menghapus kader.",
-          variant: "destructive",
-        });
+        toast.error(err.response?.data?.message || 'Terjadi kesalahan saat menghapus kader.');
       } finally {
         setDeleteModalOpen(false);
         setSelectedKaderId(null);

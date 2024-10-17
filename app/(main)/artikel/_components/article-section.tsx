@@ -11,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { useToast } from '@/components/ui/use-toast'
 import { artikelKategoriList } from '@/constants'
 import { useEffect, useState } from 'react'
 import { FaFaceSadCry } from 'react-icons/fa6'
@@ -20,6 +19,7 @@ import DelayedInput from '@/components/shared/input-delayed'
 import { Article } from '@/types'
 import { PageInfo } from '../types'
 import Link from 'next/link'
+import { toast } from 'sonner'
 
 function ArticleSection() {
   const [articles, setArticles] = useState<Article[] | null>(null);
@@ -28,8 +28,6 @@ function ArticleSection() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const { toast } = useToast();
 
   const handleLoadMore = () => {
     setCurrentPage((prev) => prev + 1);
@@ -50,11 +48,7 @@ function ArticleSection() {
       .then((res) => res.json())
       .then((res) => {
         if (res.status === 500) {
-          toast({
-            title: 'Error!',
-            description: 'Artikel gagal diunggah. Coba beberapa saat lagi!',
-            variant: 'destructive'
-          });
+          toast.error('Artikel gagal diunggah. Coba beberapa saat lagi!');
           return;
         }
 
@@ -66,11 +60,7 @@ function ArticleSection() {
         setLoading(false);
       })
       .catch((error) => {
-        toast({
-          title: 'Error',
-          description: (error as Error).message,
-          variant: 'destructive'
-        });
+        toast.error((error as Error).message);
       })
   }, [search, category, currentPage]);
 

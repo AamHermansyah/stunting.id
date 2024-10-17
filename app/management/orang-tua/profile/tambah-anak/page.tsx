@@ -1,12 +1,12 @@
-import FormAddAnak from '@/app/dashboard/tambah-anak/_components/form-add-anak'
+import FormAddAnak from '@/components/shared/form-add-anak'
 import React from 'react'
 
-const page = () => {
+const AddChildrenPage = () => {
   return (
     <div>
-      <FormAddAnak cancel="/management/orang-tua/profile"/>
+      <FormAddAnak />
     </div>
   )
 }
 
-export default page
+export default AddChildrenPage

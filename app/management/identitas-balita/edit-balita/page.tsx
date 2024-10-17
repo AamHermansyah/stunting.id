@@ -1,12 +1,12 @@
-import FormAddAnak from '@/app/dashboard/tambah-anak/_components/form-add-anak'
+import FormAddAnak from '@/components/shared/form-add-anak'
 import React from 'react'
 
-const EditBalita = () => {
+const EditChildrenPage = () => {
   return (
     <div>
-      <FormAddAnak cancel="/management/identitas-balita"/>
+      <FormAddAnak />
     </div>
   )
 }
 
-export default EditBalita
+export default EditChildrenPage

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient, Gender } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
   const { id } = params;
   try {
-    const { name, nik, email, address, gender, dateOfBirth } = await request.json();
+    const { name, nik, email, address, gender } = await request.json();
 
     const existingKader = await prisma.user.findUnique({
       where: { id },
@@ -24,8 +24,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         nik,
         email,
         address,
-        gender: gender as Gender,
-        dateOfBirth: new Date(dateOfBirth),
+        gender: gender,
       },
     });
 

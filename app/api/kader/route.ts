@@ -1,13 +1,13 @@
 // app/api/kader/route.ts
 import { NextResponse } from 'next/server';
-import { PrismaClient, Role, Gender } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 import bcrypt from 'bcrypt'; // Disarankan menggunakan bcryptjs
 
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
-    const { name, nik, email, address, gender, dateOfBirth } = await request.json();
+    const { name, nik, email, address, gender } = await request.json();
 
     // Validasi tambahan jika diperlukan
 
@@ -34,14 +34,13 @@ export async function POST(request: Request) {
         nik,
         email,
         address,
-        gender: gender as Gender, 
-        dateOfBirth: new Date(dateOfBirth),
-        role: Role.KADER, 
-        password: hashedPassword, 
-        district: "", 
+        gender: gender,
+        role: Role.KADER,
+        password: hashedPassword,
+        district: "",
       },
     });
-    
+
 
     return NextResponse.json(newUser, { status: 201 });
   } catch (error) {
@@ -63,7 +62,6 @@ export async function GET(request: Request) {
         email: true,
         address: true,
         gender: true,
-        dateOfBirth: true,
         role: true,
       },
     });

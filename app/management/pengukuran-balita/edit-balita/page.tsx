@@ -4,7 +4,7 @@ import React from 'react'
 const EditBalita = () => {
   return (
     <div>
-      <FormAddAnak cancel="/management/pengukuran-balita"/>
+      <FormAddAnak />
     </div>
   )
 }

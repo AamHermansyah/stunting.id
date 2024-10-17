@@ -27,11 +27,11 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { kecamatanList } from "@/constants";
-import { useToast } from "@/components/ui/use-toast";
 import { VscLoading } from "react-icons/vsc";
 import { RowCSVStuntingCheck } from "@/types";
 import useStuntingCheck from "../_stores/use-stunting-check";
 import { stuntingCheckSchema } from "@/schemas/check-stunting";
+import { toast } from "sonner";
 
 const StuntingCheckForm = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -43,7 +43,6 @@ const StuntingCheckForm = () => {
   const form = useForm<z.infer<typeof stuntingCheckSchema>>({
     resolver: zodResolver(stuntingCheckSchema)
   });
-  const { toast } = useToast();
 
   const handleBBU = (row: RowCSVStuntingCheck, weight: number) => {
     const { SDsNeg, SDsPos } = row;
@@ -75,10 +74,8 @@ const StuntingCheckForm = () => {
     const age = calculateMonthsDifference(data.DOB);
 
     if (age > 60) {
-      return toast({
-        title: 'Umur bayi melebihi batas!',
+      return toast.error('Umur bayi melebihi batas!', {
         description: 'Sistem kami hanya dapat melakukan pengecekan sampai umur 5 tahun.',
-        variant: 'destructive'
       });
     }
 
@@ -108,25 +105,19 @@ const StuntingCheckForm = () => {
             return;
           }
 
-          toast({
-            title: 'Terjadi kesalahan data.',
+          toast('Terjadi kesalahan data.', {
             description: 'Terdapat ketidaksesuaian data. Hubungi admin.',
-            variant: 'destructive'
           });
           return;
         }
 
-        toast({
-          title: 'Error: ' + res.status,
+        toast('Error: ' + res.status, {
           description: res.message,
-          variant: 'destructive'
         });
       })
       .catch((error) => {
-        toast({
-          title: 'Error',
+        toast('Error', {
           description: (error as Error).message,
-          variant: 'destructive'
         });
       })
       .finally(() => setLoading(false));

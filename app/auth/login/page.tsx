@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import LoginAkun from "../_components/login-akun";
 
 const Login = () => {
   return (
-    <LoginAkun />
+    <Suspense>
+      <LoginAkun />
+    </Suspense>
   );
 };
 
