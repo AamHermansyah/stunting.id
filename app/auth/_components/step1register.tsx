@@ -20,7 +20,7 @@ import { createAccount } from "@/actions/register1";
 import { toast } from "sonner";
 
 interface IProps {
-  onClickNext: (email: string) => void;
+  onClickNext: () => void;
 }
 
 const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
@@ -43,8 +43,8 @@ const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
       createAccount(data)
         .then((res) => {
           if (res.success) {
-            toast.success('Berhasil');
-            onClickNext(data.email);
+            toast.success('Berhasil')
+            console.log(data)
           } else {
             toast.error(res.error);
           }
@@ -178,12 +178,12 @@ const Step1Register: React.FC<IProps> = ({ onClickNext }) => {
           </div>
           <Button
             type="submit"
-            variant={"default"}
-            className="w-full mt-4"
+            variant="default"
+            className="w-full mt-4 gap-2"
             disabled={loading}
           >
             {loading && (
-              <VscLoading 
+              <VscLoading
                 className="animate-spin"
               />
             )}

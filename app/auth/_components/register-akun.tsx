@@ -15,8 +15,7 @@ const RegisterAkun = () => {
 
       {step === 1 && (
         <Step1Register
-          onClickNext={(email) => {  // Menerima email dari Step1Register
-            setUserEmail(email);     // Simpan email di state
+          onClickNext={() => {
             setStep(2);
           }}
         />
@@ -27,7 +26,6 @@ const RegisterAkun = () => {
           onClickBack={() => {
             setStep(1);
           }}
-          userEmail={userEmail}   // Kirimkan email ke Step2Register
         />
       )}
 
