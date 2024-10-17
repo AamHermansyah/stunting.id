@@ -30,7 +30,11 @@ import { toast } from "sonner";
 import { VscLoading } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 
-function FormAddAnak() {
+interface IProps {
+  id: string;
+}
+
+function FormAddAnak({ id }: IProps) {
   const [loading, startCreate] = useTransition();
 
   const navigate = useRouter()
@@ -52,7 +56,7 @@ function FormAddAnak() {
 
   const onSubmit = async (data: z.infer<typeof childSchema>) => {
     startCreate(() => {
-      createChildren(data, 'cm2bz7nxq0000saja1z3y8lxf')
+      createChildren(data, id)
         .then((res) => {
           if (res.success) {
             toast.success('Berhasil menambahkan anak')

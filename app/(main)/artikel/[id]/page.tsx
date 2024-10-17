@@ -7,7 +7,7 @@ import RelatedArticles from './_components/related-articles'
 import { formatCreatedAt } from '@/lib/utils'
 
 const article = {
-  title: 'Stunting: Masalah Gizi yang Perlu Diperhatikan',
+  title: 'Stunting: Masalah Nutrisi yang Perlu Diperhatikan',
   author: {
     name: 'Dr. Siti Rahmawati',
     image: '/images/doctor-icon.jpg',
@@ -16,12 +16,12 @@ const article = {
   image: '/images/puskesmas-1.jpg',
   alt_image: 'Ilustrasi anak-anak yang mengalami stunting.',
   content: `
-    <p>Stunting merupakan masalah gizi yang serius dan menjadi perhatian di banyak negara, termasuk Indonesia. Menurut World Health Organization (WHO), stunting adalah kondisi di mana anak-anak memiliki tinggi badan yang kurang dibandingkan standar untuk usianya, yang disebabkan oleh malnutrisi kronis.</p>
+    <p>Stunting merupakan masalah nutrisi yang serius dan menjadi perhatian di banyak negara, termasuk Indonesia. Menurut World Health Organization (WHO), stunting adalah kondisi di mana anak-anak memiliki tinggi badan yang kurang dibandingkan standar untuk usianya, yang disebabkan oleh malnutrisi kronis.</p>
     
     <h2>Apa Penyebab Stunting?</h2>
     <p>Penyebab stunting sangat kompleks dan dapat dipengaruhi oleh beberapa faktor, antara lain:</p>
     <ul>
-      <li>Asupan gizi yang tidak memadai selama masa kehamilan dan awal kehidupan.</li>
+      <li>Asupan nutrisi yang tidak memadai selama masa kehamilan dan awal kehidupan.</li>
       <li>Penyakit infeksi yang sering dialami anak, seperti diare dan infeksi saluran pernapasan.</li>
       <li>Kondisi lingkungan yang tidak bersih dan kurangnya akses terhadap air bersih.</li>
     </ul>
@@ -32,14 +32,14 @@ const article = {
     <h2>Upaya Penanggulangan Stunting</h2>
     <p>Pemerintah Indonesia telah melakukan berbagai upaya untuk menanggulangi stunting, termasuk:</p>
     <ul>
-      <li>Program penyuluhan gizi kepada masyarakat tentang pentingnya gizi seimbang bagi ibu hamil dan anak-anak.</li>
-      <li>Memberikan suplementasi gizi kepada anak-anak yang rentan.</li>
+      <li>Program penyuluhan nutrisi kepada masyarakat tentang pentingnya nutrisi seimbang bagi ibu hamil dan anak-anak.</li>
+      <li>Memberikan suplementasi nutrisi kepada anak-anak yang rentan.</li>
       <li>Memperbaiki akses terhadap air bersih dan sanitasi yang layak.</li>
     </ul>
     
     <p>Selain itu, peran keluarga dan masyarakat sangat penting dalam pencegahan stunting. Dengan memberikan nutrisi yang cukup dan perhatian terhadap kesehatan anak, kita dapat bersama-sama mencegah stunting dan memastikan generasi yang lebih sehat di masa depan.</p>
   `,
-  tags: 'Stunting,Gizi,Kesehatan,Anak',
+  tags: 'Stunting,Nutrisi,Kesehatan,Anak',
 };
 
 

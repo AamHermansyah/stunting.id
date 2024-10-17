@@ -11,7 +11,7 @@ const Hero = () => {
             Hayu baraya urang nyegah stunting!
           </h2>
           <p className="sm:text-lg">
-            Stunting merujuk pada kondisi gagal pertumbuhan pada anak akibat kekurangan gizi kronis. Oleh karena itu, upaya dalam melakukan pemantauan dan penanganan stunting.
+            Stunting merujuk pada kondisi gagal pertumbuhan pada anak akibat kekurangan nutrisi kronis. Oleh karena itu, upaya dalam melakukan pemantauan dan penanganan stunting.
           </p>
           <Link href="/cek-stunting">
             <Button className="w-max">Cek Stunting</Button>

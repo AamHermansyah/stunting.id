@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import CardProfileDetail from './card-profile-detail';
@@ -8,7 +8,7 @@ import { getChildren } from '@/actions/showAnak';
 interface ChildProfile {
   id: number;
   name: string;
-  birthDate: string; // Tetap sebagai string
+  birthDate: string; 
   gender: string;
   bloodType: string;
   height: number;
@@ -39,6 +39,7 @@ function Profile() {
     fetchChild();
   }, []);
 
+  // Fungsi untuk menghitung selisih tahun dan bulan
   const calculateMonthDifference = (startDate: string, endDate: Date) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -47,10 +48,11 @@ function Profile() {
       return 'Invalid Date';
     }
 
-    const yearsDifference = end.getFullYear() - start.getFullYear();
-    const monthsDifference = end.getMonth() - start.getMonth();
+    const totalMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
 
-    return yearsDifference * 12 + monthsDifference;
+    return `${years} Tahun ${months} Bulan`;
   };
 
   return (
@@ -63,10 +65,7 @@ function Profile() {
           <span className="text-sm text-muted-foreground/70">
             {loading
               ? 'Memuat...'
-              : `0 Tahun ${calculateMonthDifference(
-                  child?.birthDate || '',
-                  new Date()
-                )} Bulan`}
+              : calculateMonthDifference(child?.birthDate || '', new Date())}
           </span>
         </div>
       </div>

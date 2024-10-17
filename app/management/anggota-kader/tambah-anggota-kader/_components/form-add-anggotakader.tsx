@@ -116,17 +116,6 @@ function FormAddAnggotaKader() {
           )}
         </div>
 
-        {/* Tanggal Lahir */}
-        <div className="w-full">
-          <Label htmlFor="dateOfBirth">
-            Tanggal Lahir <span className="text-red-500">*</span>
-          </Label>
-          <Input id="dateOfBirth" type="date" {...form.register("dateOfBirth")} />
-          {form.formState.errors.dateOfBirth && (
-            <p className="text-red-500 text-sm">{form.formState.errors.dateOfBirth.message}</p>
-          )}
-        </div>
-
         {/* Alamat */}
         <div className="w-full">
           <Label htmlFor="address">

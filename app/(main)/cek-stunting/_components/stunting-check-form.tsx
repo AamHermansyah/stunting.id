@@ -153,7 +153,7 @@ const StuntingCheckForm = () => {
         <div className="col-span-6 lg:col-span-5 flex flex-col justify-center mb-10 md:mb-0">
           <h2 className="text-2xl md:text-4xl font-bold">Cek Status Stunting</h2>
           <p className="font-light mt-4 mb-6 text-justify">
-            Mari bersama-sama mencegah stunting dan memastikan pertumbuhan anak-anak kita yang sehat dan optimal. Cegah stunting dengan memberikan pola makan yang seimbang dan bergizi tinggi, yang terdiri dari makanan yang kaya akan vitamin dan mineral. Pastikan juga anak-anak kita mendapatkan ASI eksklusif selama enam bulan pertama kehidupan mereka.
+            Mari bersama-sama mencegah stunting dan memastikan pertumbuhan anak-anak kita yang sehat dan optimal. Cegah stunting dengan memberikan pola makan yang seimbang dan bernutrisi tinggi, yang terdiri dari makanan yang kaya akan vitamin dan mineral. Pastikan juga anak-anak kita mendapatkan ASI eksklusif selama enam bulan pertama kehidupan mereka.
           </p>
         </div>
         <div className="md:max-w-[600px] col-span-6 lg:col-span-7 min-h-[450px] overflow-y-auto custom-scrollbar">

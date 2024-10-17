@@ -2,8 +2,12 @@ import React from 'react'
 import ChildrenProfile from './_components/children-profile'
 import LatesArticles from './_components/latest-articles'
 import Image from 'next/image'
+import { cookies } from 'next/headers'
+import { AuthCookie } from '@/types'
 
 const DashboardHomePage = () => {
+  const authCookie = cookies().get('auth')
+  const user = JSON.parse(authCookie!.value) as AuthCookie
   return (
     <>
       <div className="relative rounded-lg overflow-hidden">
@@ -24,7 +28,7 @@ const DashboardHomePage = () => {
           </p>
         </div>
       </div>
-      <ChildrenProfile detail="/dashboard/profile-anak" add='/dashboard/tambah-anak' />
+      <ChildrenProfile detail="/dashboard/profile-anak" add='/dashboard/tambah-anak' id={user.id} />
       <LatesArticles />
     </>
   )

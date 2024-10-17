@@ -10,13 +10,13 @@ const data = [
     percentColor: 'text-red-500',
     percent: '40%',
     title: 'Terkena Stunting',
-    description: 'Angka ini menunjukkan bahwa masih ada sejumlah besar anak yang rentan terhadap stunting dan membutuhkan perhatian serius dalam hal pemenuhan gizi.',
+    description: 'Angka ini menunjukkan bahwa masih ada sejumlah besar anak yang rentan terhadap stunting dan membutuhkan perhatian serius dalam hal pemenuhan nutrisi.',
   },
   {
     percentColor: 'text-primary',
     percent: '30%',
     title: 'Sehat & Bebas dari Stunting',
-    description: 'Adanya upaya yang telah dilakukan dalam meningkatkan kesadaran akan pentingnya gizi yang baik serta upaya pencegahan stunting di kalangan masyarakat dan pemerintah setempat.',
+    description: 'Adanya upaya yang telah dilakukan dalam meningkatkan kesadaran akan pentingnya nutrisi yang baik serta upaya pencegahan stunting di kalangan masyarakat dan pemerintah setempat.',
   },
   {
     percentColor: 'text-gray-400',
