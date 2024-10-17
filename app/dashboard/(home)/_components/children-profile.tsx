@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { FiPlus } from "react-icons/fi";
 import ProfileCard from "./profile-card";
-import NotFilled from "@/components/shared/please-fill-out"; // Make sure to import the NotFilled component
+import NotFilled from "@/components/shared/please-fill-out";
 import { getChildren } from "@/actions/showAnak";
 
 interface IProps {
@@ -13,11 +13,36 @@ interface IProps {
   add: string;
 }
 
+interface WrapperProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const Wrapper: React.FC<WrapperProps> = ({ title, children }) => (
+  <div className="flex flex-col rounded-lg px-4 py-4 shadow-sm border bg-white">
+    <div className="flex justify-between">
+      <span className="font-medium text-xl">{title}</span>
+      <BsArrowRight fontSize={24} className="my-auto" />
+    </div>
+    {children}
+  </div>
+);
+
+const LoadingPlaceholder = () => (
+  <div className="flex flex-col items-center mt-4 mb-10 animate-pulse">
+    <NotFilled
+      image='/images/User_empty.svg'
+      label="Sedang memuat profil anak"
+      des="Loading..."
+    />
+  </div>
+);
+
 const calculateAge = (birthDate: Date) => {
   const birth = new Date(birthDate);
   const now = new Date();
   let ageInMonths = (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth());
-  
+
   if (now.getDate() < birth.getDate()) {
     ageInMonths--;
   }
@@ -47,16 +72,16 @@ function ChildrenProfile({ detail, add }: IProps) {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <Wrapper title="Profil anak">
+        <LoadingPlaceholder />
+      </Wrapper>
+    );
   }
 
   if (children.length === 0) {
     return (
-      <div className="flex flex-col  rounded-lg px-4 py-4 shadow-sm border bg-white">
-        <div className="flex justify-between">
-          <span className="font-medium text-xl">Profil anak</span>
-          <BsArrowRight fontSize={24} className="my-auto" />
-        </div>
+      <Wrapper title="Profil anak">
         <NotFilled
           image='/images/User_empty.svg'
           label="Profil Anak Anda Belum Terisi"
@@ -69,23 +94,17 @@ function ChildrenProfile({ detail, add }: IProps) {
             </button>
           </Link>
         </div>
-      </div>
+      </Wrapper>
     );
   }
 
   return (
-    <div className="flex flex-col rounded-lg px-4 py-4 shadow-sm border">
-      <Link href="#">
-        <div className="flex justify-between">
-          <span className="font-medium text-xl">Profil anak</span>
-          <BsArrowRight fontSize={24} className="my-auto" />
-        </div>
-      </Link>
+    <Wrapper title="Profil anak">
       <div className="flex overflow-x-auto flex-row gap-4">
         {children.map((child) => (
           <ProfileCard
             key={child.id}
-            profile='/images/AvatarProfile-example1.png' // Replace with actual image path if available
+            profile='/images/AvatarProfile-example1.png'
             nama={child.name}
             umur={calculateAge(child.birthDate)}
             tinggi={child.height.toString()}
@@ -93,6 +112,8 @@ function ChildrenProfile({ detail, add }: IProps) {
             kepala={child.headCircumference.toString()}
             lengan={child.armCircumference.toString()}
             detail={`${detail}/${child.id}`}
+            childId={child.id}
+            userId={userId}
           />
         ))}
         <div className="flex flex-col justify-center min-h-[300px]">
@@ -109,7 +130,7 @@ function ChildrenProfile({ detail, add }: IProps) {
           </Link>
         </div>
       </div>
-    </div>
+    </Wrapper>
   );
 }
 
