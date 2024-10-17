@@ -1,12 +1,21 @@
 import ChildrenProfile from '@/app/dashboard/(home)/_components/children-profile'
+import { AuthCookie } from '@/types';
+import { cookies } from 'next/headers';
 import React from 'react'
 
-const page = () => {
+const ProfilePage = () => {
+  const authCookie = cookies().get('auth');
+  const user = JSON.parse(authCookie!.value) as AuthCookie;
+
   return (
     <div>
-      <ChildrenProfile detail='/management/orang-tua/profile/detail-anak' add='/management/orang-tua/profile/tambah-anak'/>
+      <ChildrenProfile
+        id={user.id}
+        detail='/management/orang-tua/profile/detail-anak'
+        add='/management/orang-tua/profile/tambah-anak'
+      />
     </div>
   )
 }
 
-export default page
+export default ProfilePage
