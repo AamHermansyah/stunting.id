@@ -11,6 +11,7 @@ import { getChildren } from "@/actions/showAnak";
 interface IProps {
   detail: string;
   add: string;
+  id: string;
 }
 
 interface WrapperProps {
@@ -18,7 +19,7 @@ interface WrapperProps {
   children: React.ReactNode;
 }
 
-const Wrapper: React.FC<WrapperProps> = ({ title, children }) => (
+const Wrapper: React.FC<WrapperProps> = ({ title, children, }) => (
   <div className="flex flex-col rounded-lg px-4 py-4 shadow-sm border bg-white">
     <div className="flex justify-between">
       <span className="font-medium text-xl">{title}</span>
@@ -53,10 +54,10 @@ const calculateAge = (birthDate: Date) => {
   return years > 0 ? `${years} tahun ${months} bulan` : `${months} bulan`;
 };
 
-function ChildrenProfile({ detail, add }: IProps) {
+function ChildrenProfile({ detail, add, id }: IProps) {
   const [children, setChildren] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const userId = 'cm2bz7nxq0000saja1z3y8lxf'; // ganti dengan user Dynamic
+  const userId = id; 
 
   useEffect(() => {
     const fetchChildren = async () => {
