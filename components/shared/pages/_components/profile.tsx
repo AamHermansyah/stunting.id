@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 interface ChildProfile {
   id: number;
   name: string;
-  birthDate: Date; // Ubah menjadi Date
+  birthDate: Date; 
   gender: string;
   bloodType: string;
   height: number;
@@ -29,8 +29,7 @@ function Profile({ userId }: ProfileProps) {
   const [child, setChild] = useState<ChildProfile | null>(null);
   const [loading, setLoading] = useState(true);
   
-  // Extract the child ID from the pathname
-  const childId = pathname.split('/').pop(); // Assuming the ID is the last part of the URL
+  const childId = pathname.split('/').pop(); 
   
   useEffect(() => {
     const fetchChild = async () => {
@@ -38,7 +37,7 @@ function Profile({ userId }: ProfileProps) {
       if (res.success && res.data.length > 0) {
         const fetchedChild = res.data.find((child: ChildProfile) => child.id.toString() === childId);
         if (fetchedChild) {
-          setChild(fetchedChild); // Tidak perlu mengubah birthDate
+          setChild(fetchedChild); 
         }
       }
       setLoading(false);
