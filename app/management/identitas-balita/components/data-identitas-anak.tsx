@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import {
   Table,
@@ -24,34 +22,47 @@ import { FiEye } from "react-icons/fi";
 import { FaEllipsis } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
+import { getAllChildren } from "@/data/child";
 
-const DataIdentitasAnak = () => {
-  const data = [
-    {
-      namaBalita: "Mujahid",
-      gender: "Laki-laki",
-      tanggalLahir: "31-06-2023",
-      namaOrangTua: "Abdullah",
-      nik: "5315034107700131",
-      alamat: "Jl. Juanda No. 47",
+interface User {
+  id: string;
+  role: string;
+  address: string | null;
+  image: string | null;
+  name: string;
+  gender: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  email: string;
+  emailVerified: Date | null;
+  password: string;
+  district: string | null;
+  nik: string | null;
+}
+
+interface Child {
+  id: string;
+  name: string;
+  gender: string;
+  birthDate: Date;
+  User: User;
+}
+
+const fetchChildren = async (): Promise<Child[]> => {
+  const data = await getAllChildren();
+  const formattedData = data.map((child) => ({
+    ...child,
+    id: child.id.toString(),
+    User: {
+      ...child.User,
+      id: child.User.id.toString(),
     },
-    {
-      namaBalita: "Ahmad",
-      gender: "Laki-laki",
-      tanggalLahir: "24-04-2023",
-      namaOrangTua: "Abdullah",
-      nik: "5313034107700131",
-      alamat: "Jl. Juanda No. 54",
-    },
-    {
-      namaBalita: "Syafira",
-      gender: "Perempuan",
-      tanggalLahir: "23-02-2023",
-      namaOrangTua: "Abdullah",
-      nik: "5315034103000131",
-      alamat: "Jl. Juanda No. 23",
-    },
-  ];
+  }));
+  return formattedData;
+};
+
+const DataIdentitasAnak = async () => {
+  const children = await fetchChildren();
 
   return (
     <div className="border rounded space-y-4 bg-white">
@@ -78,7 +89,7 @@ const DataIdentitasAnak = () => {
               <Image src="/images/filter.svg" fill={true} alt="filter" />
             </div>
           </Button>
-          {/* <Button>Import Data Identitas Balita</Button> */}
+          <Button>Import Data Identitas Balita</Button>
         </div>
       </div>
 
@@ -95,14 +106,16 @@ const DataIdentitasAnak = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((item, index) => (
-            <TableRow key={index}>
-              <TableCell>{item.namaBalita}</TableCell>
-              <TableCell>{item.gender}</TableCell>
-              <TableCell>{item.tanggalLahir}</TableCell>
-              <TableCell>{item.namaOrangTua}</TableCell>
-              <TableCell>{item.nik}</TableCell>
-              <TableCell>{item.alamat}</TableCell>
+          {children.map((child) => (
+            <TableRow key={child.id}>
+              <TableCell>{child.name}</TableCell>
+              <TableCell>{child.gender}</TableCell>
+              <TableCell>
+                {new Date(child.birthDate).toLocaleDateString()}
+              </TableCell>
+              <TableCell>{child.User.name}</TableCell>
+              <TableCell>{child.User.nik}</TableCell>
+              <TableCell>{child.User.address}</TableCell>
               <TableCell className="text-center">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -123,7 +136,7 @@ const DataIdentitasAnak = () => {
                         className="w-full flex items-center gap-2"
                         target="_blank"
                         rel="noopener noreferrer"
-                        href={"/management/identitas-balita/detail-anak"}
+                        href={`/management/identitas-balita/detail-anak/${child.id}`}
                       >
                         <FiEye /> Detail
                       </Link>
@@ -133,7 +146,7 @@ const DataIdentitasAnak = () => {
                         className="w-full flex items-center gap-2"
                         target="_blank"
                         rel="noopener noreferrer"
-                        href={"/management/identitas-balita/edit-balita"}
+                        href={`/management/identitas-balita/edit-balita/${child.id}`}
                       >
                         <FaEdit /> Edit
                       </Link>

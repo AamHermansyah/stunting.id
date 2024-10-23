@@ -19,3 +19,18 @@ export const getChildById = async (id: number, userId: string) => {
     return { error: 'Internal server error' }
   }
 }
+
+export const getAllChildren = async () => {
+  try {
+    const children = await prisma.child.findMany({
+      include: {
+        User: true,
+      },
+    });
+
+    return children;
+  } catch (error) {
+    console.error("Error fetching children data:", error);
+    return [];
+  }
+};
