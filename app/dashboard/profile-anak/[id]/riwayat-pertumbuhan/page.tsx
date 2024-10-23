@@ -1,15 +1,15 @@
 "use client";
 
-import { ChildProfielSection } from '@/components/shared/pages/child-profile-section'
-import { useParams } from 'next/navigation';
 import React from 'react'
+import GrowHistorySection from '@/components/shared/pages/grow-history-section'
+import { useParams } from 'next/navigation';
 
-function ProfileAnakPage() {
+const RiwayatPertumbuhan = () => {
   const { id } = useParams();
 
   return (
     <>
-      <ChildProfielSection
+      <GrowHistorySection
         profile={`/dashboard/profile-anak/${id}`}
         diary={`/dashboard/profile-anak/${id}/diary-anak`}
         history={`/dashboard/profile-anak/${id}/riwayat-pertumbuhan`} 
@@ -18,4 +18,4 @@ function ProfileAnakPage() {
   )
 }
 
-export default ProfileAnakPage
+export default RiwayatPertumbuhan
