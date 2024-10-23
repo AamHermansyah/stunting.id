@@ -1,10 +1,10 @@
 import React from 'react'
-import DataIdentitasAnak from './components/data-identitas-anak'
+import DataIdentitasAnak from './_components/data-identitas-anak'
 
-const IdentitasBalitaPage = () => {
+const IdentitasBalitaPage = ({ searchParams }: { searchParams: { query: string } }) => {
   return (
     <>
-      <DataIdentitasAnak />
+      <DataIdentitasAnak searchParams={searchParams}/>
     </>
   )
 }

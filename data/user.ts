@@ -7,10 +7,10 @@ export const getAllUsers = async (searchQuery: string | null = null) => {
         ? {
             name: {
               contains: searchQuery,
-              mode: 'insensitive', // Agar pencarian tidak case-sensitive
+              mode: 'insensitive', 
             },
           }
-        : {}, // Jika tidak ada query, ambil semua data
+        : {}, 
       include: {
         _count: {
           select: { Child: true },

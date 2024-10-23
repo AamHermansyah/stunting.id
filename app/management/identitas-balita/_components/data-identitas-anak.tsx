@@ -48,9 +48,19 @@ interface Child {
   User: User;
 }
 
-const fetchChildren = async (): Promise<Child[]> => {
+// Fungsi untuk mendapatkan anak dan memfilter berdasarkan query
+const fetchChildren = async (query: string): Promise<Child[]> => {
   const data = await getAllChildren();
-  const formattedData = data.map((child) => ({
+
+  // Filter berdasarkan query (nama balita, nama orang tua, atau NIK)
+  const filteredData = data.filter(
+    (child) =>
+      child.name.toLowerCase().includes(query.toLowerCase()) ||
+      child.User.name.toLowerCase().includes(query.toLowerCase()) ||
+      (child.User.nik && child.User.nik.includes(query))
+  );
+
+  const formattedData = filteredData.map((child) => ({
     ...child,
     id: child.id.toString(),
     User: {
@@ -58,29 +68,32 @@ const fetchChildren = async (): Promise<Child[]> => {
       id: child.User.id.toString(),
     },
   }));
+
   return formattedData;
 };
 
-const DataIdentitasAnak = async () => {
-  const children = await fetchChildren();
+const DataIdentitasAnak = async ({ searchParams }: { searchParams: { query: string } }) => {
+  const query = searchParams.query || ""; // Mendapatkan query dari searchParams
+  const children = await fetchChildren(query); // Panggil fetchChildren dengan query pencarian
 
   return (
     <div className="border rounded space-y-4 bg-white">
       <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">
-        <h1 className="text-base sm:text-lg font-semibold">
-          Data Identitas Balita
-        </h1>
+        <h1 className="text-base sm:text-lg font-semibold">Data Identitas Balita</h1>
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-          {/* Search Bar */}
           <div className="relative w-full sm:w-auto">
-            <input
-              type="text"
-              className="w-full sm:w-64 md:w-80 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
-              placeholder="Cari data balita"
-            />
-            <div className="absolute inset-y-0 right-3 flex items-center text-black">
-              <CiSearch fontSize={25} />
-            </div>
+            <form method="GET"> 
+              <input
+                type="text"
+                name="query" 
+                className="w-full sm:w-64 md:w-80 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+                placeholder="Cari data balita"
+                defaultValue={query} 
+              />
+              <div className="absolute inset-y-0 right-3 flex items-center text-black">
+                <CiSearch fontSize={25} />
+              </div>
+            </form>
           </div>
 
           <Button variant={"outline"} className="gap-2 font-semibold">
@@ -89,7 +102,6 @@ const DataIdentitasAnak = async () => {
               <Image src="/images/filter.svg" fill={true} alt="filter" />
             </div>
           </Button>
-          <Button>Import Data Identitas Balita</Button>
         </div>
       </div>
 
@@ -110,9 +122,7 @@ const DataIdentitasAnak = async () => {
             <TableRow key={child.id}>
               <TableCell>{child.name}</TableCell>
               <TableCell>{child.gender}</TableCell>
-              <TableCell>
-                {new Date(child.birthDate).toLocaleDateString()}
-              </TableCell>
+              <TableCell>{new Date(child.birthDate).toLocaleDateString()}</TableCell>
               <TableCell>{child.User.name}</TableCell>
               <TableCell>{child.User.nik}</TableCell>
               <TableCell>{child.User.address}</TableCell>
@@ -127,10 +137,7 @@ const DataIdentitasAnak = async () => {
                       <FaEllipsis />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    align="end"
-                    className="w-[200px] space-y-1"
-                  >
+                  <DropdownMenuContent align="end" className="w-[200px] space-y-1">
                     <DropdownMenuItem>
                       <Link
                         className="w-full flex items-center gap-2"
