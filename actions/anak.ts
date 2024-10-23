@@ -4,6 +4,8 @@ import { prisma } from "@/db";
 import { childSchema } from "@/schemas/anak";
 import { z } from "zod";
 
+const allowedRoles = ["KADER", "KEPALA_KADER"];
+
 export const createChild = async (values: z.infer<typeof childSchema>, userId: string) => {
   try {
     const child = await prisma.child.create({
@@ -43,7 +45,7 @@ export const updateChild = async (values: z.infer<typeof childSchema>, id: numbe
 
     if (!user || !child) return { error: 'Data tidak ditemukan!' };
 
-    if (user.id !== child.userId) return { error: 'Unauthorized' };
+    if (user.id !== child.userId && !allowedRoles.includes(user.role) ) return { error: 'Unauthorized' };
 
     const updatedChild = await prisma.child.update({
       where: { id: child.id },

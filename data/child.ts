@@ -1,5 +1,7 @@
 import { prisma } from "@/db"
 
+const allowedRoles = ["KADER", "KEPALA_KADER"];
+
 export const getChildById = async (id: number, userId: string) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: userId } });
@@ -10,7 +12,7 @@ export const getChildById = async (id: number, userId: string) => {
       return { error: 'Data tidak ditemukan!' }
     }
 
-    if (child.userId !== user.id) {
+    if (!allowedRoles.includes(user.role) && child.userId !== user.id) {
       return { error: 'Unauthorized' }
     }
 

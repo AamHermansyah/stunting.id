@@ -3,7 +3,6 @@ import { getChildById } from "@/data/child";
 import { AuthCookie } from "@/types";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import React from "react"
 
 export default async function EditAnakPage({ params }: { params: { id: string } }) {
   const authCookie = cookies().get('auth');
@@ -15,5 +14,5 @@ export default async function EditAnakPage({ params }: { params: { id: string } 
 
   return (
     <FormAddAnak id={user.id} data={child.data} />
-  );
+  ); 
 }

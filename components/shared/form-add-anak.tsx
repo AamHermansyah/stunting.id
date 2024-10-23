@@ -31,15 +31,17 @@ import { VscLoading } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 import { Child } from "@prisma/client";
 import { formatDate } from "date-fns";
+import { usePathname } from 'next/navigation';
 
 interface IProps {
   id: string;
   data?: Child;
-}
+} 
 
 function FormAddAnak({ id, data }: IProps) {
   const [loading, startFetching] = useTransition();
   const navigate = useRouter()
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof childSchema>>({
     resolver: zodResolver(childSchema),
@@ -57,30 +59,39 @@ function FormAddAnak({ id, data }: IProps) {
   });
 
   const onSubmit = async (values: z.infer<typeof childSchema>) => {
+  
     if (!data) {
       startFetching(() => {
         createChild(values, id)
           .then((res) => {
             if (res.success) {
-              toast.success('Berhasil menambahkan anak')
-              navigate.push('/dashboard')
+              toast.success('Berhasil menambahkan anak');
+              if (pathname.includes('management')) {
+                navigate.push('/management/identitas-balita');
+              } else if (pathname.includes('dashboard')) {
+                navigate.push('/dashboard'); 
+              }
             } else {
               toast.error(res.error);
             }
-          })
-      })
+          });
+      });
     } else {
       startFetching(() => {
         updateChild(values, data.id, id)
           .then((res) => {
             if (res.success) {
-              toast.success('Berhasil update profile anak!')
-              navigate.push('/dashboard')
+              toast.success('Berhasil update profile anak!');
+              if (pathname.includes('management')) {
+                navigate.push('/management/identitas-balita'); 
+              } else if (pathname.includes('dashboard')) {
+                navigate.push('/dashboard'); 
+              }
             } else {
               toast.error(res.error);
             }
-          })
-      })
+          });
+      });
     }
   };
 
