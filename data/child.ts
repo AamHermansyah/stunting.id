@@ -28,7 +28,19 @@ export const getAllChildren = async () => {
       },
     });
 
-    return children;
+    // Urutkan data berdasarkan nama orang tua, lalu tanggal lahir anak
+    const sortedChildren = children.sort((a, b) => {
+      // Urutkan berdasarkan nama orang tua (User.name)
+      const parentNameComparison = a.User.name.localeCompare(b.User.name);
+      if (parentNameComparison !== 0) {
+        return parentNameComparison;
+      }
+
+      // Jika nama orang tua sama, urutkan berdasarkan tanggal lahir anak (birthDate)
+      return new Date(a.birthDate).getTime() - new Date(b.birthDate).getTime();
+    });
+
+    return sortedChildren;
   } catch (error) {
     console.error("Error fetching children data:", error);
     return [];
