@@ -28,7 +28,12 @@ const DashboardHomePage = () => {
           </p>
         </div>
       </div>
-      <ChildrenProfile detail="/dashboard/profile-anak" add='/dashboard/tambah-anak' id={user.id} />
+      <ChildrenProfile
+        id={user.id}
+        detail={`/dashboard/profile-anak/${user.id}/detail-anak`}
+        add={`/dashboard/profile-anak/${user.id}/tambah-anak`}
+        edit={`/dashboard/profile-anak/${user.id}/edit-anak`}
+      />
       <LatesArticles />
     </>
   )

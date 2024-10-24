@@ -151,8 +151,6 @@
                       <DropdownMenuItem>
                         <Link
                           className="w-full flex items-center gap-2"
-                          target="_blank"
-                          rel="noopener noreferrer"
                           href={`/management/identitas-balita/edit-balita/${child.id}`}
                         >
                           <FaEdit /> Edit

@@ -35,6 +35,7 @@ interface IProps {
   detail: string;
   childId: number;
   userId: string;
+  edit: string;
 }
 
 function ProfileCard({
@@ -48,6 +49,7 @@ function ProfileCard({
   detail,
   childId,
   userId,
+  edit
 }: IProps) {
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -103,7 +105,7 @@ function ProfileCard({
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <Link href={`/dashboard/edit-anak/${childId}`} className="w-full">
+                  <Link href={edit} className="w-full">
                     Edit
                   </Link>
                 </DropdownMenuItem>

@@ -13,6 +13,7 @@ interface IProps {
   detail: string;
   add: string;
   id: string;
+  edit: string;
 }
 
 interface WrapperProps {
@@ -55,7 +56,7 @@ const calculateAge = (birthDate: Date) => {
   return years > 0 ? `${years} tahun ${months} bulan` : `${months} bulan`;
 };
 
-function ChildrenProfile({ detail, add, id }: IProps) {
+function ChildrenProfile({ detail, add, id, edit }: IProps) {
   const [children, setChildren] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const userId = id; 
@@ -116,6 +117,7 @@ function ChildrenProfile({ detail, add, id }: IProps) {
             detail={`${detail}/${child.id}`}
             childId={child.id}
             userId={userId}
+            edit={`${edit}/${child.id}`}
           />
         ))}
         <div className="flex flex-col justify-center min-h-[300px]">

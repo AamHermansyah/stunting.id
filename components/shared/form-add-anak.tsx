@@ -67,9 +67,12 @@ function FormAddAnak({ id, data }: IProps) {
           .then((res) => {
             if (res.success) {
               toast.success('Berhasil menambahkan anak');
-              if (pathname.includes('management')) {
+              if (pathname.includes('management/identitas-balita')) {
                 navigate.push('/management/identitas-balita');
-              } else if (pathname.includes('dashboard')) {
+              } else if (pathname.includes('/management/orang-tua/profile')) {
+                navigate.push(`/management/orang-tua/profile/${id}`); 
+              }
+              else if (pathname.includes('dashboard')) {
                 navigate.push('/dashboard'); 
               }
             } else {
@@ -83,9 +86,12 @@ function FormAddAnak({ id, data }: IProps) {
           .then((res) => {
             if (res.success) {
               toast.success('Berhasil update profile anak!');
-              if (pathname.includes('management')) {
-                navigate.push('/management/identitas-balita'); 
-              } else if (pathname.includes('dashboard')) {
+              if (pathname.includes('management/identitas-balita')) {
+                navigate.push('/management/identitas-balita');
+              } else if (pathname.includes('/management/orang-tua/profile')) {
+                navigate.push(`/management/orang-tua/profile/${id}`); 
+              }
+              else if (pathname.includes('dashboard')) {
                 navigate.push('/dashboard'); 
               }
             } else {
@@ -457,7 +463,12 @@ function FormAddAnak({ id, data }: IProps) {
           </Card>
 
           <div className="w-full flex gap-4 justify-end">
-            <Button onClick={() => navigate.back()} className="px-10" variant="outline" disabled={loading}>
+            <Button   
+            onClick={(e) => {
+                e.preventDefault();
+                navigate.back();
+              }}  
+              className="px-10" variant="outline" disabled={loading}>
               Batal
             </Button>
             <Button type="submit" className="px-10 gap-2" variant="default" disabled={loading}>
