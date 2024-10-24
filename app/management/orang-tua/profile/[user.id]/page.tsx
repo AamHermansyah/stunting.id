@@ -1,23 +1,23 @@
-import ChildrenProfile from '@/app/dashboard/(home)/_components/children-profile'
-import { AuthCookie } from '@/types';
-import { cookies } from 'next/headers';
+'use client'
+
+import ChildrenProfile from '@/app/dashboard/(home)/_components/children-profile';
 import { useParams } from 'next/navigation';
-import React from 'react'
+import React from 'react';
 
 const ProfilePage = () => {
-  const authCookie = cookies().get('auth');
-  const user = JSON.parse(authCookie!.value) as AuthCookie;
+  const params = useParams();
+  const userId = params['user.id'];
 
   return (
     <div>
       <ChildrenProfile
-        id={user.id}
-        detail={`/management/orang-tua/profile/${user.id}/detail-anak`}
-        add={`/management/orang-tua/profile/${user.id}/tambah-anak`}
-        edit={`/management/orang-tua/profile/${user.id}/edit-anak/`}
+        id={userId as string}
+        detail={`/management/orang-tua/profile/${userId}/detail-anak`}
+        add={`/management/orang-tua/profile/${userId}/tambah-anak`}
+        edit={`/management/orang-tua/profile/${userId}/edit-anak/`}
       />
     </div>
-  )
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;

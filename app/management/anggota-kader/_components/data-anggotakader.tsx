@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { CiSearch } from "react-icons/ci";
+import { VscLoading } from "react-icons/vsc"; // Import icon loading
 import Image from "next/image";
 import Link from "next/link";
 import { FaEllipsis } from "react-icons/fa6";
@@ -40,7 +41,8 @@ interface Kader {
 
 const DataAnggotaKader = () => {
   const [data, setData] = useState<Kader[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [filteredData, setFilteredData] = useState<Kader[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // Set initial loading to true
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState<string>("");
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
@@ -53,6 +55,7 @@ const DataAnggotaKader = () => {
       try {
         const response = await axios.get<Kader[]>("/api/kader");
         setData(response.data);
+        setFilteredData(response.data); // Initialize filtered data
       } catch (err: any) {
         setError("Gagal mengambil data Kader.");
         console.error(err);
@@ -64,13 +67,16 @@ const DataAnggotaKader = () => {
     fetchData();
   }, []);
 
-  const filteredData = data.filter(
-    (kader) =>
-      kader.name.toLowerCase().includes(search.toLowerCase()) ||
-      kader.nik.includes(search) ||
-      kader.email.toLowerCase().includes(search.toLowerCase()) ||
-      kader.address.toLowerCase().includes(search.toLowerCase())
-  );
+  useEffect(() => {
+    const lowercasedSearch = search.toLowerCase();
+    const filtered = data.filter(
+      (kader) =>
+        kader.name.toLowerCase().includes(lowercasedSearch) ||
+        kader.nik.includes(search) ||
+        kader.email.toLowerCase().includes(lowercasedSearch)
+    );
+    setFilteredData(filtered);
+  }, [search, data]);
 
   const openDeleteModal = (id: string) => {
     setSelectedKaderId(id);
@@ -110,9 +116,7 @@ const DataAnggotaKader = () => {
                 className="w-full sm:w-64 md:w-80 pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
                 placeholder="Cari anggota kader"
               />
-              <div className="absolute inset-y-0 right-3 flex items-center text-black">
-                <CiSearch fontSize={25} />
-              </div>
+              <CiSearch className="absolute inset-y-0 right-3 flex items-center text-black" fontSize={25} />
             </div>
 
             <Button variant={"outline"} className="gap-2 font-semibold">
@@ -127,94 +131,91 @@ const DataAnggotaKader = () => {
           </div>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center items-center py-10">
-            <p>Loading...</p>
-          </div>
-        ) : error ? (
-          <div className="flex justify-center items-center py-10">
-            <p className="text-red-500">{error}</p>
-          </div>
-        ) : (
-          <Table>
-            <TableHeader>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Nama Anggota</TableHead>
+              <TableHead>NIK</TableHead>
+              <TableHead>E-Mail</TableHead>
+              <TableHead>Alamat</TableHead>
+              <TableHead className="text-center">AKSI</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {loading ? (
               <TableRow>
-                <TableHead>Nama Anggota</TableHead>
-                <TableHead>NIK</TableHead>
-                <TableHead>E-Mail</TableHead>
-                <TableHead>Alamat</TableHead>
-                <TableHead className="text-center">AKSI</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredData.length > 0 ? (
-                filteredData.map((item) => (
-                  <TableRow key={item.id}>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>{item.nik}</TableCell>
-                    <TableCell>{item.email}</TableCell>
-                    <TableCell>{item.address}, {item.district}</TableCell>
-                    <TableCell className="text-center">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            size="sm"
-                            variant="secondary"
-                            className="data-[state=open]:bg-muted text-xs"
-                          >
-                            <FaEllipsis />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-[200px] space-y-1">
-                          {/* <DropdownMenuItem asChild>
-                            <Link
-                              className="w-full flex items-center gap-2"
-                              href={`/management/anggota-kader/edit/${item.id}`}
-                            >
-                              <FaEdit /> Edit
-                            </Link>
-                          </DropdownMenuItem> */}
-                          <DropdownMenuItem asChild>
-                            <Button
-                              variant="ghost"
-                              className="w-full flex items-center gap-2"
-                              onClick={() => openDeleteModal(item.id)}
-                            >
-                              <AiTwotoneDelete /> Hapus
-                            </Button>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center">
-                    Tidak ada data anggota kader.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={5}>
-                  <div className="flex justify-between items-center rounded-b-[12px]">
-                    <div>
-                      <p>
-                        {filteredData.length} dari {data.length} anggota kader
-                      </p>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button variant="secondary">Previous</Button>
-                      <Button>Next</Button>
-                    </div>
+                <TableCell colSpan={5} className="text-center">
+                  <div className="flex justify-center items-center">
+                    <VscLoading className="animate-spin text-2xl mr-2" />
+                    <p className="animate-pulse">Sedang memuat data...</p>
                   </div>
                 </TableCell>
               </TableRow>
-            </TableFooter>
-          </Table>
-        )}
+            ) : error ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center">
+                  <p className="text-red-500">{error}</p>
+                </TableCell>
+              </TableRow>
+            ) : filteredData.length > 0 ? (
+              filteredData.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>{item.nik}</TableCell>
+                  <TableCell>{item.email}</TableCell>
+                  <TableCell>{item.address}, {item.district}</TableCell>
+                  <TableCell className="text-center">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          className="data-[state=open]:bg-muted text-xs"
+                        >
+                          <FaEllipsis />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-[200px] space-y-1">
+                        <DropdownMenuItem asChild>
+                          <Button
+                            variant="ghost"
+                            className="w-full flex items-center gap-2"
+                            onClick={() => openDeleteModal(item.id)}
+                          >
+                            <AiTwotoneDelete /> Hapus
+                          </Button>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center">
+                  Tidak ada data anggota kader.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={5}>
+                <div className="flex justify-between items-center rounded-b-[12px]">
+                  <div>
+                    <p>
+                      {filteredData.length} dari {data.length} anggota kader
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="secondary">Previous</Button>
+                    <Button>Next</Button>
+                  </div>
+                </div>
+              </TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
       </div>
 
       {/* Confirmation Modal */}
