@@ -19,14 +19,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { 
-  Select, 
-  SelectContent, 
-  SelectGroup, 
-  SelectItem, 
-  SelectLabel, 
-  SelectTrigger, 
-  SelectValue 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { VscLoading } from "react-icons/vsc";
 import { toast } from "sonner";
@@ -63,42 +63,43 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
   const onSubmit = async (values: z.infer<typeof registerParrentsAccount>) => {
     if (!data) {
       startCreate(() => {
-        handleParrentAccount(values)
-          .then((res) => {
-            if (res.success) {
-              toast.success("Berhasil menambahkan akun orang tua");
-              router.push("/managements/orang-tua/profile");
-            } else {
-              toast.error(res.error);
-            }
-          });
+        handleParrentAccount(values).then((res) => {
+          if (res.success) {
+            toast.success("Berhasil menambahkan akun orang tua");
+            router.push("/managements/orang-tua/profile");
+          } else {
+            toast.error(res.error);
+          }
+        });
       });
     } else {
       startCreate(() => {
-        updateUser(values, data.id, String(id))
-          .then((res) => {
-            if (res.success) {
-              toast.success("Berhasil update profile orang tua!");
-              if (pathname.includes("management")) {
-                router.push("/managements/orang-tua/profile");
-              } else if (pathname.includes("dashboard")) {
-                router.push("/dashboard");
-              }
-            } else {
-              toast.error(res.error);
+        updateUser(values, data.id, String(id)).then((res) => {
+          if (res.success) {
+            toast.success("Berhasil update profile orang tua!");
+            if (pathname.includes("management")) {
+              router.push("/managements/orang-tua/profile");
+            } else if (pathname.includes("dashboard")) {
+              router.push("/dashboard");
             }
-          });
+          } else {
+            toast.error(res.error);
+          }
+        });
       });
     }
   };
 
   useEffect(() => {
     if (data) {
+      console.log("Data yang diterima:", data);
       form.setValue("nama", data.name || "");
       form.setValue("email", data.email || "");
-      form.setValue("alamat", data.alamat || ""); 
+      form.setValue("alamat", data.address || "");
       form.setValue("nik", data.nik || "");
-      form.setValue("kecamatan", data.kecamatan || ""); 
+      form.setValue("kecamatan", data.district || "");
+      form.setValue("password", "");
+      form.setValue("confirmPassword","");
     }
   }, [data]);
 
@@ -128,7 +129,11 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
                 <FormItem>
                   <FormLabel>Nama Orang Tua</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Masukan nama orang tua" disabled={loading} />
+                    <Input
+                      {...field}
+                      placeholder="Masukan nama orang tua"
+                      disabled={loading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -142,7 +147,11 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
                 <FormItem>
                   <FormLabel>NIK (Nomor Induk Kependudukan)</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Masukan NIK orang tua" disabled={loading} />
+                    <Input
+                      {...field}
+                      placeholder="Masukan NIK orang tua"
+                      disabled={loading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -156,7 +165,11 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
                 <FormItem>
                   <FormLabel>E-mail</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Masukan e-mail orang tua" disabled={loading} />
+                    <Input
+                      {...field}
+                      placeholder="Masukan e-mail orang tua"
+                      disabled={loading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -170,7 +183,11 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
                 <FormItem>
                   <FormLabel>Alamat</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Masukan alamat orang tua" disabled={loading} />
+                    <Input
+                      {...field}
+                      placeholder="Masukan alamat orang tua"
+                      disabled={loading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -183,7 +200,11 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Kecamatan</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value} disabled={loading}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value || data?.district || ""}
+                    disabled={loading}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Pilih kecamatan" />
@@ -213,10 +234,23 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
                   <FormLabel>Password</FormLabel>
                   <div className="relative">
                     <FormControl>
-                      <Input {...field} type={showPassword ? "text" : "password"} placeholder="Masukan password" disabled={loading} />
+                      <Input
+                        {...field}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Masukan password"
+                        disabled={loading}
+                      />
                     </FormControl>
-                    <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={() => setShowPassword(!showPassword)}>
-                      {showPassword ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500" />}
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash className="text-gray-500" />
+                      ) : (
+                        <FaEye className="text-gray-500" />
+                      )}
                     </button>
                   </div>
                   <FormMessage />
@@ -232,10 +266,25 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
                   <FormLabel>Konfirmasi Password</FormLabel>
                   <div className="relative">
                     <FormControl>
-                      <Input {...field} type={showConfirmPassword ? "text" : "password"} placeholder="Konfirmasi password" disabled={loading} />
+                      <Input
+                        {...field}
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Konfirmasi password"
+                        disabled={loading}
+                      />
                     </FormControl>
-                    <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                      {showConfirmPassword ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500" />}
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                    >
+                      {showConfirmPassword ? (
+                        <FaEyeSlash className="text-gray-500" />
+                      ) : (
+                        <FaEye className="text-gray-500" />
+                      )}
                     </button>
                   </div>
                   <FormMessage />
