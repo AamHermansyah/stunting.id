@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
+import { 
   Select,
   SelectContent,
   SelectItem,
@@ -94,7 +95,7 @@ function FormAddAnak({ id, data }: IProps) {
       });
     }
   };
-
+ 
   useEffect(() => {
     if (data) {
       const [firstname, ...lastname] = data.name.split(' ');

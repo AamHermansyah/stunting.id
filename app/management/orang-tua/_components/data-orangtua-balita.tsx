@@ -26,7 +26,7 @@ import { getAllUsers } from "@/data/user";
 
 export default async function DataOrangtuaBalita({ searchParams }: { searchParams: { query: string } }) {
   const searchQuery = searchParams.query || null;
-  const users = await getAllUsers(searchQuery); // Mengambil data berdasarkan pencarian
+  const users = await getAllUsers(searchQuery);
 
   return (
     <div className="border rounded space-y-4 bg-white">
@@ -103,7 +103,7 @@ export default async function DataOrangtuaBalita({ searchParams }: { searchParam
                           className="w-full flex items-center gap-2"
                           target="_blank"
                           rel="noopener noreferrer"
-                          href={`/management/orang-tua/edit/${user.id}`}
+                          href={`/management/orang-tua/edit-orangtua/${user.id}`}
                         >
                           <FaEdit /> Edit
                         </Link>

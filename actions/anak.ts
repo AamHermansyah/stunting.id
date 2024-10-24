@@ -8,6 +8,7 @@ const allowedRoles = ["KADER", "KEPALA_KADER"];
 
 export const createChild = async (values: z.infer<typeof childSchema>, userId: string) => {
   try {
+    console.log("userId:", userId)
     const child = await prisma.child.create({
       data: {
         userId: userId,
@@ -35,7 +36,7 @@ export const createChild = async (values: z.infer<typeof childSchema>, userId: s
       error: 'Internal server error'
     }
   }
-}
+} 
 
 export const updateChild = async (values: z.infer<typeof childSchema>, id: number, userId: string) => {
   try {
