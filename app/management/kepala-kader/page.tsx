@@ -1,12 +1,12 @@
-import React from 'react'
-import DataKepalaKader from './_components/data-kepalakader'
+import React from 'react';
+import DataKepalaKader from './_components/data-kepalakader';
 
-const KepalaKaderPage = () => {
+const KepalaKaderPage = ({ searchParams }: { searchParams: { query: string } }) => {
   return (
-    <>
-     <DataKepalaKader/> 
-    </>
-  )
+    <div>
+      <DataKepalaKader searchParams={searchParams} />
+    </div>
+  );
 }
 
-export default KepalaKaderPage
+export default KepalaKaderPage;

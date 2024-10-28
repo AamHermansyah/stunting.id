@@ -46,3 +46,30 @@ export const getParentById = async (id: string, userId: string) => {
     return { error: 'Internal server error' }
   }
 }
+
+export const getAllKepalaKader = async (searchQuery: string | null = null) => {
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        role: 'KEPALA_KADER', // Filter by role
+        ...(searchQuery && {
+          OR: [
+            { name: { contains: searchQuery, mode: 'insensitive' } },
+            { email: { contains: searchQuery, mode: 'insensitive' } },
+            { nik: { contains: searchQuery, mode: 'insensitive' } },
+          ],
+        }),
+      },
+      include: {
+        _count: {
+          select: { Child: true },
+        },
+      },
+    });
+
+    return users;
+  } catch (error) {
+    console.error("Error fetching kepala kader:", error);
+    return [];
+  }
+};

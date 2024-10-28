@@ -24,7 +24,7 @@ import Link from "next/link";
 import { FaEllipsis } from "react-icons/fa6";
 import { AiTwotoneDelete } from "react-icons/ai";
 import axios from "axios";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "../../../../components/shared/ConfirmationModal";
 import { toast } from "sonner";
 
 interface Kader {
