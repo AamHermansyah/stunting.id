@@ -97,82 +97,80 @@ const InputMakanan = () => {
   };
 
   return (
-    <div className="px-4">
-      <div className="space-y-4">
-        {mealTimes.map((meal, mealIndex) => (
-          <div key={mealIndex} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
-              {meal.label} • {meal.time}
-            </label>
-            <Select onValueChange={(food) => handleFoodSelect(mealIndex, food)}>
-              <SelectTrigger className="mt-1 w-full">
-                <SelectValue placeholder="Pilih Menu Makanan" />
-              </SelectTrigger>
-              <SelectContent>
-                {foodOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+    <div className="space-y-4">
+      {mealTimes.map((meal, mealIndex) => (
+        <div key={mealIndex} className="space-y-1">
+          <label className="block text-sm font-medium text-gray-700">
+            {meal.label} • {meal.time}
+          </label>
+          <Select onValueChange={(food) => handleFoodSelect(mealIndex, food)}>
+            <SelectTrigger className="mt-1 w-full">
+              <SelectValue placeholder="Pilih Menu Makanan" />
+            </SelectTrigger>
+            <SelectContent>
+              {foodOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-            {showCustomInput[mealIndex] && (
-              <div className="space-y-2 mt-2">
-                <Input
-                  value={customInput}
-                  onChange={(e) => setCustomInput(e.target.value)}
-                  placeholder="Masukkan menu lainnya"
-                  className="w-full"
-                />
-                <div className="flex flex-wrap  justify-between items-center gap-2">
-                  {nutritionOptions.map((option) => (
-                    
-                      <label
-                        key={option.value}
-                        className="flex items-center"
-                      >
-                        <input
-                          type="checkbox"
-                          value={option.value}
-                          checked={selectedNutrition.includes(option.value)}
-                          onChange={() => handleNutritionSelect(option.value)}
-                          className="form-checkbox text-teal-600"
-                        />
-                        <span className="ml-2 text-sm">{option.label}</span>
-                      </label>
-                    
-                  ))}
-                      <Button
-                        onClick={() => handleCustomInputSave(mealIndex)}
-                      >
-                        Simpan
-                      </Button>
-                </div>
-              </div>
-            )}
+          {showCustomInput[mealIndex] && (
+            <div className="space-y-2 mt-2">
+              <Input
+                value={customInput}
+                onChange={(e) => setCustomInput(e.target.value)}
+                placeholder="Masukkan menu lainnya"
+                className="w-full"
+              />
+              <div className="flex flex-wrap  justify-between items-center gap-2">
+                {nutritionOptions.map((option) => (
 
-            {selectedFoods[mealIndex].length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-2">
-                {selectedFoods[mealIndex].map((food, foodIndex) => (
-                  <div
-                    key={foodIndex}
-                    className="flex items-center bg-teal-100 text-teal-700 py-1 px-3 rounded-full"
+                  <label
+                    key={option.value}
+                    className="flex items-center"
                   >
-                    <span>{food}</span>
-                    <button
-                      onClick={() => handleRemoveFood(mealIndex, food)}
-                      className="ml-2 text-teal-700 hover:text-teal-900 focus:outline-none"
-                    >
-                      <X size={16} />
-                    </button>
-                  </div>
+                    <input
+                      type="checkbox"
+                      value={option.value}
+                      checked={selectedNutrition.includes(option.value)}
+                      onChange={() => handleNutritionSelect(option.value)}
+                      className="form-checkbox text-teal-600"
+                    />
+                    <span className="ml-2 text-sm">{option.label}</span>
+                  </label>
+
                 ))}
+                <Button
+                  onClick={() => handleCustomInputSave(mealIndex)}
+                >
+                  Simpan
+                </Button>
               </div>
-            )}
-          </div>
-        ))}
-      </div>
+            </div>
+          )}
+
+          {selectedFoods[mealIndex].length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {selectedFoods[mealIndex].map((food, foodIndex) => (
+                <div
+                  key={foodIndex}
+                  className="flex items-center bg-teal-100 text-teal-700 py-1 px-3 rounded-full"
+                >
+                  <span>{food}</span>
+                  <button
+                    onClick={() => handleRemoveFood(mealIndex, food)}
+                    className="ml-2 text-teal-700 hover:text-teal-900 focus:outline-none"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };

@@ -30,8 +30,8 @@ const DashboardHomePage = () => {
       </div>
       <ChildrenProfile
         id={user.id}
-        detail={`/dashboard/profile-anak/${user.id}/detail-anak`}
-        add={`/dashboard/profile-anak/${user.id}/tambah-anak`}
+        detail={`/dashboard/profile-anak`}
+        add={`/dashboard/tambah-anak`}
         edit={`/dashboard/profile-anak/${user.id}/edit-anak`}
       />
       <LatesArticles />

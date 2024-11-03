@@ -14,9 +14,9 @@ const options = [
 ];
 
 const calculateFeedingTimes = (count: number) => {
-  const startHour = 6; 
-  const endHour = 20; 
-  
+  const startHour = 6;
+  const endHour = 20;
+
   if (count === 1) {
     return [`${startHour.toString().padStart(2, '0')}:00`];
   }
@@ -47,7 +47,7 @@ const InputAsi = () => {
   };
 
   return (
-    <div className="px-4">
+    <div>
       <h1 className="text-xl font-semibold mb-4">Nutrisi Pribadi</h1>
       <div className="space-y-4">
         <div>

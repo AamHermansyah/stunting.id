@@ -4,20 +4,20 @@ import InputMakanan from './input-makanan'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-interface IProps{
-  batal:string;
+interface IProps {
+  batal: string;
 }
-function Case2({batal}:IProps) {
+function Case2({ batal }: IProps) {
   return (
     <>
-      <InputAsi/>
-      <InputMakanan/>
-      <div className="flex space-x-4 mx-2">
+      <InputAsi />
+      <InputMakanan />
+      <div className="flex space-x-4 pt-2">
         <Link href={batal}>
           <Button variant="secondary">Batal</Button>
         </Link>
-          <Button>Simpan</Button>
-      </div>
+        <Button>Simpan</Button>
+      </div >
     </>
   )
 }

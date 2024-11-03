@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react';
 import TabsButton from '../tabs-button';
 import Profile from './_components/profile';

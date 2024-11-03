@@ -3,18 +3,18 @@ import InputAsi from './input-asi'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-interface IProps{
-  batal:string;
+interface IProps {
+  batal: string;
 }
-function Case1({batal}:IProps) {
+function Case1({ batal }: IProps) {
   return (
     <>
-      <InputAsi/>
-      <div className="flex space-x-4">
+      <InputAsi />
+      <div className="flex space-x-4 pt-2">
         <Link href={batal}>
           <Button variant="secondary">Batal</Button>
         </Link>
-          <Button>Simpan</Button>
+        <Button>Simpan</Button>
       </div>
     </>
   )
