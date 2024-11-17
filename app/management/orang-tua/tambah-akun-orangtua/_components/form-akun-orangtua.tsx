@@ -66,7 +66,7 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
         handleParrentAccount(values).then((res) => {
           if (res.success) {
             toast.success("Berhasil menambahkan akun orang tua");
-            router.push("/managements/orang-tua/profile");
+            router.push("/management/orang-tua");
           } else {
             toast.error(res.error);
           }
@@ -78,7 +78,7 @@ function FormAkunOrangtua({ id, data }: ParentFormProps) {
           if (res.success) {
             toast.success("Berhasil update profile orang tua!");
             if (pathname.includes("management")) {
-              router.push("/managements/orang-tua/profile");
+              router.push("/management/orang-tua");
             } else if (pathname.includes("dashboard")) {
               router.push("/dashboard");
             }

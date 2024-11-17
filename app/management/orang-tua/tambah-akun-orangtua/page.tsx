@@ -1,7 +1,7 @@
 import React from 'react'
 import FormAkunOrangtua from './_components/form-akun-orangtua'
 
-const TambahAkunOrangtua = () => {
+export default async function TambahAkunOrangtua() {
   return (
     <div>
       <FormAkunOrangtua/>
@@ -9,4 +9,3 @@ const TambahAkunOrangtua = () => {
   )
 }
 
-export default TambahAkunOrangtua
