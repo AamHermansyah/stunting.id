@@ -69,6 +69,23 @@ model Child {
 
   userId            String
   User              User   @relation(fields: [userId], references: [id])
+  measurements      Measurement[]
+}
+
+model Measurement {
+  id                Int      @id @default(autoincrement())
+  height            Float    // Tinggi badan
+  weight            Float    // Berat badan
+  headCircumference Float    // Lingkar kepala
+  armCircumference  Float    // Lingkar lengan
+  date              DateTime // Tanggal pengukuran
+  nutritionalStatus String   // Status gizi
+
+  childId           Int
+  Child             Child   @relation(fields: [childId], references: [id])
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 enum Role {
