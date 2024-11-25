@@ -20,21 +20,21 @@ export const getChildren = async (userId: string, role: string) => {
 // Create a new measurement
 export const createMeasurement = async (form: {
   childId: string;
-  height: string;
-  weight: string;
-  headCircumference: string;
-  armCircumference: string;
-  date: string;
+  height: number; // Perbaiki tipe menjadi number
+  weight: number;
+  headCircumference: number;
+  armCircumference: number;
+  date: string; // Tanggal tetap string
   nutritionalStatus: string;
 }) => {
   try {
     await prisma.measurement.create({
       data: {
         childId: Number(form.childId),
-        height: parseFloat(form.height),
-        weight: parseFloat(form.weight),
-        headCircumference: parseFloat(form.headCircumference),
-        armCircumference: parseFloat(form.armCircumference),
+        height: form.height, // Tidak perlu parseFloat lagi
+        weight: form.weight,
+        headCircumference: form.headCircumference,
+        armCircumference: form.armCircumference,
         date: new Date(form.date),
         nutritionalStatus: form.nutritionalStatus,
       },
@@ -45,6 +45,7 @@ export const createMeasurement = async (form: {
     return false;
   }
 };
+
 
 // Fetch data measurements from database
 export const getMeasurements = async () => {

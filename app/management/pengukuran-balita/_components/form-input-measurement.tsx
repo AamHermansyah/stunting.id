@@ -2,151 +2,214 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Command, CommandInput, CommandList, CommandItem } from "@/components/ui/command";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { getChildren, createMeasurement } from "@/actions/measurement";
-
-type Child = {
-  id: number;
-  name: string;
-};
+import { toast } from "sonner";
+import { measurementSchema, MeasurementFormType } from "@/schemas/measurement";
 
 const InputMeasurementForm = ({ userId, role }: { userId: string; role: string }) => {
-  const [children, setChildren] = useState<Child[]>([]);
-  const [form, setForm] = useState({
-    childId: "",
-    height: "",
-    weight: "",
-    headCircumference: "",
-    armCircumference: "",
-    date: "",
-    nutritionalStatus: "",
-  });
-
+  const [children, setChildren] = useState<{ id: number; name: string }[]>([]);
+  const [filteredChildren, setFilteredChildren] = useState(children);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedChild, setSelectedChild] = useState("");
   const router = useRouter();
 
-  // Fetch children on load
+  const form = useForm<MeasurementFormType>({
+    resolver: zodResolver(measurementSchema),
+    defaultValues: {
+      childId: "",
+      height: "",
+      weight: "",
+      headCircumference: "",
+      armCircumference: "",
+      date: "",
+      nutritionalStatus: "",
+    },
+  });
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchChildren = async () => {
       const data = await getChildren(userId, role);
       setChildren(data);
+      setFilteredChildren(data);
     };
-
-    fetchData();
+    fetchChildren();
   }, [userId, role]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
+  useEffect(() => {
+    const filtered = children.filter((child) =>
+      child.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredChildren(filtered);
+  }, [searchTerm, children]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const success = await createMeasurement(form);
+  const onSubmit = async (values: MeasurementFormType) => {
+    try {
+      const payload = {
+        ...values,
+        height: parseFloat(values.height),
+        weight: parseFloat(values.weight),
+        headCircumference: parseFloat(values.headCircumference),
+        armCircumference: parseFloat(values.armCircumference),
+      };
 
-    if (success) {
-      alert("Measurement added successfully!");
-      router.push("/management/pengukuran-balita");
-    } else {
-      alert("Failed to add measurement.");
+      const success = await createMeasurement(payload);
+      if (success) {
+        toast.success("Pengukuran berhasil ditambahkan!");
+        router.push("/management/pengukuran-balita");
+      } else {
+        toast.error("Gagal menambahkan pengukuran.");
+      }
+    } catch (error) {
+      toast.error("Terjadi kesalahan dalam pengolahan data.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 rounded border">
-      <div>
-        <label className="block font-medium mb-2">Child</label>
-        <select
-          name="childId"
-          value={form.childId}
-          onChange={handleChange}
-          required
-          className="w-full border rounded p-2"
-        >
-          <option value="">Select a child</option>
-          {children.map((child) => (
-            <option key={child.id} value={child.id}>
-              {child.name}
-            </option>
-          ))}
-        </select>
-      </div>
+    <Card className="p-6">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          {/* Layout Pilih Anak dan Tanggal */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 w-full">
+            {/* Dropdown Anak */}
+            <FormField
+              control={form.control}
+              name="childId"
+              render={({ field }) => (
+                <FormItem className="min-w-full">
+                  <FormLabel>Anak</FormLabel>
+                  <div className="w-full">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="outline" className="w-full">
+                          {selectedChild || "Pilih Anak"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="min-w-screen p-0">
+                        <Command>
+                          <CommandInput
+                            placeholder="Cari nama anak..."
+                            value={searchTerm}
+                            onValueChange={setSearchTerm}
+                          />
+                          <CommandList>
+                            {filteredChildren.map((child) => (
+                              <CommandItem
+                                key={child.id}
+                                onSelect={() => {
+                                  setSelectedChild(child.name);
+                                  field.onChange(child.id.toString());
+                                }}
+                              >
+                                {child.name}
+                              </CommandItem>
+                            ))}
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-      <div>
-        <label className="block font-medium mb-2">Height (cm)</label>
-        <input
-          type="number"
-          name="height"
-          value={form.height}
-          onChange={handleChange}
-          required
-          className="w-full border rounded p-2"
-        />
-      </div>
+            {/* Input Tanggal */}
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tanggal Pengukuran</FormLabel>
+                  <FormControl>
+                    <Input type="date" {...field} placeholder="Pilih tanggal" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
-      <div>
-        <label className="block font-medium mb-2">Weight (kg)</label>
-        <input
-          type="number"
-          name="weight"
-          value={form.weight}
-          onChange={handleChange}
-          required
-          className="w-full border rounded p-2"
-        />
-      </div>
+          {/* Input Fields (Tinggi, Berat, Lingkar) */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {[
+              { name: "height", label: "Tinggi Badan (cm)" },
+              { name: "weight", label: "Berat Badan (kg)" },
+              { name: "headCircumference", label: "Lingkar Kepala (cm)" },
+              { name: "armCircumference", label: "Lingkar Lengan (cm)" },
+            ].map(({ name, label }) => (
+              <FormField
+                key={name}
+                control={form.control}
+                name={name as keyof MeasurementFormType}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{label}</FormLabel>
+                    <FormControl>
+                      <Input type="text" {...field} placeholder={label} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
+          </div>
 
-      <div>
-        <label className="block font-medium mb-2">Head Circumference (cm)</label>
-        <input
-          type="number"
-          name="headCircumference"
-          value={form.headCircumference}
-          onChange={handleChange}
-          required
-          className="w-full border rounded p-2"
-        />
-      </div>
+          {/* Dropdown Status Gizi */}
+          <FormField
+            control={form.control}
+            name="nutritionalStatus"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Status Gizi</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih status gizi" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Sehat">Sehat</SelectItem>
+                    <SelectItem value="Stunting">Stunting</SelectItem>
+                    <SelectItem value="Obesitas">Obesitas</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-      <div>
-        <label className="block font-medium mb-2">Arm Circumference (cm)</label>
-        <input
-          type="number"
-          name="armCircumference"
-          value={form.armCircumference}
-          onChange={handleChange}
-          required
-          className="w-full border rounded p-2"
-        />
-      </div>
-
-      <div>
-        <label className="block font-medium mb-2">Date</label>
-        <input
-          type="date"
-          name="date"
-          value={form.date}
-          onChange={handleChange}
-          required
-          className="w-full border rounded p-2"
-        />
-      </div>
-
-      <div>
-        <label className="block font-medium mb-2">Nutritional Status</label>
-        <input
-          type="text"
-          name="nutritionalStatus"
-          value={form.nutritionalStatus}
-          onChange={handleChange}
-          required
-          className="w-full border rounded p-2"
-        />
-      </div>
-
-      <Button type="submit" className="w-full">
-        Submit
-      </Button>
-    </form>
+          <Button type="submit" className="w-full">
+            Submit
+          </Button>
+        </form>
+      </Form>
+    </Card>
   );
 };
 
