@@ -14,6 +14,7 @@ interface IProps {
   add: string;
   id: string;
   edit: string;
+  role: string; // Tambahkan role pada props
 }
 
 interface WrapperProps {
@@ -56,14 +57,14 @@ const calculateAge = (birthDate: Date) => {
   return years > 0 ? `${years} tahun ${months} bulan` : `${months} bulan`;
 };
 
-function ChildrenProfile({ detail, add, id, edit }: IProps) {
+function ChildrenProfile({ detail, add, id, edit, role }: IProps) {
   const [children, setChildren] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const userId = id; 
 
   useEffect(() => {
     const fetchChildren = async () => {
-      const res = await getChildren(userId);
+      const res = await getChildren(userId, role); // Tambahkan argumen role
       if (res.success) {
         setChildren(res.data);
       } else {
@@ -72,7 +73,7 @@ function ChildrenProfile({ detail, add, id, edit }: IProps) {
       setLoading(false);
     };
     fetchChildren();
-  }, []);
+  }, [userId, role]);
 
   if (loading) {
     return (

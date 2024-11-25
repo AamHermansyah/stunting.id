@@ -23,6 +23,7 @@ import { FaEllipsis } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { getAllKepalaKader } from "@/data/user";
+import DeleteButton from "../../orang-tua/_components/DeleteButton";
 
 export default async function DataKepalaKader({ searchParams }: { searchParams: { query: string } }) {
   const searchQuery = searchParams.query || null;
@@ -109,14 +110,11 @@ export default async function DataKepalaKader({ searchParams }: { searchParams: 
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link
-                          className="w-full flex items-center gap-2"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={"#"}
-                        >
-                          <AiTwotoneDelete /> Hapus
-                        </Link>
+                        <DeleteButton 
+                          userId={item.id} 
+                          title="Konfirmasi Hapus" 
+                          description="Apakah Anda yakin ingin menghapus kepala kader ini?" 
+                        />
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

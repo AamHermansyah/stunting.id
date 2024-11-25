@@ -24,21 +24,22 @@ model Article {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String
-  email         String    @unique
+  email         String        @unique
   emailVerified DateTime?
   image         String?
   password      String
   district      String?
   address       String?
+  role          Role          @default(USER)
   nik           String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   gender        String?
-  role          Role      @default(USER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
   Article       Article[]
   Child         Child[]
+  Measurement   Measurement[]
 }
 
 model VerificationToken {
@@ -51,7 +52,7 @@ model VerificationToken {
 }
 
 model Child {
-  id                Int      @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   name              String
   birthDate         DateTime
   gender            String
@@ -64,12 +65,30 @@ model Child {
   premature         String
   motherHeight      Float
   fatherHeight      Float
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  userId            String
+  User              User           @relation(fields: [userId], references: [id])
+  measurements      Measurement[]
+  NutritionLog      NutritionLog[]
+}
+
+model Measurement {
+  id                Int      @id @default(autoincrement())
+  height            Float
+  weight            Float
+  headCircumference Float
+  armCircumference  Float
+  date              DateTime
+  nutritionalStatus String
+  childId           Int
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
   userId       String
   User         User           @relation(fields: [userId], references: [id])
   NutritionLog NutritionLog[]
+  Child        Child          @relation(fields: [childId], references: [id])
 }
 
 model NutritionLog {
@@ -81,6 +100,8 @@ model NutritionLog {
   mealNutrition     MealNutrition[]
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
+  Measurement       Measurement?    @relation(fields: [measurementId], references: [id])
+  measurementId     Int?
 }
 
 model MealNutrition {

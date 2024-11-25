@@ -21,7 +21,7 @@ import Link from "next/link";
 import { FiEye } from "react-icons/fi";
 import { FaEllipsis } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
-import { AiTwotoneDelete } from "react-icons/ai";
+import DeleteButton from "./DeleteButton";
 import { getAllUsers } from "@/data/user"; 
 
 export default async function DataOrangtuaBalita({ searchParams }: { searchParams: { query: string } }) {
@@ -109,14 +109,11 @@ export default async function DataOrangtuaBalita({ searchParams }: { searchParam
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link
-                          className="w-full flex items-center gap-2"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={"#"}
-                        >
-                          <AiTwotoneDelete /> Hapus
-                        </Link>
+                        <DeleteButton 
+                          userId={user.id} 
+                          title="Konfirmasi Hapus" 
+                          description="Apakah Anda yakin ingin menghapus orang tua ini?" 
+                        />
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
