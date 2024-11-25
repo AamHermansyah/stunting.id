@@ -101,7 +101,7 @@ const InputMeasurementForm = ({ userId, role }: { userId: string; role: string }
               control={form.control}
               name="childId"
               render={({ field }) => (
-                <FormItem className="min-w-full">
+                <FormItem className="w-full">
                   <FormLabel>Anak</FormLabel>
                   <div className="w-full">
                     <Popover>
@@ -110,15 +110,16 @@ const InputMeasurementForm = ({ userId, role }: { userId: string; role: string }
                           {selectedChild || "Pilih Anak"}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="min-w-screen p-0">
+                      <PopoverContent className="w-full mt-2 max-h-80 overflow-y-auto rounded-md border bg-white shadow-lg">
                         <Command>
                           <CommandInput
                             placeholder="Cari nama anak..."
                             value={searchTerm}
                             onValueChange={setSearchTerm}
+                            className="my-2"
                           />
                           <CommandList>
-                            {filteredChildren.map((child) => (
+                            {filteredChildren.slice(0,7).map((child) => (
                               <CommandItem
                                 key={child.id}
                                 onSelect={() => {
@@ -156,27 +157,26 @@ const InputMeasurementForm = ({ userId, role }: { userId: string; role: string }
           </div>
 
           {/* Input Fields (Tinggi, Berat, Lingkar) */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {[
-              { name: "height", label: "Tinggi Badan (cm)" },
-              { name: "weight", label: "Berat Badan (kg)" },
-              { name: "headCircumference", label: "Lingkar Kepala (cm)" },
-              { name: "armCircumference", label: "Lingkar Lengan (cm)" },
-            ].map(({ name, label }) => (
-              <FormField
-                key={name}
-                control={form.control}
-                name={name as keyof MeasurementFormType}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{label}</FormLabel>
-                    <FormControl>
-                      <Input type="text" {...field} placeholder={label} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <div className="space-y-4">
+            {[{ name: "height", label: "Tinggi Badan (cm)" }, 
+              { name: "weight", label: "Berat Badan (kg)" }, 
+              { name: "headCircumference", label: "Lingkar Kepala (cm)" }, 
+              { name: "armCircumference", label: "Lingkar Lengan (cm)" }]
+              .map(({ name, label }) => (
+                <FormField
+                  key={name}
+                  control={form.control}
+                  name={name as keyof MeasurementFormType}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{label}</FormLabel>
+                      <FormControl>
+                        <Input type="text" {...field} placeholder={label} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
             ))}
           </div>
 
