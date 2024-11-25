@@ -8,12 +8,12 @@ const ChildDiaryAdmin = () => {
   const { id } = useParams();
   return (
     <div>
-      <ChildDiarySection 
-      edit={`/management/identitas-balita/detail-anak/${id}/diary-anak/log-nutrisi`}
-      profile={`/management/identitas-balita/detail-anak/${id}`} 
-      diary={`/management/identitas-balita/detail-anak/${id}/diary-anak`} 
-      history={`/management/identitas-balita/detail-anak/${id}/riwayat-pertumbuhan`} 
-    />
+      <ChildDiarySection
+        edit={`/management/identitas-balita/detail-anak/${id}/diary-anak/log-nutrisi`}
+        profile={`/management/identitas-balita/detail-anak/${id}`}
+        diary={`/management/identitas-balita/detail-anak/${id}/diary-anak`}
+        history={`/management/identitas-balita/detail-anak/${id}/riwayat-pertumbuhan`}
+      />
     </div>
   )
 }

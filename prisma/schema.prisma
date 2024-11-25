@@ -92,16 +92,24 @@ model Measurement {
 }
 
 model NutritionLog {
-  id                Int             @id @default(autoincrement())
-  childId           Int
-  Child             Child           @relation(fields: [childId], references: [id])
-  ageGroup          AgeGroup
-  breastfeedingFreq Int?
-  mealNutrition     MealNutrition[]
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  Measurement       Measurement?    @relation(fields: [measurementId], references: [id])
-  measurementId     Int?
+  id                 Int                 @id @default(autoincrement())
+  childId            Int
+  Child              Child               @relation(fields: [childId], references: [id])
+  ageGroup           AgeGroup // Enum untuk kelompok usia
+  breastfeedingFreq  Int? // Frekuensi pemberian ASI (opsional tergantung kelompok usia)
+  breastfeedingTimes BreastfeedingTime[] // Waktu pemberian ASI
+  mealNutrition      MealNutrition[] // Detail nutrisi untuk waktu makan (jika ada)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  Measurement        Measurement?        @relation(fields: [measurementId], references: [id])
+  measurementId      Int?
+}
+
+model BreastfeedingTime {
+  id             Int          @id @default(autoincrement())
+  nutritionLogId Int
+  NutritionLog   NutritionLog @relation(fields: [nutritionLogId], references: [id])
+  time           String
 }
 
 model MealNutrition {
@@ -109,13 +117,14 @@ model MealNutrition {
   nutritionLogId Int
   NutritionLog   NutritionLog    @relation(fields: [nutritionLogId], references: [id])
   timeOfMeal     MealTime
+  menuOfMeal     String
   nutritionType  NutritionType[]
 }
 
 enum AgeGroup {
-  BABY
-  INFANT
-  TODDLER
+  BABY // 0-6 bulan
+  INFANT // 7-24 bulan
+  TODDLER // 25-60 bulan
 }
 
 enum MealTime {

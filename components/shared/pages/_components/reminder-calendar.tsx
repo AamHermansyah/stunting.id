@@ -1,10 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { totalMonthUntilNow } from "@/lib/utils";
 
-const ReminderCalendar = () => {
+interface IProps {
+  data: Date[];
+}
+
+function ReminderCalendar({ data }: IProps) {
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
   const totalCalendar = totalMonthUntilNow(new Date()) + 1;
@@ -21,9 +25,15 @@ const ReminderCalendar = () => {
         {Array.from({ length: totalCalendar }).map((_, index) => (
           <Calendar
             key={`c-${index}`}
-            mode="single"
+            mode="range"
             className="rounded-md border"
             defaultMonth={new Date(year, month + index)}
+            modifiers={{
+              completed: data
+            }}
+            modifiersClassNames={{
+              completed: "bg-emerald-500 text-white"
+            }}
           />
         ))}
       </div>

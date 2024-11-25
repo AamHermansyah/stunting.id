@@ -5,7 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCreatedAt(created_at: string): string {
+export function getDayName(date: Date): string {
+  const daysOfWeek: string[] = [
+    "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
+  ];
+  return daysOfWeek[date.getDay()];
+}
+
+export function formatCreatedAt(created_at: string | Date, onlyDate?: boolean): string {
   const date = new Date(created_at);
 
   const daysOfWeek = [
@@ -44,7 +51,7 @@ export function formatCreatedAt(created_at: string): string {
   hours = `${+hours < 10 ? `0${hours}` : hours}`;
   minutes = `${+minutes < 10 ? `0${minutes}` : minutes}`;
 
-  const formattedDate = `${dayOfWeek}, ${dayOfMonth} ${month} ${year} ${hours}:${minutes}`;
+  const formattedDate = `${!onlyDate ? `${dayOfWeek}, ` : ''}${dayOfMonth} ${month} ${year}${!onlyDate ? ` ${hours}:${minutes}` : ''}`;
 
   return formattedDate;
 }

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -11,6 +11,10 @@ import {
   SelectItem,
   SelectValue
 } from '@/components/ui/select';
+import { useRouter } from 'next/navigation';
+import { createBabyNutrition } from '@/actions/nutrition';
+import { toast } from 'sonner';
+import { VscLoading } from 'react-icons/vsc';
 
 const options = [
   { value: '1', label: '1x' },
@@ -22,11 +26,14 @@ const options = [
 
 interface IProps {
   batal: string;
+  childId: number;
 }
 
-function Case1({ batal }: IProps) {
+function Case1({ batal, childId }: IProps) {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedingTimes, setFeedingTimes] = useState<{ key: string, value: string }[]>([]);
+  const [loading, startCreate] = useTransition();
+  const navigate = useRouter();
 
   useEffect(() => {
     if (selectedOption) {
@@ -38,7 +45,17 @@ function Case1({ batal }: IProps) {
   const onSubmit = () => {
     if (!selectedOption) return;
 
-    console.log('ok');
+    startCreate(() => {
+      createBabyNutrition(feedingTimes, selectedOption, childId)
+        .then((res) => {
+          if (res.success) {
+            navigate.push(`/dashboard/profile-anak/${childId}/diary-anak`);
+            toast.success('Data nutrisi harian telah dibuat!');
+          } else {
+            toast.warning('Terjadi kesalahan. Coba lagi!');
+          }
+        })
+    })
   }
 
   return (
@@ -73,17 +90,36 @@ function Case1({ batal }: IProps) {
                 <label className="block text-sm font-medium text-gray-700">
                   Waktu Pemberian ASI Ke-{index + 1}
                 </label>
-                <Input value={time.value} className="mt-1 w-full" readOnly />
+                <Input
+                  value={time.value}
+                  className="mt-1 w-full"
+                  onChange={(e) => setFeedingTimes((values) => {
+                    const newData = [...values];
+                    newData[index] = { key: `${index + 1}`, value: e.target.value };
+
+                    return newData;
+                  })}
+                  pattern="^([01]\d|2[0-3]):([0-5]\d)$"
+                  title="Masukkan waktu dalam format HH:MM (contoh: 12:40)"
+                />
               </div>
             ))}
           </div>
         )}
       </div>
       <div className="flex space-x-4 pt-6">
-        <Link href={batal}>
-          <Button variant="secondary">Kembali</Button>
+        <Link
+          href={batal}
+          onClick={(e) => {
+            if (loading) e.preventDefault();
+          }}
+        >
+          <Button variant="secondary" disabled={loading}>Kembali</Button>
         </Link>
-        <Button disabled={!selectedOption}>Simpan</Button>
+        <Button className="gap-2" disabled={!selectedOption || loading}>
+          {loading && <VscLoading className="w-4 h-4 animate-spin" />}
+          Simpan
+        </Button>
       </div>
     </form>
   )
