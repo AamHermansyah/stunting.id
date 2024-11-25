@@ -98,9 +98,9 @@ export function ChildProfielSection({ profile, diary, history }: IProps) {
       <TabsButton buku={profile} diary={diary} riwayat={history} />
       <div className="space-y-4">
         <div className="w-full grid grid-cols-12 items-start gap-4">
-          <Profile userId={child.userId} childId={child.id} />
+          <Profile key={child.id} userId={child.userId} />
           <Chart />
-          <Overview userId={child.userId} />
+          <Overview key={child.id} userId={child.userId} />
         </div>
         <InterpretationResult />
       </div>

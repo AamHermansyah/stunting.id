@@ -20,18 +20,20 @@ export const getChildren = async (userId: string, role: string) => {
 // Create a new measurement
 export const createMeasurement = async (form: {
   childId: string;
-  height: number; // Perbaiki tipe menjadi number
+  height: number;
   weight: number;
   headCircumference: number;
   armCircumference: number;
-  date: string; // Tanggal tetap string
+  date: string;
   nutritionalStatus: string;
+  userId: string; // Include userId in the form data
 }) => {
   try {
     await prisma.measurement.create({
       data: {
         childId: Number(form.childId),
-        height: form.height, // Tidak perlu parseFloat lagi
+        userId: form.userId, // Add userId here
+        height: form.height,
         weight: form.weight,
         headCircumference: form.headCircumference,
         armCircumference: form.armCircumference,
@@ -45,6 +47,7 @@ export const createMeasurement = async (form: {
     return false;
   }
 };
+
 
 
 // Fetch data measurements from database
@@ -77,3 +80,34 @@ export const getMeasurements = async () => {
     const months = ageDate.getUTCMonth();
     return `${years} Tahun ${months} Bulan`;
   };
+
+// Fetch measurements for children associated with a specific user
+export const getMeasurementsByUserId = async (userId: string, childId: string) => {
+  try {
+    // Ambil pengukuran hanya untuk childId yang terkait dengan userId
+    const measurements = await prisma.measurement.findMany({
+      where: {
+        childId: Number(childId),
+        Child: {
+          userId: userId,
+        },
+      },
+      include: { Child: true },
+    });
+
+    return measurements.map((measurement) => ({
+      id: measurement.id,
+      namaOrangTua: measurement.Child.name,
+      tinggiBadan: `${measurement.height} Cm`,
+      beratBadan: `${measurement.weight} Kg`,
+      lingkarKepala: `${measurement.headCircumference} Cm`,
+      lingkarLengan: `${measurement.armCircumference} Cm`,
+      usia: calculateAge(measurement.date),
+      statusGizi: measurement.nutritionalStatus,
+      tanggalInput: measurement.date.toISOString().split("T")[0], // Format tanggal sesuai kebutuhan
+    }));
+  } catch (error) {
+    console.error("Error fetching measurements by userId and childId:", error);
+    return [];
+  }
+};

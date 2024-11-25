@@ -5,31 +5,60 @@ import React, { useEffect, useState } from 'react';
 import CardProfileDetail from './card-profile-detail';
 import { Button } from '@/components/ui/button';
 import { getChildren } from '@/actions/showAnak';
-import { Child } from '@prisma/client';
-import Link from 'next/link';
-import { calculateMonthDifferenceText } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
-interface ProfileProps {
-  userId: string;
-  childId: string;
+interface ChildProfile {
+  id: number;
+  name: string;
+  birthDate: Date; 
+  gender: string;
+  bloodType: string;
+  height: number;
+  headCircumference: number;
+  weight: number;
+  armCircumference: number;
+  allergy: string;
 }
 
-function Profile({ userId, childId }: ProfileProps) {
-  const [child, setChild] = useState<Child | null>(null);
-  const [loading, setLoading] = useState(true);
+interface ProfileProps {
+  userId: any;
+}
 
+function Profile({ userId }: ProfileProps) {
+  const pathname = usePathname();
+  const [child, setChild] = useState<ChildProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+  const childId = pathname.split('/').pop(); 
+  
   useEffect(() => {
-    (async () => {
+    const fetchChild = async () => {
       const res = await getChildren(userId.toString());
       if (res.success && res.data.length > 0) {
-        const fetchedChild = res.data.find((child: Child) => child.id.toString() === childId);
+        const fetchedChild = res.data.find((child: ChildProfile) => child.id.toString() === childId);
         if (fetchedChild) {
-          setChild(fetchedChild);
+          setChild(fetchedChild); 
         }
       }
       setLoading(false);
-    })();
-  }, []);
+    };
+    fetchChild();
+  }, [childId]);
+
+  const calculateMonthDifference = (startDate: Date, endDate: Date) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      return 'Invalid Date';
+    }
+
+    const totalMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
+    return `${years} Tahun ${months} Bulan`;
+  };
 
   return (
     <div className="p-4 w-full col-span-12 lg:col-span-5 xl:col-span-3 order-1 border rounded-lg space-y-2 bg-white">
@@ -41,37 +70,31 @@ function Profile({ userId, childId }: ProfileProps) {
           <span className="text-sm text-muted-foreground/70">
             {loading
               ? 'Memuat...'
-              : calculateMonthDifferenceText(child?.birthDate || new Date(), new Date())}
+              : calculateMonthDifference(child?.birthDate || new Date(), new Date())}
           </span>
         </div>
       </div>
       <div className="w-full grid grid-cols-2 gap-x-2 gap-y-4 py-3">
         <CardProfileDetail
           label="Tanggal Lahir"
-          value={loading ? 'Memuat...' : child?.birthDate?.toLocaleDateString() || '-'}
+          value={loading ? 'Memuat...' : child?.birthDate?.toLocaleDateString() || ''} // Fallback ke string kosong
         />
         <CardProfileDetail
           label="Jenis Kelamin"
-          value={loading ? 'Memuat...' : child?.gender || '-'}
+          value={loading ? 'Memuat...' : child?.gender || ''} // Fallback ke string kosong
         />
         <CardProfileDetail
           label="Riwayat Alergi"
-          value={loading ? 'Memuat...' : child?.allergy || '-'}
-        />
-        <CardProfileDetail
-          label="Prematur"
-          value={loading ? 'Memuat...' : child?.premature || '-'}
+          value={loading ? 'Memuat...' : child?.allergy || 'Tidak ada'} // Fallback jika tidak ada data alergi
         />
         <CardProfileDetail
           label="Golongan Darah"
-          value={loading ? 'Memuat...' : child?.bloodType || '-'}
+          value={loading ? 'Memuat...' : child?.bloodType || ''} // Fallback ke string kosong
         />
       </div>
-      <Link href={`/dashboard/profile-anak/${childId}/diary-anak`}>
-        <Button variant="secondary" className="w-full">
-          Log Nutrisi
-        </Button>
-      </Link>
+      <Button variant="secondary" className="w-full">
+        {loading ? 'Memuat...' : 'Lihat Detail'}
+      </Button>
     </div>
   );
 }
