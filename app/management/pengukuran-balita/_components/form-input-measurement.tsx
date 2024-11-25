@@ -72,12 +72,13 @@ const InputMeasurementForm = ({ userId, role }: { userId: string; role: string }
     try {
       const payload = {
         ...values,
+        userId,
         height: parseFloat(values.height),
         weight: parseFloat(values.weight),
         headCircumference: parseFloat(values.headCircumference),
         armCircumference: parseFloat(values.armCircumference),
       };
-
+      console.log("Payload:", payload);
       const success = await createMeasurement(payload);
       if (success) {
         toast.success("Pengukuran berhasil ditambahkan!");
