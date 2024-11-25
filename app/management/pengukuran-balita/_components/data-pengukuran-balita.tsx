@@ -24,6 +24,7 @@ import { FaEdit } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 import Link from "next/link";
 import { getMeasurements } from "@/actions/measurement";
+import Image from "next/image";
 
 const DataPengukuranBalita = () => {
   const [data, setData] = useState<any[]>([]);
@@ -61,8 +62,18 @@ const DataPengukuranBalita = () => {
             </div>
           </div>
           <Button variant={"outline"} className="gap-2 font-semibold">
-            Filter
-          </Button>
+              Filter
+              <div className="relative h-5 w-5 aspect-square">
+                <Image src="/images/filter.svg" fill={true} alt="filter" />
+              </div>
+            </Button>
+
+            <Link href="/management/pengukuran-balita/import-data">
+              <Button>Import data Excel</Button>
+            </Link>
+            <Link href="/management/pengukuran-balita/tambah-data-pengukuran">
+              <Button>Import data Manual</Button>
+            </Link>
         </div>
       </div>
 
