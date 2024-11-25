@@ -1,10 +1,14 @@
 import React from 'react'
+import { cookies } from 'next/headers'
+import { AuthCookie } from '@/types'
+const authCookie = cookies().get('auth')
+const user = JSON.parse(authCookie!.value) as AuthCookie
 import InputMeasurementForm from '../_components/form-input-measurement'
 
 const TambahDataPengukuran = () => {
   return (
     <div>
-      <InputMeasurementForm userId={'cm3r0tltz0000koegzhei9hda'} role={"KEPALA_KADER"}/>
+      <InputMeasurementForm userId={user.id} role={user.role}/>
     </div>
   )
 }
