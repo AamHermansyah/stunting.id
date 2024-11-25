@@ -59,7 +59,7 @@ export function formatDateToYYYYMMDD(date: Date | undefined): string {
   return `${year}-${month}-${day}`;
 }
 
-export function calculateMonthsDifference(targetDate: string): number {
+export function calculateMonthsDifference(targetDate: string | Date): number {
   // Convert the target date to a Date object
   const target = new Date(targetDate);
 
@@ -76,3 +76,29 @@ export function calculateMonthsDifference(targetDate: string): number {
   return roundedMonths;
 }
 
+export const calculateMonthDifferenceText = (startDate: Date, endDate: Date) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    return 'Invalid Date';
+  }
+
+  const totalMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+
+  return `${years} Tahun ${months} Bulan`;
+};
+
+export function totalMonthUntilNow(startDate: string | Date): number {
+  const createdDate = new Date(startDate);
+  const now = new Date();
+
+  const yearDifference = now.getFullYear() - createdDate.getFullYear();
+  const monthDifference = now.getMonth() - createdDate.getMonth();
+
+  const totalMonths = yearDifference * 12 + monthDifference;
+
+  return totalMonths >= 0 ? totalMonths : 0;
+}

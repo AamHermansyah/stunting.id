@@ -67,8 +67,50 @@ model Child {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  userId            String
-  User              User   @relation(fields: [userId], references: [id])
+  userId       String
+  User         User           @relation(fields: [userId], references: [id])
+  NutritionLog NutritionLog[]
+}
+
+model NutritionLog {
+  id                Int             @id @default(autoincrement())
+  childId           Int
+  Child             Child           @relation(fields: [childId], references: [id])
+  ageGroup          AgeGroup
+  breastfeedingFreq Int?
+  mealNutrition     MealNutrition[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model MealNutrition {
+  id             Int             @id @default(autoincrement())
+  nutritionLogId Int
+  NutritionLog   NutritionLog    @relation(fields: [nutritionLogId], references: [id])
+  timeOfMeal     MealTime
+  nutritionType  NutritionType[]
+}
+
+enum AgeGroup {
+  BABY
+  INFANT
+  TODDLER
+}
+
+enum MealTime {
+  BREAKFAST
+  LUNCH
+  SNACK
+  DINNER
+}
+
+enum NutritionType {
+  CARBOHYDRATE
+  ANIMAL_PROTEIN
+  PLANT_PROTEIN
+  GOOD_FATS
+  VITAMIN
+  MINERAL
 }
 
 enum Role {

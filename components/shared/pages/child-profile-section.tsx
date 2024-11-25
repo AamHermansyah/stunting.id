@@ -11,9 +11,10 @@ interface IProps {
   profile: string;
   diary: string;
   history: string;
+  childId: string;
 }
 
-export function ChildProfielSection({ profile, diary, history }: IProps) {
+export function ChildProfielSection({ profile, diary, history, childId }: IProps) {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export function ChildProfielSection({ profile, diary, history }: IProps) {
       <TabsButton buku={profile} diary={diary} riwayat={history} />
       <div className="space-y-4">
         <div className="w-full grid grid-cols-12 items-start gap-4">
-          <Profile userId={userId} />
+          <Profile userId={userId} childId={childId} />
           <Chart />
           <Overview userId={userId} />
         </div>

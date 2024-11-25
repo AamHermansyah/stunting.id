@@ -10,6 +10,7 @@ function ProfileAnakPage({ params }: { params: { childId: string } }) {
         profile={`/dashboard/profile-anak/${childId}`}
         diary={`/dashboard/profile-anak/${childId}/diary-anak`}
         history={`/dashboard/profile-anak/${childId}/riwayat-pertumbuhan`}
+        childId={childId}
       />
     </>
   )

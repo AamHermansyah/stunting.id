@@ -1,7 +1,6 @@
 import ChildDiarySection from "@/components/shared/pages/child-diary-section";
 import React from "react";
 
-
 function DiaryAnakPage({ params }: { params: { childId: string } }) {
   const { childId } = params;
 
