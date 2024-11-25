@@ -8,9 +8,11 @@ import ConfirmationModal from "@/components/shared/ConfirmationModal";
 
 interface DeleteButtonProps {
   userId: string;
+  title: string;
+  description: string;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ userId }) => {
+const DeleteButton: React.FC<DeleteButtonProps> = ({ userId, title, description }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleDelete = async () => {
@@ -39,8 +41,8 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ userId }) => {
 
       <ConfirmationModal
         isOpen={isModalOpen}
-        title="Konfirmasi Hapus"
-        description="Apakah Anda yakin ingin menghapus orang tua ini?"
+        title={title}
+        description={description}
         onConfirm={() => {
           handleDelete();
           setIsModalOpen(false);

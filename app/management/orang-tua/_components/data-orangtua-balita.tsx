@@ -109,7 +109,11 @@ export default async function DataOrangtuaBalita({ searchParams }: { searchParam
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <DeleteButton userId={user.id} />
+                        <DeleteButton 
+                          userId={user.id} 
+                          title="Konfirmasi Hapus" 
+                          description="Apakah Anda yakin ingin menghapus orang tua ini?" 
+                        />
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
