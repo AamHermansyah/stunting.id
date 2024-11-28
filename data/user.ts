@@ -73,3 +73,13 @@ export const getAllKepalaKader = async (searchQuery: string | null = null) => {
     return [];
   }
 };
+
+export const getUserRoleById = async (userId: string) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    return user ? user.role : null;
+  } catch (error) {
+    console.error("Error fetching user role:", error);
+    return null;
+  }
+};

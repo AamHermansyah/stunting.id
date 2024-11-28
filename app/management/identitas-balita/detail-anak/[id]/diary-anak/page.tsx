@@ -5,7 +5,9 @@ import { useParams } from 'next/navigation';
 import React from 'react'
 
 const ChildDiaryAdmin = () => {
-  const { id } = useParams();
+  const { id, userId } = useParams();
+  
+  const childIdString = Array.isArray(id) ? id[0] : id;
   return (
     <div>
       <ChildDiarySection
@@ -13,6 +15,7 @@ const ChildDiaryAdmin = () => {
         profile={`/management/identitas-balita/detail-anak/${id}`}
         diary={`/management/identitas-balita/detail-anak/${id}/diary-anak`}
         history={`/management/identitas-balita/detail-anak/${id}/riwayat-pertumbuhan`}
+        childId={childIdString}
       />
     </div>
   )

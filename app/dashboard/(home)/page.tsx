@@ -8,6 +8,7 @@ import { AuthCookie } from '@/types'
 const DashboardHomePage = () => {
   const authCookie = cookies().get('auth')
   const user = JSON.parse(authCookie!.value) as AuthCookie
+
   return (
     <>
       <div className="relative rounded-lg overflow-hidden">
@@ -30,6 +31,7 @@ const DashboardHomePage = () => {
       </div>
       <ChildrenProfile
         id={user.id}
+        role={user.role}
         detail={`/dashboard/profile-anak`}
         add={`/dashboard/tambah-anak`}
         edit={`/dashboard/profile-anak/${user.id}/edit-anak`}
