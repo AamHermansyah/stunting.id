@@ -2,8 +2,7 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient, Role } from "@prisma/client";
 import bcrypt from 'bcrypt'; // Disarankan menggunakan bcryptjs
-
-const prisma = new PrismaClient();
+import { prisma } from '@/db';
 
 export async function POST(request: Request) {
   try {

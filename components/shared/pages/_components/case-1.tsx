@@ -11,18 +11,12 @@ import {
   SelectItem,
   SelectValue
 } from '@/components/ui/select';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createBabyNutrition } from '@/actions/nutrition';
 import { toast } from 'sonner';
 import { VscLoading } from 'react-icons/vsc';
-
-const options = [
-  { value: '1', label: '1x' },
-  { value: '2', label: '2x' },
-  { value: '3', label: '3x' },
-  { value: '4', label: '4x' },
-  { value: '8', label: '8x' }
-];
+import { calculateFeedingTimes } from '@/lib/utils';
+import { breastfeedingTimes } from '@/constants';
 
 interface IProps {
   batal: string;
@@ -33,6 +27,8 @@ function Case1({ batal, childId }: IProps) {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedingTimes, setFeedingTimes] = useState<{ key: string, value: string }[]>([]);
   const [loading, startCreate] = useTransition();
+  const searchParams = useSearchParams();
+  const missedDateQuery: string | null = searchParams.get('missedDate');
   const navigate = useRouter();
 
   useEffect(() => {
@@ -46,7 +42,7 @@ function Case1({ batal, childId }: IProps) {
     if (!selectedOption) return;
 
     startCreate(() => {
-      createBabyNutrition(feedingTimes, selectedOption, childId)
+      createBabyNutrition(feedingTimes, selectedOption, childId, missedDateQuery ? new Date(missedDateQuery) : undefined)
         .then((res) => {
           if (res.success) {
             navigate.push(`/dashboard/profile-anak/${childId}/diary-anak`);
@@ -74,7 +70,7 @@ function Case1({ batal, childId }: IProps) {
               <SelectValue placeholder="Pilih Frekuensi" />
             </SelectTrigger>
             <SelectContent>
-              {options.map(option => (
+              {breastfeedingTimes.map(option => (
                 <SelectItem key={`asi-${option.value}`} value={option.value}>
                   {option.label}
                 </SelectItem>
@@ -126,21 +122,3 @@ function Case1({ batal, childId }: IProps) {
 }
 
 export default Case1
-
-const calculateFeedingTimes = (count: number) => {
-  const startHour = 6;
-  const endHour = 20;
-
-  if (count === 1) {
-    return [{ key: '1', value: `${startHour.toString().padStart(2, '0')}:00` }];
-  }
-
-  const interval = (endHour - startHour) / (count - 1);
-
-  return Array.from({ length: count }, (_, index) => {
-    const hour = startHour + index * interval;
-    const minutes = Math.floor((hour % 1) * 60);
-    const formattedTime = `${Math.floor(hour).toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    return { key: `${index + 1}`, value: formattedTime };
-  });
-};

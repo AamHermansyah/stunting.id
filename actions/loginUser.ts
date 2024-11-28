@@ -32,7 +32,8 @@ export const loginUser = async (values: z.infer<typeof loginSchema>) => {
       emailVerified: user.emailVerified,
       district: user.district,
       nik: user.nik,
-      role: user.role
+      role: user.role,
+      createdAt: user.createdAt
     }
 
     cookies().set('auth', JSON.stringify(cookiePayload));

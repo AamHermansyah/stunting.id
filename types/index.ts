@@ -64,4 +64,5 @@ export type AuthCookie = {
   district: string | null,
   nik: string | null,
   role: Role;
+  createdAt: Date;
 }

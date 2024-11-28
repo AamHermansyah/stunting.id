@@ -5,7 +5,8 @@ import { prisma } from "@/db";
 export const createBabyNutrition = async (
   values: { key: string, value: string }[],
   freq: number,
-  childId: number
+  childId: number,
+  createdAt?: Date
 ) => {
   try {
     await prisma.nutritionLog.create({
@@ -18,7 +19,9 @@ export const createBabyNutrition = async (
         mealNutrition: {
           create: []
         },
-        childId
+        childId,
+        createdAt,
+        updatedAt: createdAt
       }
     });
 

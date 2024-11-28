@@ -12,7 +12,10 @@ export const getAllNutritionByChildId = async (id: number) => {
       include: {
         breastfeedingTimes: true,
         mealNutrition: true
-      }
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
 
     const todayData = await prisma.nutritionLog.findMany({

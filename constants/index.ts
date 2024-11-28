@@ -196,3 +196,39 @@ export const tagsArticle = [
 ];
 
 export const EMAIL_SERVICE = 'stunting@support.app.id'
+
+export const foodOptions = [
+  { value: "Ayam Goreng", label: "Ayam Goreng" },
+  { value: "Ayam Krispi", label: "Ayam Krispi" },
+  { value: "Ayam Kalasan", label: "Ayam Kalasan" },
+  { value: "Ayam Bumbu Kuning", label: "Ayam Bumbu Kuning" },
+  { value: "Yogurt", label: "Yogurt" },
+  { value: "Telur Rebus", label: "Telur Rebus" },
+  { value: "Ubi Kukus", label: "Ubi Kukus" },
+  { value: "menu-lainnya", label: "Menu Lainnya" }, // Option for custom input
+];
+
+export const mealTimes = [
+  { label: "Makan Pagi", time: "08:00" },
+  { label: "Makan Siang", time: "12:00" },
+  { label: "Snack Sore", time: "16:00" },
+  { label: "Makan Malam", time: "18:00" },
+];
+
+export const nutritionOptions = [
+  { value: "Protein", label: "Protein" },
+  { value: "Lemak", label: "Lemak" },
+  { value: "Karbohidrat", label: "Karbohidrat" },
+  { value: "Serat", label: "Serat" },
+  { value: "Air", label: "Air" },
+  { value: "Mineral", label: "Mineral" },
+  { value: "Vitamin", label: "Vitamin" },
+];
+
+export const breastfeedingTimes = [
+  { value: '1', label: '1x' },
+  { value: '2', label: '2x' },
+  { value: '3', label: '3x' },
+  { value: '4', label: '4x' },
+  { value: '8', label: '8x' }
+];

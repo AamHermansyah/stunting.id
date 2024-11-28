@@ -109,3 +109,44 @@ export function totalMonthUntilNow(startDate: string | Date): number {
 
   return totalMonths >= 0 ? totalMonths : 0;
 }
+
+export const getMissedDays = (firstCompleted: Date | string, completedDates: Date[]): Date[] => {
+  const startDate = firstCompleted instanceof Date ? firstCompleted : new Date(firstCompleted);
+  const today = new Date();
+
+  startDate.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+
+  const missedDays: Date[] = [];
+
+  let currentDate = new Date(startDate);
+  currentDate.setDate(currentDate.getDate() + 1);
+
+  while (currentDate <= today) {
+    const isCompleted = completedDates
+      .some((completedDate) => new Date(completedDate).setHours(0, 0, 0, 0) === currentDate.setHours(0, 0, 0, 0));
+
+    if (!isCompleted) missedDays.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return missedDays;
+};
+
+export function calculateFeedingTimes(count: number) {
+  const startHour = 6;
+  const endHour = 20;
+
+  if (count === 1) {
+    return [{ key: '1', value: `${startHour.toString().padStart(2, '0')}:00` }];
+  }
+
+  const interval = (endHour - startHour) / (count - 1);
+
+  return Array.from({ length: count }, (_, index) => {
+    const hour = startHour + index * interval;
+    const minutes = Math.floor((hour % 1) * 60);
+    const formattedTime = `${Math.floor(hour).toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    return { key: `${index + 1}`, value: formattedTime };
+  });
+};
