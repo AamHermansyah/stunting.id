@@ -52,34 +52,34 @@ export const createMeasurement = async (form: {
 
 // Fetch data measurements from database
 export const getMeasurements = async () => {
-    try {
-      const measurements = await prisma.measurement.findMany({
-        include: { Child: true },
-      });
-      return measurements.map((measurement) => ({
-        id: measurement.id,
-        namaOrangTua: measurement.Child.name, // Sesuaikan dengan field
-        tinggiBadan: `${measurement.height} Cm`,
-        beratBadan: `${measurement.weight} Kg`,
-        lingkarKepala: `${measurement.headCircumference} Cm`,
-        lingkarLengan: `${measurement.armCircumference} Cm`,
-        usia: calculateAge(measurement.date), // Fungsi bantu
-        statusGizi: measurement.nutritionalStatus,
-      }));
-    } catch (error) {
-      console.error("Error fetching measurements:", error);
-      return [];
-    }
-  };
-  
-  // Fungsi untuk menghitung usia (dari tanggal pengukuran ke saat ini)
-  const calculateAge = (date: Date): string => {
-    const diff = new Date().getTime() - new Date(date).getTime();
-    const ageDate = new Date(diff);
-    const years = ageDate.getUTCFullYear() - 1970;
-    const months = ageDate.getUTCMonth();
-    return `${years} Tahun ${months} Bulan`;
-  };
+  try {
+    const measurements = await prisma.measurement.findMany({
+      include: { Child: true },
+    });
+    return measurements.map((measurement) => ({
+      id: measurement.id,
+      namaOrangTua: measurement.Child.name, // Sesuaikan dengan field
+      tinggiBadan: `${measurement.height} Cm`,
+      beratBadan: `${measurement.weight} Kg`,
+      lingkarKepala: `${measurement.headCircumference} Cm`,
+      lingkarLengan: `${measurement.armCircumference} Cm`,
+      usia: calculateAge(measurement.Child.birthDate), // Menggunakan tanggal lahir anak
+      statusGizi: measurement.nutritionalStatus,
+    }));
+  } catch (error) {
+    console.error("Error fetching measurements:", error);
+    return [];
+  }
+};
+
+// Fungsi untuk menghitung usia (dari tanggal lahir ke saat ini)
+const calculateAge = (birthDate: Date): string => {
+  const diff = new Date().getTime() - new Date(birthDate).getTime();
+  const ageDate = new Date(diff);
+  const years = ageDate.getUTCFullYear() - 1970;
+  const months = ageDate.getUTCMonth();
+  return `${years} Tahun ${months} Bulan`;
+};
 
 // Fetch measurements for children associated with a specific user
 export const getMeasurementsByUserId = async (userId: string, childId: string) => {
@@ -102,12 +102,37 @@ export const getMeasurementsByUserId = async (userId: string, childId: string) =
       beratBadan: `${measurement.weight} Kg`,
       lingkarKepala: `${measurement.headCircumference} Cm`,
       lingkarLengan: `${measurement.armCircumference} Cm`,
-      usia: calculateAge(measurement.date),
+      usia: calculateAge(measurement.Child.birthDate),
       statusGizi: measurement.nutritionalStatus,
       tanggalInput: measurement.date.toISOString().split("T")[0], // Format tanggal sesuai kebutuhan
     }));
   } catch (error) {
     console.error("Error fetching measurements by userId and childId:", error);
     return [];
+  }
+};
+
+// Fungsi untuk memperbarui ukuran anak
+export const updateChildSize = async (
+  childId: string,
+  height: number,
+  weight: number,
+  headCircumference: number,
+  armCircumference: number
+) => {
+  try {
+    await prisma.child.update({
+      where: { id: Number(childId) },
+      data: {
+        height: height,
+        weight: weight,
+        headCircumference: headCircumference,
+        armCircumference: armCircumference,
+      },
+    });
+    return true; // Mengembalikan true jika berhasil
+  } catch (error) {
+    console.error("Error updating child size:", error);
+    return false; // Mengembalikan false jika terjadi kesalahan
   }
 };

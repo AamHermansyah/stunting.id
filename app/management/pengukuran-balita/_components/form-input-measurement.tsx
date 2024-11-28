@@ -28,7 +28,7 @@ import { Command, CommandInput, CommandList, CommandItem } from "@/components/ui
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { getChildren, createMeasurement } from "@/actions/measurement";
+import { getChildren, createMeasurement, updateChildSize } from "@/actions/measurement";
 import { toast } from "sonner";
 import { measurementSchema, MeasurementFormType } from "@/schemas/measurement";
 
@@ -79,12 +79,18 @@ const InputMeasurementForm = ({ userId, role }: { userId: string; role: string }
         armCircumference: parseFloat(values.armCircumference),
       };
       console.log("Payload:", payload);
-      const success = await createMeasurement(payload);
-      if (success) {
-        toast.success("Pengukuran berhasil ditambahkan!");
+      
+      // Menyimpan data ke model Measurement
+      const successMeasurement = await createMeasurement(payload);
+      
+      // Memperbarui data ukuran di model Child
+      const successChildUpdate = await updateChildSize(payload.childId, payload.height, payload.weight, payload.headCircumference, payload.armCircumference);
+      
+      if (successMeasurement && successChildUpdate) {
+        toast.success("Pengukuran berhasil ditambahkan dan data anak diperbarui!");
         router.push("/management/pengukuran-balita");
       } else {
-        toast.error("Gagal menambahkan pengukuran.");
+        toast.error("Gagal menambahkan pengukuran atau memperbarui data anak.");
       }
     } catch (error) {
       toast.error("Terjadi kesalahan dalam pengolahan data.");

@@ -1,4 +1,4 @@
-  import React from "react";
+import React from "react";
   import {
     Table,
     TableBody,
@@ -23,6 +23,7 @@
   import { FaEdit } from "react-icons/fa";
   import { AiTwotoneDelete } from "react-icons/ai";
   import { getAllChildren } from "@/data/child";
+  import DeleteChildButton from './delete-childrenbutton';
 
   interface User {
     id: string;
@@ -157,14 +158,7 @@
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link
-                          className="w-full flex items-center gap-2"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={"#"}
-                        >
-                          <AiTwotoneDelete /> Hapus
-                        </Link>
+                        <DeleteChildButton childId={Number(child.id)} userId={child.User.id} />
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

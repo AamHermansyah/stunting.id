@@ -49,7 +49,9 @@ const DataPengukuranBalita = () => {
   return (
     <div className="border rounded space-y-4 bg-white">
       <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">
-        <h1 className="text-base sm:text-lg font-semibold">Data Pengukuran Balita</h1>
+        <h1 className="text-base sm:text-lg font-semibold">
+          Data Pengukuran Balita
+        </h1>
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           <div className="relative w-full sm:w-auto">
             <input
@@ -62,18 +64,18 @@ const DataPengukuranBalita = () => {
             </div>
           </div>
           <Button variant={"outline"} className="gap-2 font-semibold">
-              Filter
-              <div className="relative h-5 w-5 aspect-square">
-                <Image src="/images/filter.svg" fill={true} alt="filter" />
-              </div>
-            </Button>
+            Filter
+            <div className="relative h-5 w-5 aspect-square">
+              <Image src="/images/filter.svg" fill={true} alt="filter" />
+            </div>
+          </Button>
 
-            <Link href="/management/pengukuran-balita/import-data">
-              <Button>Import data Excel</Button>
-            </Link>
-            <Link href="/management/pengukuran-balita/tambah-data-pengukuran">
-              <Button>Import data Manual</Button>
-            </Link>
+          <Link href="/management/pengukuran-balita/import-data">
+            <Button>Import data Excel</Button>
+          </Link>
+          <Link href="/management/pengukuran-balita/tambah-data-pengukuran">
+            <Button>Import data Manual</Button>
+          </Link>
         </div>
       </div>
 
@@ -98,7 +100,8 @@ const DataPengukuranBalita = () => {
               <TableCell>{item.beratBadan}</TableCell>
               <TableCell>{item.lingkarKepala}</TableCell>
               <TableCell>{item.lingkarLengan}</TableCell>
-              <TableCell>{item.usia}</TableCell>
+              <TableCell>{item.usia}</TableCell>{" "}
+              {/* Usia yang sudah diperbarui */}
               <TableCell>
                 <span
                   className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs justify-center font-medium ${getStatusClass(
@@ -119,7 +122,10 @@ const DataPengukuranBalita = () => {
                       <FaEllipsis />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-[200px] space-y-1">
+                  <DropdownMenuContent
+                    align="end"
+                    className="w-[200px] space-y-1"
+                  >
                     <DropdownMenuItem>
                       <Link
                         className="w-full flex items-center gap-2"

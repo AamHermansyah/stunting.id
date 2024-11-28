@@ -33,6 +33,7 @@ import { useRouter } from "next/navigation";
 import { Child } from "@prisma/client";
 import { formatDate } from "date-fns";
 import { usePathname } from 'next/navigation';
+import { createMeasurement } from "@/actions/measurement";
 
 interface IProps {
   id: string;
@@ -60,13 +61,24 @@ function FormAddAnak({ id, data }: IProps) {
   });
 
   const onSubmit = async (values: z.infer<typeof childSchema>) => {
+    console.log("Data yang dikirim:", values);
   
     if (!data) {
       startFetching(() => {
         createChild(values, id)
-          .then((res) => {
+          .then(async (res) => {
             if (res.success) {
-              toast.success('Berhasil menambahkan anak');
+              await createMeasurement({
+                childId: res.data.id.toString(),
+                height: parseFloat(values.height),
+                weight: parseFloat(values.weight),
+                headCircumference: parseFloat(values.headCircumference),
+                armCircumference: parseFloat(values.armCircumference),
+                date: new Date().toISOString(),
+                nutritionalStatus: "Sehat",
+                userId: id,
+              });
+              toast.success('Berhasil menambahkan anak dan data pengukuran!');
               if (pathname.includes('management/identitas-balita')) {
                 navigate.push('/management/identitas-balita');
               } else if (pathname.includes('/management/orang-tua/profile')) {
