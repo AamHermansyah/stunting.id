@@ -1,3 +1,4 @@
+import { MealTime, NutritionType } from "@prisma/client";
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -150,3 +151,35 @@ export function calculateFeedingTimes(count: number) {
     return { key: `${index + 1}`, value: formattedTime };
   });
 };
+
+export function timeofMealLabel(time: MealTime) {
+  switch (time) {
+    case 'BREAKFAST':
+      return 'Pagi';
+    case 'LUNCH':
+      return 'Siang';
+    case 'SNACK':
+      return 'Sore';
+    default:
+      return 'Malam';
+  }
+}
+
+export function translateNutritionType(type: NutritionType): string {
+  switch (type) {
+    case NutritionType.CARBOHYDRATE:
+      return 'Karbohidrat';
+    case NutritionType.ANIMAL_PROTEIN:
+      return 'Protein Hewani';
+    case NutritionType.PLANT_PROTEIN:
+      return 'Protein Nabati';
+    case NutritionType.GOOD_FATS:
+      return 'Lemak Sehat';
+    case NutritionType.VITAMIN:
+      return 'Vitamin';
+    case NutritionType.MINERAL:
+      return 'Mineral';
+    default:
+      return 'Tidak Dikenal';
+  }
+}

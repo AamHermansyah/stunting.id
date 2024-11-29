@@ -1,17 +1,21 @@
-"use client";
-
-import GrowHistorySection from '@/components/shared/pages/grow-history-section'
-import { useParams } from 'next/navigation';
+import GrowHistorySection from '@/components/shared/sections/grow-history-section'
+import { AuthCookie } from '@/types';
+import { cookies } from 'next/headers';
 import React from 'react'
 
-const GrowHistory = () => {
-  const { id } = useParams();
+function GrowHistory({ params }: { params: { id: string } }) {
+  const { id } = params;
+
+  const cookieAuth = cookies().get('auth');
+  const user = JSON.parse(cookieAuth!.value) as AuthCookie;
   return (
     <div>
-      <GrowHistorySection 
-        profile={`/management/pengukuran-balita/detail-anak/${id}`} 
-        diary={`/management/pengukuran-balita/detail-anak/${id}/diary-anak`} 
-        history={`/management/pengukuran-balita/detail-anak/${id}/riwayat-pertumbuhan`} 
+      <GrowHistorySection
+        profile={`/management/pengukuran-balita/detail-anak/${id}`}
+        diary={`/management/pengukuran-balita/detail-anak/${id}/diary-anak`}
+        history={`/management/pengukuran-balita/detail-anak/${id}/riwayat-pertumbuhan`}
+        childId={id}
+        userId={user.id}
       />
     </div>
   )

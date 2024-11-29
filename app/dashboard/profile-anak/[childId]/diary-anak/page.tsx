@@ -1,8 +1,12 @@
-import ChildDiarySection from "@/components/shared/pages/child-diary-section";
-import React from "react";
+import ChildDiarySection from "@/components/shared/sections/child-diary-section";
+import { AuthCookie } from "@/types";
+import { cookies } from "next/headers";
 
 function DiaryAnakPage({ params }: { params: { childId: string } }) {
   const { childId } = params;
+
+  const cookieAuth = cookies().get('auth');
+  const user = JSON.parse(cookieAuth!.value) as AuthCookie;
 
   return (
     <>
@@ -12,6 +16,7 @@ function DiaryAnakPage({ params }: { params: { childId: string } }) {
         diary={`/dashboard/profile-anak/${childId}/diary-anak`}
         history={`/dashboard/profile-anak/${childId}/riwayat-pertumbuhan`}
         childId={childId}
+        user={user}
       />
     </>
   );

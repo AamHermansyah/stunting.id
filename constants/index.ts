@@ -1,14 +1,14 @@
 import { Layout, MessageSquare, Settings, User } from "lucide-react"
 import { HiChartBar, HiUsers } from "react-icons/hi2"
 import { BiSolidChart } from 'react-icons/bi'
-import { SidebarLabel, SidebarNavItem } from '@/types'
+import { FoodOption, SidebarLabel, SidebarNavItem } from '@/types'
 import { TbLayoutDashboardFilled } from "react-icons/tb"
 import { FaUsersCog } from "react-icons/fa"
 import { IoLogOut } from "react-icons/io5"
 import { RiAdminFill } from "react-icons/ri";
 import { Hospital, Newspaper, ClipboardPlus, LayoutDashboard } from 'lucide-react';
 import { FaUserCircle } from "react-icons/fa";
-import { Role } from "@prisma/client"
+import { NutritionType, Role } from "@prisma/client"
 
 
 export const NAVBAR = [
@@ -197,15 +197,86 @@ export const tagsArticle = [
 
 export const EMAIL_SERVICE = 'stunting@support.app.id'
 
-export const foodOptions = [
-  { value: "Ayam Goreng", label: "Ayam Goreng" },
-  { value: "Ayam Krispi", label: "Ayam Krispi" },
-  { value: "Ayam Kalasan", label: "Ayam Kalasan" },
-  { value: "Ayam Bumbu Kuning", label: "Ayam Bumbu Kuning" },
-  { value: "Yogurt", label: "Yogurt" },
-  { value: "Telur Rebus", label: "Telur Rebus" },
-  { value: "Ubi Kukus", label: "Ubi Kukus" },
-  { value: "menu-lainnya", label: "Menu Lainnya" }, // Option for custom input
+export const foodOptions: FoodOption[] = [
+  {
+    id: "food-1",
+    value: "Ayam Goreng",
+    label: "Ayam Goreng",
+    nutrition: [NutritionType.ANIMAL_PROTEIN,
+    NutritionType.GOOD_FATS,
+    NutritionType.MINERAL
+    ],
+  },
+  {
+    id: "food-2",
+    value: "Ayam Krispi",
+    label: "Ayam Krispi",
+    nutrition: [
+      NutritionType.ANIMAL_PROTEIN,
+      NutritionType.GOOD_FATS,
+      NutritionType.CARBOHYDRATE,
+      NutritionType.MINERAL
+    ],
+  },
+  {
+    id: "food-3",
+    value: "Ayam Kalasan",
+    label: "Ayam Kalasan",
+    nutrition: [
+      NutritionType.ANIMAL_PROTEIN,
+      NutritionType.GOOD_FATS,
+      NutritionType.MINERAL
+    ],
+  },
+  {
+    id: "food-4",
+    value: "Ayam Bumbu Kuning",
+    label: "Ayam Bumbu Kuning",
+    nutrition: [
+      NutritionType.ANIMAL_PROTEIN,
+      NutritionType.GOOD_FATS,
+      NutritionType.MINERAL
+    ],
+  },
+  {
+    id: "food-5",
+    value: "Yogurt",
+    label: "Yogurt",
+    nutrition: [
+      NutritionType.ANIMAL_PROTEIN,
+      NutritionType.CARBOHYDRATE,
+      NutritionType.VITAMIN,
+      NutritionType.MINERAL
+    ],
+  },
+  {
+    id: "food-6",
+    value: "Telur Rebus",
+    label: "Telur Rebus",
+    nutrition: [
+      NutritionType.ANIMAL_PROTEIN,
+      NutritionType.GOOD_FATS,
+      NutritionType.VITAMIN,
+      NutritionType.MINERAL
+    ],
+  },
+  {
+    id: "food-7",
+    value: "Ubi Kukus",
+    label: "Ubi Kukus",
+    nutrition: [
+      NutritionType.CARBOHYDRATE,
+      NutritionType.PLANT_PROTEIN,
+      NutritionType.VITAMIN,
+      NutritionType.MINERAL
+    ],
+  },
+  {
+    id: "others",
+    value: "menu-lainnya",
+    label: "Menu Lainnya",
+    nutrition: [],
+  },
 ];
 
 export const mealTimes = [
@@ -216,13 +287,12 @@ export const mealTimes = [
 ];
 
 export const nutritionOptions = [
-  { value: "Protein", label: "Protein" },
-  { value: "Lemak", label: "Lemak" },
-  { value: "Karbohidrat", label: "Karbohidrat" },
-  { value: "Serat", label: "Serat" },
-  { value: "Air", label: "Air" },
-  { value: "Mineral", label: "Mineral" },
-  { value: "Vitamin", label: "Vitamin" },
+  { value: NutritionType.ANIMAL_PROTEIN, label: "Protein Hewani" },
+  { value: NutritionType.PLANT_PROTEIN, label: "Protein Nabati" },
+  { value: NutritionType.CARBOHYDRATE, label: "Karbohidrat" },
+  { value: NutritionType.GOOD_FATS, label: "Lemak Baik" },
+  { value: NutritionType.VITAMIN, label: "Vitamin" },
+  { value: NutritionType.MINERAL, label: "Mineral" },
 ];
 
 export const breastfeedingTimes = [
@@ -230,5 +300,6 @@ export const breastfeedingTimes = [
   { value: '2', label: '2x' },
   { value: '3', label: '3x' },
   { value: '4', label: '4x' },
-  { value: '8', label: '8x' }
+  { value: '8', label: '8x' },
+  { value: '10', label: '10x' }
 ];

@@ -5,12 +5,12 @@ import React, { useEffect, useState } from 'react';
 import CardProfileDetail from './card-profile-detail';
 import { Button } from '@/components/ui/button';
 import { getChildren } from '@/actions/showAnak';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface ChildProfile {
   id: number;
   name: string;
-  birthDate: Date; 
+  birthDate: Date;
   gender: string;
   bloodType: string;
   height: number;
@@ -28,16 +28,17 @@ function Profile({ userId }: ProfileProps) {
   const pathname = usePathname();
   const [child, setChild] = useState<ChildProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  
-  const childId = pathname.split('/').pop(); 
-  
+  const navigate = useRouter();
+
+  const childId = pathname.split('/').pop();
+
   useEffect(() => {
     const fetchChild = async () => {
       const res = await getChildren(userId.toString());
       if (res.success && res.data.length > 0) {
         const fetchedChild = res.data.find((child: ChildProfile) => child.id.toString() === childId);
         if (fetchedChild) {
-          setChild(fetchedChild); 
+          setChild(fetchedChild);
         }
       }
       setLoading(false);
@@ -92,8 +93,13 @@ function Profile({ userId }: ProfileProps) {
           value={loading ? 'Memuat...' : child?.bloodType || ''} // Fallback ke string kosong
         />
       </div>
-      <Button variant="secondary" className="w-full">
-        {loading ? 'Memuat...' : 'Lihat Detail'}
+      <Button
+        variant="secondary"
+        className="w-full"
+        disabled={loading || !childId}
+        onClick={() => navigate.push(`/dashboard/profile-anak/${childId}/diary-anak`)}
+      >
+        {loading ? 'Memuat...' : 'Kelola Log Nutrisi'}
       </Button>
     </div>
   );

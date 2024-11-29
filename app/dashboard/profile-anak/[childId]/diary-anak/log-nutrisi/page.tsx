@@ -1,4 +1,4 @@
-import LogNutritionSection from '@/components/shared/pages/log-nutrition-section'
+import LogNutritionSection from '@/components/shared/sections/log-nutrition-section'
 import { AuthCookie } from '@/types';
 import { cookies } from 'next/headers';
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Role } from "@prisma/client";
+import { NutritionType, Role } from "@prisma/client";
 import { IconType } from "react-icons/lib";
 
 export interface SidebarLabel {
@@ -65,4 +65,11 @@ export type AuthCookie = {
   nik: string | null,
   role: Role;
   createdAt: Date;
+}
+
+export type FoodOption = {
+  id: string;
+  value: string;
+  label: string;
+  nutrition: NutritionType[];
 }

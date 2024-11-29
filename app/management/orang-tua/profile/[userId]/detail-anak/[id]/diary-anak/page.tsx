@@ -12,10 +12,10 @@ function ChildDiaryAdmin({ params }: { params: { id: string } }) {
   return (
     <div>
       <ChildDiarySection
-        edit={`/management/pengukuran-balita/detail-anak/${id}/diary-anak/log-nutrisi`}
-        profile={`/management/pengukuran-balita/detail-anak/${id}`}
-        diary={`/management/pengukuran-balita/detail-anak/${id}/diary-anak`}
-        history={`/management/pengukuran-balita/detail-anak/${id}/riwayat-pertumbuhan`}
+        edit={`/management/orang-tua/profile/${id}/detail-anak/${id}/diary-anak/log-nutrisi`}
+        profile={`/management/orang-tua/profile/${id}/detail-anak/${id}`}
+        diary={`/management/orang-tua/profile/${id}/detail-anak/${id}/diary-anak`}
+        history={`/management/orang-tua/profile/${id}/detail-anak/${id}/riwayat-pertumbuhan`}
         childId={id}
         user={user}
       />

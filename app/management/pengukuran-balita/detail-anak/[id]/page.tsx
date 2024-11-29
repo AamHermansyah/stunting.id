@@ -1,6 +1,6 @@
 "use client";
 
-import { ChildProfielSection } from '@/components/shared/pages/child-profile-section'
+import { ChildProfielSection } from '@/components/shared/sections/child-profile-section'
 import React from 'react'
 import { useParams } from 'next/navigation'
 
@@ -9,10 +9,10 @@ const Page = () => {
 
   return (
     <div>
-      <ChildProfielSection 
-        profile={`/management/pengukuran-balita/detail-anak/${id}`} 
-        diary={`/management/pengukuran-balita/detail-anak/${id}/diary-anak`} 
-        history={`/management/pengukuran-balita/detail-anak/${id}/riwayat-pertumbuhan`} 
+      <ChildProfielSection
+        profile={`/management/pengukuran-balita/detail-anak/${id}`}
+        diary={`/management/pengukuran-balita/detail-anak/${id}/diary-anak`}
+        history={`/management/pengukuran-balita/detail-anak/${id}/riwayat-pertumbuhan`}
       />
     </div>
   )

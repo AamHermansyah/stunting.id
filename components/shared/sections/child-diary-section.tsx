@@ -5,7 +5,6 @@ import Nutrition from "./_components/nutrition";
 import NutritionalCheckResult from "./_components/nutritional-check-results";
 import { getAllNutritionByChildId } from "@/data/nutrition";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 import { AuthCookie } from "@/types";
 
 interface IProps {
@@ -14,9 +13,10 @@ interface IProps {
   diary: string;
   history: string;
   childId: string;
+  user: AuthCookie;
 }
 
-async function ChildDiarySection({ edit, profile, diary, history, childId }: IProps) {
+async function ChildDiarySection({ edit, profile, diary, history, childId, user }: IProps) {
   const res = await getAllNutritionByChildId(+childId);
 
   if (res.error) redirect('/error');
@@ -24,9 +24,6 @@ async function ChildDiarySection({ edit, profile, diary, history, childId }: IPr
   const data = res.data!;
   const dateLabels = res.dateLabels!;
   const todayData = res.todayData || null;
-
-  const cookieAuth = cookies().get('auth');
-  const user = JSON.parse(cookieAuth!.value) as AuthCookie;
 
   return (
     <>
@@ -37,7 +34,7 @@ async function ChildDiarySection({ edit, profile, diary, history, childId }: IPr
           <Suspense>
             <Nutrition edit={edit} todayData={todayData} data={data} />
           </Suspense>
-          <NutritionalCheckResult />
+          <NutritionalCheckResult data={data} todayData={todayData} />
         </div>
       </div>
     </>

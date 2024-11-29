@@ -1,10 +1,10 @@
-import AccountSecuritySection from '@/components/shared/pages/account-security-section'
+import AccountSecuritySection from '@/components/shared/sections/account-security-section'
 import React from 'react'
 
 const KeamananAkun = () => {
   return (
     <div>
-      <AccountSecuritySection profile='/profile' keamanan='/kemanan-akun'/>
+      <AccountSecuritySection profile='/profile' keamanan='/kemanan-akun' />
     </div>
   )
 }

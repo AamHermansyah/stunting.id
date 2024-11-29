@@ -5,7 +5,7 @@ import CardNutritionDetail from "./card-nutrition-detail";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BreastfeedingTime, MealNutrition, MealTime, NutritionLog } from "@prisma/client";
-import { formatCreatedAt, formatDateToYYYYMMDD, getDayName } from "@/lib/utils";
+import { formatCreatedAt, formatDateToYYYYMMDD, getDayName, timeofMealLabel } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 
 interface IProps {
@@ -22,6 +22,7 @@ interface IProps {
 
 function Nutrition({ edit, todayData, data }: IProps) {
   const [currentDate, setCurrentDate] = useState(todayData);
+  const [groupedMeals, setGroupedMeals] = useState<{ label: MealTime, value: string }[] | null>(null);
   const searchParams = useSearchParams();
   const dateQuery: string | null = searchParams.get('date');
   const statusQuery: string | null = searchParams.get('status');
@@ -44,6 +45,31 @@ function Nutrition({ edit, todayData, data }: IProps) {
     }
   }, [dateQuery, statusQuery]);
 
+  useEffect(() => {
+    if (currentDate && currentDate.mealNutrition) {
+      setGroupedMeals(currentDate.mealNutrition.reduce(
+        (acc: { label: MealTime, value: string }[], curr) => {
+          // Temukan grup berdasarkan timeOfMeal
+          const existingGroup = acc.find(item => item.label === curr.timeOfMeal);
+
+          if (existingGroup) {
+            // Jika sudah ada grup dengan timeOfMeal yang sama, tambahkan menu ke value
+            existingGroup.value += `, ${curr.menuOfMeal}`;
+          } else {
+            // Jika belum ada grup dengan timeOfMeal tersebut, buat grup baru
+            acc.push({
+              label: curr.timeOfMeal,
+              value: curr.menuOfMeal,
+            });
+          }
+
+          return acc;
+        }, []));
+    } else {
+      setGroupedMeals(null);
+    }
+  }, [currentDate]);
+
   return (
     <div className="p-4 w-full col-span-12 lg:col-span-4 xl:col-span-3 order-1 border rounded-lg flex flex-col justify-between">
       <div className="space-y-4">
@@ -56,10 +82,12 @@ function Nutrition({ edit, todayData, data }: IProps) {
           <div className="w-full grid grid-cols-2 gap-x-2 gap-y-4 py-2 lg:text-base text-sm">
             {currentDate ? (
               <>
-                <CardNutritionDetail
-                  label="Asupan Asi"
-                  value={`${currentDate?.breastfeedingFreq}`}
-                />
+                {currentDate?.breastfeedingFreq && (
+                  <CardNutritionDetail
+                    label="Asupan Asi"
+                    value={`${currentDate?.breastfeedingFreq}x`}
+                  />
+                )}
                 {currentDate.breastfeedingTimes && currentDate.breastfeedingTimes.map((item, index) => (
                   <CardNutritionDetail
                     key={`asi-${index}`}
@@ -67,11 +95,11 @@ function Nutrition({ edit, todayData, data }: IProps) {
                     value={`${item.time} WIB`}
                   />
                 ))}
-                {currentDate.mealNutrition && currentDate.mealNutrition.map((item, index) => (
+                {groupedMeals && groupedMeals.map((item, index) => (
                   <CardNutritionDetail
-                    label={`Makan ${timeofMealLabel(item.timeOfMeal)}`}
+                    label={`Makan ${timeofMealLabel(item.label)}`}
                     key={`menu-${index + 1}`}
-                    value={item.menuOfMeal}
+                    value={item.value}
                   />
                 ))}
               </>
@@ -89,18 +117,5 @@ function Nutrition({ edit, todayData, data }: IProps) {
     </div>
   );
 };
-
-function timeofMealLabel(time: MealTime) {
-  switch (time) {
-    case 'BREAKFAST':
-      return 'Pagi';
-    case 'LUNCH':
-      return 'Siang';
-    case 'SNACK':
-      return 'Sore';
-    default:
-      return 'Malam';
-  }
-}
 
 export default Nutrition;

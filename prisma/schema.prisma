@@ -85,24 +85,21 @@ model Measurement {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  userId       String
-  User         User           @relation(fields: [userId], references: [id])
-  NutritionLog NutritionLog[]
-  Child        Child          @relation(fields: [childId], references: [id])
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+  Child  Child  @relation(fields: [childId], references: [id])
 }
 
 model NutritionLog {
   id                 Int                 @id @default(autoincrement())
   childId            Int
   Child              Child               @relation(fields: [childId], references: [id])
-  ageGroup           AgeGroup // Enum untuk kelompok usia
-  breastfeedingFreq  Int? // Frekuensi pemberian ASI (opsional tergantung kelompok usia)
-  breastfeedingTimes BreastfeedingTime[] // Waktu pemberian ASI
-  mealNutrition      MealNutrition[] // Detail nutrisi untuk waktu makan (jika ada)
+  ageGroup           AgeGroup
+  breastfeedingFreq  Int?
+  breastfeedingTimes BreastfeedingTime[]
+  mealNutrition      MealNutrition[]
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
-  Measurement        Measurement?        @relation(fields: [measurementId], references: [id])
-  measurementId      Int?
 }
 
 model BreastfeedingTime {

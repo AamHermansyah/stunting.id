@@ -54,7 +54,7 @@ function ReminderCalendar({ data, childId, userJoined }: IProps) {
       </div>
 
       {missedDays.length > 0 && (
-        <div className="p-4 bg-destructive/70 text-destructive-foreground rounded-md">
+        <div className="p-4 bg-destructive/60 text-destructive-foreground rounded-md">
           <h4 className="font-semibold">Perhatian</h4>
           <p className="text-sm">Silahkan lakukan pengisian data nutrisi harian. Tercatat {missedDays.length} hari anda tidak mengisinya^^</p>
         </div>
