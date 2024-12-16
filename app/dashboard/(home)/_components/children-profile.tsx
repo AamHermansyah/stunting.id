@@ -14,15 +14,16 @@ interface IProps {
   add: string;
   id: string;
   edit: string;
-  role: string; // Tambahkan role pada props
+  role: string;
+  children?: React.ReactNode; // Tambahkan jika diperlukan
 }
 
 interface WrapperProps {
   title: string;
   children: React.ReactNode;
 }
- 
-const Wrapper: React.FC<WrapperProps> = ({ title, children, }) => (
+
+const Wrapper: React.FC<WrapperProps> = ({ title, children }) => (
   <div className="flex flex-col rounded-lg px-4 py-4 shadow-sm border bg-white">
     <div className="flex justify-between">
       <span className="font-medium text-xl">{title}</span>
@@ -58,15 +59,15 @@ const calculateAge = (birthDate: Date) => {
 };
 
 function ChildrenProfile({ detail, add, id, edit, role }: IProps) {
-  const [children, setChildren] = useState<any[]>([]);
+  const [childrenData, setChildrenData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const userId = id; 
 
   useEffect(() => {
     const fetchChildren = async () => {
-      const res = await getChildren(userId, role); // Tambahkan argumen role
+      const res = await getChildren(userId, role);
       if (res.success) {
-        setChildren(res.data);
+        setChildrenData(res.data);
       } else {
         console.error(res.error);
       }
@@ -83,7 +84,7 @@ function ChildrenProfile({ detail, add, id, edit, role }: IProps) {
     );
   }
 
-  if (children.length === 0) {
+  if (childrenData.length === 0) {
     return (
       <Wrapper title="Profil anak">
         <NotFilled
@@ -105,7 +106,7 @@ function ChildrenProfile({ detail, add, id, edit, role }: IProps) {
   return (
     <Wrapper title="Profil anak">
       <div className="flex overflow-x-auto flex-row gap-4">
-        {children.map((child) => (
+        {childrenData.map((child) => (
           <ProfileCard
             key={child.id}
             profile='/images/AvatarProfile-example1.png'
