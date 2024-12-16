@@ -100,12 +100,38 @@ export const deleteChild = async (childId: number, userId: string) => {
     // Cari data anak berdasarkan ID
     const child = await prisma.child.findUnique({
       where: { id: childId },
-      include: { measurements: true }, // Sertakan pengukuran
+      include: {
+        measurements: true,
+        NutritionLog: {
+          include: {
+            breastfeedingTimes: true,
+            mealNutrition: true, // Tidak perlu NutritionType
+          },
+        },
+      },
     });
 
     // Jika data anak tidak ditemukan atau userId tidak sesuai
     if (!child || child.userId !== userId) {
       return { error: 'Anak tidak ditemukan atau tidak diizinkan untuk menghapus' };
+    }
+
+    // Hapus semua relasi terkait di NutritionLog
+    for (const nutritionLog of child.NutritionLog) {
+      // Hapus BreastfeedingTime terkait
+      await prisma.breastfeedingTime.deleteMany({
+        where: { nutritionLogId: nutritionLog.id },
+      });
+
+      // Hapus MealNutrition terkait
+      await prisma.mealNutrition.deleteMany({
+        where: { nutritionLogId: nutritionLog.id },
+      });
+
+      // Hapus NutritionLog
+      await prisma.nutritionLog.delete({
+        where: { id: nutritionLog.id },
+      });
     }
 
     // Hapus semua pengukuran terkait
@@ -128,3 +154,4 @@ export const deleteChild = async (childId: number, userId: string) => {
     };
   }
 };
+
