@@ -35,13 +35,16 @@ const ProfilePage = () => {
   return (
     <div>
       <ChildrenProfile
-        children={children}
         detail={`/management/orang-tua/profile/${userId}/detail-anak`}
         add={`/management/orang-tua/profile/${userId}/tambah-anak`}
         edit={`/management/orang-tua/profile/${userId}/edit-anak/`}
         id={userId} // Gunakan userId yang sudah dipastikan sebagai string
         role={userRole}
-      />
+      >
+        {children.map((child, index) => (
+          <div key={index}>{child}</div>
+        ))}
+      </ChildrenProfile>
     </div>
   );
 };
