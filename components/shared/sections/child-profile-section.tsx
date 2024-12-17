@@ -102,7 +102,7 @@ export function ChildProfielSection({ profile, diary, history }: IProps) {
           <Chart />
           <Overview key={child.id} userId={child.userId} />
         </div>
-        <InterpretationResult />
+        {/* <InterpretationResult /> */}
       </div>
     </>
   );

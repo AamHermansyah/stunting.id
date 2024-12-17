@@ -1,21 +1,29 @@
+'use client';
+
 import GrowHistorySection from '@/components/shared/sections/grow-history-section'
-import { AuthCookie } from '@/types';
-import { cookies } from 'next/headers';
+import { useParams } from 'next/navigation';
 import React from 'react'
 
-function GrowHistory({ params }: { params: { id: string; } }) {
-  const { id } = params;
-  const cookieAuth = cookies().get('auth');
-  const user = JSON.parse(cookieAuth!.value) as AuthCookie;
+const GrowHistory = () => {
+  const params = useParams();
+  
+  // Pastikan untuk mengambil userId dan id dari params dengan benar
+  const userIdString = Array.isArray(params.userId) ? params.userId[0] : params.userId;
+  const childIdString = Array.isArray(params.id) ? params.id[0] : params.id;
+
+  // Tambahkan pengecekan jika childId undefined
+  if (!childIdString) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <GrowHistorySection
-        profile={`/management/identitas-balita/detail-anak/${id}`}
-        diary={`/management/identitas-balita/detail-anak/${id}/diary-anak`}
-        history={`/management/identitas-balita/detail-anak/${id}/riwayat-pertumbuhan`}
-        childId={id}
-        userId={user.id}
+        profile={`/management/identitas-balita/detail-anak/${childIdString}`}
+        diary={`/management/identitas-balita/detail-anak/${childIdString}/diary-anak`}
+        history={`/management/identitas-balita/detail-anak/${childIdString}/riwayat-pertumbuhan`}
+        childId={childIdString}
+        userId={userIdString}
       />
     </div>
   )

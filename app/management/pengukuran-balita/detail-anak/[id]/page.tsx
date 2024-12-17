@@ -4,18 +4,20 @@ import { ChildProfielSection } from '@/components/shared/sections/child-profile-
 import React from 'react'
 import { useParams } from 'next/navigation'
 
-const Page = () => {
-  const { id } = useParams();
+const MeasurementDetailPage = () => {
+  const params = useParams();
+  
+  const childIdString = Array.isArray(params.id) ? params.id[0] : params.id;
 
   return (
     <div>
       <ChildProfielSection
-        profile={`/management/pengukuran-balita/detail-anak/${id}`}
-        diary={`/management/pengukuran-balita/detail-anak/${id}/diary-anak`}
-        history={`/management/pengukuran-balita/detail-anak/${id}/riwayat-pertumbuhan`}
+        profile={`/management/pengukuran-balita/detail-anak/${childIdString}`}
+        diary={`/management/pengukuran-balita/detail-anak/${childIdString}/diary-anak`}
+        history={`/management/pengukuran-balita/detail-anak/${childIdString}/riwayat-pertumbuhan`}
       />
     </div>
   )
 }
 
-export default Page;
+export default MeasurementDetailPage;
