@@ -5,11 +5,11 @@ import { useParams } from 'next/navigation';
 
 const AddChildrenPage = () => {
   const params = useParams();
-  const parentId = params['user.id'];
+  const parentId = Array.isArray(params.userId) ? params.userId[0] : params.userId;
 
   return (
     <div>
-      <FormAddAnak id={parentId as string} />
+      <FormAddAnak id={parentId} />
     </div>
   );
 };

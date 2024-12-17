@@ -67,7 +67,7 @@ function FormAddAnak({ id, data }: IProps) {
       startFetching(() => {
         createChild(values, id)
           .then(async (res) => {
-            if (res.success) {
+            if (res.success && res.data) {
               await createMeasurement({
                 childId: res.data.id.toString(),
                 height: parseFloat(values.height),
@@ -88,7 +88,7 @@ function FormAddAnak({ id, data }: IProps) {
                 navigate.push('/dashboard'); 
               }
             } else {
-              toast.error(res.error);
+              toast.error(res.error || 'Terjadi kesalahan saat menambahkan data');
             }
           });
       });

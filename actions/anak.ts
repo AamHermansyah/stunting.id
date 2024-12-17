@@ -6,55 +6,53 @@ import { z } from "zod";
 
 const allowedRoles = ["KADER", "KEPALA_KADER"];
 
-export const createChild = async (values: z.infer<typeof childSchema>, userId: string) => {
+interface CreateChildResponse {
+  success: boolean;
+  data?: {
+    id: number;
+    [key: string]: any;
+  };
+  error?: string;
+}
+
+export const createChild = async (values: any, userId: string): Promise<CreateChildResponse> => {
   try {
-    const height = parseFloat(values.height);
-    const headCircumference = parseFloat(values.headCircumference);
-    const weight = parseFloat(values.weight);
-    const armCircumference = parseFloat(values.armCircumference);
-    const motherHeight = parseFloat(values.motherHeight);
-    const fatherHeight = parseFloat(values.fatherHeight);
-
-    if (isNaN(weight) || isNaN(armCircumference)) {
-      throw new Error("Weight or Arm Circumference cannot be NaN");
-    }
-
     const child = await prisma.child.create({
       data: {
-        userId: userId,
-        name: `${values.firstName} ${values.lastName ? ` ${values.lastName}` : ''}`,
+        name: `${values.firstName} ${values.lastName}`.trim(),
         birthDate: new Date(values.birthDate),
         gender: values.gender,
         bloodType: values.bloodType,
-        height: height,
-        headCircumference: headCircumference,
-        weight: weight,
-        armCircumference: armCircumference,
+        height: parseFloat(values.height),
+        headCircumference: parseFloat(values.headCircumference),
+        weight: parseFloat(values.weight),
+        armCircumference: parseFloat(values.armCircumference),
         allergy: values.allergy,
         premature: values.premature,
-        motherHeight: motherHeight,
-        fatherHeight: fatherHeight
+        motherHeight: parseFloat(values.motherHeight),
+        fatherHeight: parseFloat(values.fatherHeight),
+        User: {
+          connect: {
+            id: userId
+          }
+        }
       }
     });
 
     return {
-      success: 'success',
+      success: true,
       data: child
-    }
+    };
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Error creating child:", error.message);
-      return {
-        error: error.message || 'Internal server error'
-      }
-    } else {
-      console.error("Error creating child:", error);
-      return {
-        error: 'Internal server error'
-      }
-    }
+    console.error("Error creating child:", error);
+    return {
+      success: false,
+      error: error instanceof Error 
+        ? `Error creating child: ${error.message}`
+        : "Error creating child: An unknown error occurred"
+    };
   }
-}
+};
 
 export const updateChild = async (values: z.infer<typeof childSchema>, id: number, userId: string) => {
   try {
