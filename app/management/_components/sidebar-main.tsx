@@ -9,6 +9,7 @@ import { sidebarFixedNav } from '@/constants';
 import { isSidebarLabel } from '@/types/predict-types';
 import { usePathname } from 'next/navigation';
 import { useSidebarStore } from '../_stores/use-sidebar-store';
+import { logout } from "@/actions/logout"; // Impor fungsi logout
 
 interface SidebarMainProps {
   userRole: string;
@@ -34,6 +35,11 @@ function SidebarMain({ userRole }: SidebarMainProps) {
       };
     }
   }, [isOpen]);
+
+  const handleLogout = async () => {
+    await logout(); // Panggil fungsi logout
+    // Redirect atau lakukan tindakan lain setelah logout jika perlu
+  };
 
   return (
     <>
@@ -76,6 +82,7 @@ function SidebarMain({ userRole }: SidebarMainProps) {
                       : 'text-gray-500 transition-colors duration-300 transform hover:bg-gray-100 hover:text-gray-700'
                   )}
                   href={item.href}
+                  onClick={item.href === '/logout' ? handleLogout : undefined} // Panggil handleLogout jika item adalah logout
                 >
                   {item.icon && <item.icon fontSize={20} />}
                   <span className="text-sm font-semibold">{item.text}</span>

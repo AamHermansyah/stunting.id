@@ -123,7 +123,7 @@ export const sidebarFixedNav: (SidebarNavItem | SidebarLabel)[] = [
   },
   {
     id: 'sfn-item-2',
-    href: "/logout",
+    href: "/",
     icon: IoLogOut,
     text: "Keluar",
   },
