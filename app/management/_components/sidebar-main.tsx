@@ -1,15 +1,20 @@
-'use client'
+/* eslint-disable react-hooks/exhaustive-deps */
+'use client';
 
-import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import SidebarNav from './sidebar-nav'
-import { sidebarFixedNav } from '@/constants'
-import { isSidebarLabel } from '@/types/predict-types'
-import { usePathname } from 'next/navigation'
-import { useSidebarStore } from '../_stores/use-sidebar-store'
+import React, { useEffect } from 'react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import SidebarNav from './sidebar-nav';
+import { sidebarFixedNav } from '@/constants';
+import { isSidebarLabel } from '@/types/predict-types';
+import { usePathname } from 'next/navigation';
+import { useSidebarStore } from '../_stores/use-sidebar-store';
 
-function SidebarMain() {
+interface SidebarMainProps {
+  userRole: string;
+}
+
+function SidebarMain({ userRole }: SidebarMainProps) {
   const { isOpen, closeSidebar } = useSidebarStore();
   const pathname = usePathname();
 
@@ -18,17 +23,15 @@ function SidebarMain() {
       const handleClickOutside = (event: MouseEvent) => {
         const target = event.target as HTMLDivElement;
 
-        // If the click target is outside the element with id #idElement
-        if (target && (target.closest('#sidebar') === null)) {
+        if (target && target.closest('#sidebar') === null) {
           closeSidebar();
         }
-      }
+      };
 
       document.addEventListener('click', handleClickOutside);
-
       return () => {
         document.removeEventListener('click', handleClickOutside);
-      }
+      };
     }
   }, [isOpen]);
 
@@ -48,38 +51,42 @@ function SidebarMain() {
           <div>
             <div className="text-center">
               <Link href="/">
-                <h1 className="text-xl text-primary text-center font-semibold inline-block">Stunting.id</h1>
+                <h1 className="text-xl text-primary text-center font-semibold inline-block">
+                  Stunting.id
+                </h1>
               </Link>
             </div>
             <div className="flex flex-col justify-between flex-1 mt-6">
-              <SidebarNav />
+              <SidebarNav userRole={userRole} /> {/* Properti userRole diteruskan */}
             </div>
           </div>
           <div className="w-full space-y-2">
-            {sidebarFixedNav.map((item) => isSidebarLabel(item) ? (
-              <h4 className="pl-4 text-xs text-primary" key={item.id}>
-                {item.label}
-              </h4>
-            ) : (
-              <Link
-                key={item.id}
-                className={cn(
-                  'flex items-center gap-2 px-4 py-3 rounded-md',
-                  (pathname === item.href) ?
-                    'text-primary bg-primary/20' :
-                    'text-gray-500 transition-colors duration-300 transform hover:bg-gray-100 hover:text-gray-700'
-                )}
-                href={item.href}
-              >
-                {item.icon && <item.icon fontSize={20} />}
-                <span className="text-sm font-semibold">{item.text}</span>
-              </Link>
-            ))}
+            {sidebarFixedNav.map((item) =>
+              isSidebarLabel(item) ? (
+                <h4 className="pl-4 text-xs text-primary" key={item.id}>
+                  {item.label}
+                </h4>
+              ) : (
+                <Link
+                  key={item.id}
+                  className={cn(
+                    'flex items-center gap-2 px-4 py-3 rounded-md',
+                    pathname === item.href
+                      ? 'text-primary bg-primary/20'
+                      : 'text-gray-500 transition-colors duration-300 transform hover:bg-gray-100 hover:text-gray-700'
+                  )}
+                  href={item.href}
+                >
+                  {item.icon && <item.icon fontSize={20} />}
+                  <span className="text-sm font-semibold">{item.text}</span>
+                </Link>
+              )
+            )}
           </div>
         </div>
       </aside>
     </>
-  )
+  );
 }
 
-export default SidebarMain
+export default SidebarMain;

@@ -15,8 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import { MENU_PROFILE, NAVBAR } from "../../../constants"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 import { logout } from "@/actions/logout"
 
 export function MenuProfil() {
