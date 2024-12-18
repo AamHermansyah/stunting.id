@@ -37,8 +37,7 @@ function SidebarMain({ userRole }: SidebarMainProps) {
   }, [isOpen]);
 
   const handleLogout = async () => {
-    await logout(); // Panggil fungsi logout
-    // Redirect atau lakukan tindakan lain setelah logout jika perlu
+    await logout(); 
   };
 
   return (
@@ -82,7 +81,7 @@ function SidebarMain({ userRole }: SidebarMainProps) {
                       : 'text-gray-500 transition-colors duration-300 transform hover:bg-gray-100 hover:text-gray-700'
                   )}
                   href={item.href}
-                  onClick={item.href === '/logout' ? handleLogout : undefined} // Panggil handleLogout jika item adalah logout
+                  onClick={item.href === '/login' ? handleLogout : undefined}
                 >
                   {item.icon && <item.icon fontSize={20} />}
                   <span className="text-sm font-semibold">{item.text}</span>
