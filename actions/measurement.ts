@@ -55,16 +55,21 @@ export const getMeasurements = async () => {
   try {
     const measurements = await prisma.measurement.findMany({
       include: { Child: true },
+      orderBy: {
+        date: 'asc' // Mengurutkan berdasarkan tanggal
+      }
     });
+    
     return measurements.map((measurement) => ({
       id: measurement.id,
-      namaOrangTua: measurement.Child.name, // Sesuaikan dengan field
+      namaOrangTua: measurement.Child.name,
       tinggiBadan: `${measurement.height} Cm`,
       beratBadan: `${measurement.weight} Kg`,
       lingkarKepala: `${measurement.headCircumference} Cm`,
       lingkarLengan: `${measurement.armCircumference} Cm`,
-      usia: calculateAge(measurement.Child.birthDate), // Menggunakan tanggal lahir anak
+      usia: calculateAge(measurement.Child.birthDate),
       statusGizi: measurement.nutritionalStatus,
+      date: measurement.date
     }));
   } catch (error) {
     console.error("Error fetching measurements:", error);

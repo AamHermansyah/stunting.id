@@ -1,8 +1,9 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { TrendingUp } from "lucide-react"
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
+import { getMeasurements } from "@/actions/measurement"
 import {
   Select,
   SelectContent,
@@ -40,22 +41,66 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-const chartData = [
-  { month: "January", upper: 450, middle: 350, lower: 300, baby: 320 },
-  { month: "February", upper: 400, middle: 380, lower: 320, baby: 340 },
-  { month: "March", upper: 370, middle: 390, lower: 350, baby: 360 },
-  { month: "April", upper: 350, middle: 360, lower: 370, baby: 380 },
-  { month: "May", upper: 370, middle: 330, lower: 380, baby: 360 },
-  { month: "June", upper: 400, middle: 310, lower: 350, baby: 340 },
-  { month: "July", upper: 430, middle: 330, lower: 300, baby: 320 },
-  { month: "August", upper: 410, middle: 360, lower: 340, baby: 360 },
-  { month: "September", upper: 390, middle: 390, lower: 360, baby: 370 },
-  { month: "October", upper: 420, middle: 410, lower: 380, baby: 390 },
-  { month: "November", upper: 450, middle: 420, lower: 400, baby: 410 },
-  { month: "December", upper: 480, middle: 430, lower: 420, baby: 430 },
-];
+interface MonthlyStats {
+  month: string;
+  upper: number; // Sehat
+  middle: number; // Stunting
+  lower: number; // Obesitas
+  baby: number; // Kurang Nutrisi
+}
 
 function Chart() {
+  const [chartData, setChartData] = useState<MonthlyStats[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const measurements = await getMeasurements();
+      
+      // Membuat objek untuk menyimpan statistik bulanan
+      const monthlyData: { [key: string]: { Sehat: number; Stunting: number; Obesitas: number; 'Kurang Nutrisi': number } } = {};
+      
+      // Inisialisasi data untuk setiap bulan
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                     'July', 'August', 'September', 'October', 'November', 'December'];
+      
+      months.forEach(month => {
+        monthlyData[month] = {
+          Sehat: 0,
+          Stunting: 0,
+          Obesitas: 0,
+          'Kurang Nutrisi': 0
+        };
+      });
+
+      // Menghitung jumlah status gizi per bulan
+      measurements.forEach(measurement => {
+        const date = new Date(measurement.date);
+        const month = date.toLocaleString('en-US', { month: 'long' });
+        const status = measurement.statusGizi;
+        
+        if (monthlyData[month]) {
+          if (status === 'Sehat') monthlyData[month].Sehat++;
+          else if (status === 'Stunting') monthlyData[month].Stunting++;
+          else if (status === 'Obesitas') monthlyData[month].Obesitas++;
+          else if (status === 'Kurang Nutrisi') monthlyData[month]['Kurang Nutrisi']++;
+        }
+      });
+
+      // Mengkonversi data ke format yang dibutuhkan chart
+      const formattedData = months.map(month => ({
+        month,
+        upper: monthlyData[month].Sehat,
+        middle: monthlyData[month].Stunting,
+        lower: monthlyData[month].Obesitas,
+        baby: monthlyData[month]['Kurang Nutrisi']
+      }));
+
+      setChartData(formattedData);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="w-full col-span-12 xl:col-span-6 order-3 xl:order-2 py-4 border rounded-lg space-y-4 bg-background">
       <div className="flex flex-col sm:flex-row justify-between gap-2 items-center px-4">

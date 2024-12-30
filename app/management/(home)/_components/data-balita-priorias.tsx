@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,91 +12,33 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { getMeasurements } from "@/actions/measurement";
+
+interface MeasurementData {
+  id: number;
+  namaOrangTua: string;
+  tinggiBadan: string;
+  beratBadan: string;
+  lingkarKepala: string;
+  lingkarLengan: string;
+  usia: string;
+  statusGizi: string;
+}
 
 const DataBalitaPrioritas = () => {
-  const data = [
-    {
-      namaOrangTua: "Budi Santoso",
-      tinggiBadan: "73.0 Cm",
-      beratBadan: "9.3 Kg",
-      lingkarKepala: "44.5 Cm",
-      lingkarLengan: "14.5 Cm",
-      usia: "0 Tahun 8 Bulan",
-      statusGizi: "Sehat",
-    },
-    {
-      namaOrangTua: "Siti Nurhaliza",
-      tinggiBadan: "71.1 Cm",
-      beratBadan: "5.7 Kg",
-      lingkarKepala: "43.7 Cm",
-      lingkarLengan: "14.3 Cm",
-      usia: "0 Tahun 7 Bulan",
-      statusGizi: "Stunting",
-    },
-    {
-      namaOrangTua: "Ahmad Zaki",
-      tinggiBadan: "68.3 Cm",
-      beratBadan: "8.6 Kg",
-      lingkarKepala: "42.8 Cm",
-      lingkarLengan: "14.1 Cm",
-      usia: "0 Tahun 6 Bulan",
-      statusGizi: "Obesitas",
-    },
-    {
-      namaOrangTua: "Maria Ulfa",
-      tinggiBadan: "65.5 Cm",
-      beratBadan: "7.8 Kg",
-      lingkarKepala: "41.5 Cm",
-      lingkarLengan: "14.0 Cm",
-      usia: "0 Tahun 5 Bulan",
-      statusGizi: "Sehat",
-    },
-    {
-      namaOrangTua: "Andi Firmansyah",
-      tinggiBadan: "62.7 Cm",
-      beratBadan: "7.0 Kg",
-      lingkarKepala: "40.2 Cm",
-      lingkarLengan: "13.9 Cm",
-      usia: "0 Tahun 4 Bulan",
-      statusGizi: "Sehat",
-    },
-    {
-      namaOrangTua: "Dewi Sartika",
-      tinggiBadan: "59.9 Cm",
-      beratBadan: "6.2 Kg",
-      lingkarKepala: "38.9 Cm",
-      lingkarLengan: "13.8 Cm",
-      usia: "0 Tahun 3 Bulan",
-      statusGizi: "Obesitas",
-    },
-    {
-      namaOrangTua: "Rudi Hartono",
-      tinggiBadan: "57.1 Cm",
-      beratBadan: "5.4 Kg",
-      lingkarKepala: "37.6 Cm",
-      lingkarLengan: "13.7 Cm",
-      usia: "0 Tahun 2 Bulan",
-      statusGizi: "Stunting",
-    },
-    {
-      namaOrangTua: "Kartika Putri",
-      tinggiBadan: "54.3 Cm",
-      beratBadan: "4.6 Kg",
-      lingkarKepala: "36.3 Cm",
-      lingkarLengan: "13.6 Cm",
-      usia: "0 Tahun 1 Bulan",
-      statusGizi: "Sehat",
-    },
-    {
-      namaOrangTua: "Wawan Setiawan",
-      tinggiBadan: "51.5 Cm",
-      beratBadan: "3.8 Kg",
-      lingkarKepala: "35.0 Cm",
-      lingkarLengan: "13.5 Cm",
-      usia: "0 Tahun 0 Bulan",
-      statusGizi: "Sehat",
-    },
-  ];
+  const [data, setData] = useState<MeasurementData[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const measurements = await getMeasurements();
+      const stuntingData = measurements.filter(
+        (item) => item.statusGizi === "Stunting"
+      );
+      setData(stuntingData);
+    };
+
+    fetchData();
+  }, []);
 
   const getStatusClass = (statusGizi: string) => {
     if (statusGizi === "Sehat") {
