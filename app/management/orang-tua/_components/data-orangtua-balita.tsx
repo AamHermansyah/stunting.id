@@ -28,6 +28,8 @@ export default async function DataOrangtuaBalita({ searchParams }: { searchParam
   const searchQuery = searchParams.query || null;
   const users = await getAllUsers(searchQuery);
 
+  users.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <div className="border rounded space-y-4 bg-white">
       <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">

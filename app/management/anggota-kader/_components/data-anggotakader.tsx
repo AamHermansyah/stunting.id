@@ -54,8 +54,10 @@ const DataAnggotaKader = () => {
       setError(null);
       try {
         const response = await axios.get<Kader[]>("/api/kader");
-        setData(response.data);
-        setFilteredData(response.data); // Initialize filtered data
+        
+        const sortedData = response.data.sort((a, b) => a.name.localeCompare(b.name));
+        setData(sortedData);
+        setFilteredData(sortedData); 
       } catch (err: any) {
         setError("Gagal mengambil data Kader.");
         console.error(err);
@@ -63,9 +65,10 @@ const DataAnggotaKader = () => {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   useEffect(() => {
     const lowercasedSearch = search.toLowerCase();

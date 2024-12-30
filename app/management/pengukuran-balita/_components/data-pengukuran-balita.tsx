@@ -20,8 +20,6 @@ import { Button } from "@/components/ui/button";
 import { CiSearch } from "react-icons/ci";
 import { FaEllipsis } from "react-icons/fa6";
 import { FiEye } from "react-icons/fi";
-import { FaEdit } from "react-icons/fa";
-import { AiTwotoneDelete } from "react-icons/ai";
 import Link from "next/link";
 import { getMeasurements } from "@/actions/measurement";
 import Image from "next/image";
@@ -29,9 +27,12 @@ import Image from "next/image";
 const DataPengukuranBalita = () => {
   const [data, setData] = useState<any[]>([]);
 
+  console.log('data didapat', data)
+
   useEffect(() => {
     const fetchData = async () => {
       const measurements = await getMeasurements();
+      measurements.sort((a, b) => b.id - a.id);
       setData(measurements);
     };
     fetchData();
@@ -100,8 +101,7 @@ const DataPengukuranBalita = () => {
               <TableCell>{item.beratBadan}</TableCell>
               <TableCell>{item.lingkarKepala}</TableCell>
               <TableCell>{item.lingkarLengan}</TableCell>
-              <TableCell>{item.usia}</TableCell>{" "}
-              {/* Usia yang sudah diperbarui */}
+              <TableCell>{item.usia}</TableCell>
               <TableCell>
                 <span
                   className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs justify-center font-medium ${getStatusClass(

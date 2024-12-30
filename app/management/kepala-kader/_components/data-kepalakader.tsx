@@ -29,6 +29,8 @@ export default async function DataKepalaKader({ searchParams }: { searchParams: 
   const searchQuery = searchParams.query || null;
   const kepalaKader = await getAllKepalaKader(searchQuery);
 
+  kepalaKader.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <div className="border rounded space-y-4 bg-white">
       <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">

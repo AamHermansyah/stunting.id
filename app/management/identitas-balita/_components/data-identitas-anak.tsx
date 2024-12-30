@@ -77,6 +77,8 @@ import React from "react";
     const query = searchParams.query || ""; // Mendapatkan query dari searchParams
     const children = await fetchChildren(query); // Panggil fetchChildren dengan query pencarian
 
+    children.sort((a, b) => a.name.localeCompare(b.name));
+
     return (
       <div className="border rounded space-y-4 bg-white">
         <div className="flex flex-col lg:flex-row sm:justify-between mx-4 mt-4 items-center">
