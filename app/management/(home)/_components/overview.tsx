@@ -42,7 +42,7 @@ function Overview() {
   }, []);
 
   return (
-    <div className='w-full grid grid-cols-2 xl:grid-cols-4 gap-4 col-span-12'>
+    <div className='w-full grid grid-cols-2 xl:grid-cols-3 gap-4 col-span-12'>
       <CardOverview 
         label='Sehat' 
         value={statusCount.Sehat.toString()} 
@@ -57,13 +57,13 @@ function Overview() {
         Icon={BiTrendingDown} 
         since='tahun kemarin'
       />
-      <CardOverview 
+      {/* <CardOverview 
         label='Kurang Gizi' 
         value='?' 
         status='Turun 3.01%' 
         Icon={BiTrendingUp} 
         since='tahun kemarin'
-      />
+      /> */}
       <CardOverview 
         label='Obesitas' 
         value={statusCount.Obesitas.toString()} 
