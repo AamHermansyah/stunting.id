@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { TrendingUp } from "lucide-react"
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { getMeasurements } from "@/actions/measurement"
 import {
@@ -51,11 +50,26 @@ interface MonthlyStats {
 
 function Chart() {
   const [chartData, setChartData] = useState<MonthlyStats[]>([]);
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+  const [years, setYears] = useState<number[]>([]);
+
+  useEffect(() => {
+    // Generate years from one year back to three years ahead
+    const currentYear = new Date().getFullYear();
+    const generatedYears = Array.from({ length: 5 }, (_, i) => currentYear - 1 + i);
+    setYears(generatedYears);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       const measurements = await getMeasurements();
       
+      // Filter measurements by selected year
+      const filteredMeasurements = measurements.filter(measurement => {
+        const measurementYear = new Date(measurement.date).getFullYear();
+        return measurementYear === selectedYear;
+      });
+
       // Membuat objek untuk menyimpan statistik bulanan
       const monthlyData: { [key: string]: { Sehat: number; Stunting: number; Obesitas: number; 'Kurang Nutrisi': number } } = {};
       
@@ -73,7 +87,7 @@ function Chart() {
       });
 
       // Menghitung jumlah status gizi per bulan
-      measurements.forEach(measurement => {
+      filteredMeasurements.forEach(measurement => {
         const date = new Date(measurement.date);
         const month = date.toLocaleString('en-US', { month: 'long' });
         const status = measurement.statusGizi;
@@ -99,7 +113,7 @@ function Chart() {
     };
 
     fetchData();
-  }, []);
+  }, [selectedYear]); // Fetch data when selectedYear changes
 
   return (
     <div className="w-full col-span-12 xl:col-span-6 order-3 xl:order-2 py-4 border rounded-lg space-y-4 bg-background">
@@ -108,15 +122,15 @@ function Chart() {
           <h1 className="text-base sm:text-lg font-semibold">Statistik Balita yang (Sehat/Stunting/Gizi/Obesitas)</h1>
           <h2 className="text-xs sm:text-sm font-semibold text-gray-400">Data balita yang terdapat di Posyandu ...</h2>
         </div>
-        <Select>
+        <Select onValueChange={(value) => setSelectedYear(Number(value))}>
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Pilih Tahun" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Tahun ini (2024)</SelectLabel>
-              <SelectItem value="6">Tahun 2023</SelectItem>
-              <SelectItem value="12">Tahun 2022</SelectItem>
+              {years.map(year => (
+                <SelectItem key={year} value={year.toString()}>{`Tahun ${year}`}</SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -203,7 +217,6 @@ function Chart() {
         </LineChart>
       </ChartContainer>
     </div>
-
   )
 }
 
