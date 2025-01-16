@@ -17,7 +17,8 @@ function ReminderCalendar({ data, childId, userJoined }: IProps) {
   const totalCalendar = totalMonthUntilNow(new Date()) + 1;
   const navigate = useRouter();
 
-  const firstCompleted = data[0] || new Date(userJoined);
+  const firstCompleted = new Date(2024, 9, 1, 0, 0, 0);
+  firstCompleted.setDate(firstCompleted.getDate() - 1);
   const missedDays = getMissedDays(firstCompleted, data);
 
   return (
